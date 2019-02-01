@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  // componentDidMount() {
+  //   fetch(`http://localhost:3000/api/v1/users`)
+  //     .then(r => console.log(r.json))
+  // }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
+          <img src={'../images/astro_cal.jpg'}className="App-logo" alt="astrology-calendar" />
           <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="App-link" href="https://reactjs.org"
+            target="_blank" rel="noopener noreferrer"
           >
-            Learn React
+            react link
           </a>
         </header>
       </div>
