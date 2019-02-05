@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+// import { reduxForm, Field } from 'redux-form';
 import ProfileContainer from './ProfileContainer'
+
 
 class Landing extends React.Component {
   render() {
@@ -17,7 +19,7 @@ class Landing extends React.Component {
           </a> */}
           <Link to='/signup'>Sign Up</Link>
           <br/>
-          <Link to='/login'>Login</Link>
+          <Link to='/signin'>Sign In</Link>
           <br/>
           <Link to='/profile'>View Profile</Link>
         </header>

@@ -1,3 +1,10 @@
+.login-container {
+  border-color: #36e3ee;
+  border-style: double;
+  /* background-color: #282c34; */
+  padding: 80px;
+}
+
 .login-header {
   font-family: 'Times New Roman';
   font-size: 50px;

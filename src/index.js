@@ -2,17 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 // import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
-import reducer from './reducers/reducer';
-// import './index.css';
-// import * as serviceWorker from './serviceWorker';
+import rootReducer from './reducers/rootReducer';
+// import { manageNewUser } from './reducers/manageNewUser'
+// import { loginReducer } from './reducers/loginReducer'
 
-const store = createStore(reducer,
+// const rootReducer = combineReducers({
+//   newUser: manageNewUser
+// })
+
+// const store = createStore(rootReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//   window.__REDUX_DEVTOOLS_EXTENSION__());
+
+const store = createStore(rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  window.__REDUX_DEVTOOLS_EXTENSION__())
+  window.__REDUX_DEVTOOLS_EXTENSION__());
+
 
 
 ReactDOM.render(
@@ -28,3 +37,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 // serviceWorker.unregister();
+// import * as serviceWorker from './serviceWorker';
