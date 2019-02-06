@@ -1,0 +1,8 @@
+export const ADD_EMAIL_AND_PW = 'ADD_EMAIL_AND_PW'
+export const ADD_USER_DETAILS = 'ADD_USER_DETAILS'
+
+// export const SET_CATEGORIES = 'SET_CATEGORIES'
+// export const SET_RECIPES = 'SET_RECIPES'
+// export const ADD_RECIPE = 'ADD_RECIPE'
+// export const REMOVE_RECIPE = 'REMOVE_RECIPE'
+// export const SEARCH_CATEGORIES = 'SEARCH_CATEGORIES'

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 // import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import ProfileContainer from './ProfileContainer'
 
 

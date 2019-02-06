@@ -7,22 +7,11 @@ import { createStore, combineReducers } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import rootReducer from './reducers/rootReducer';
-// import { manageNewUser } from './reducers/manageNewUser'
-// import { loginReducer } from './reducers/loginReducer'
 
-// const rootReducer = combineReducers({
-//   newUser: manageNewUser
-// })
-
-// const store = createStore(rootReducer,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ &&
-//   window.__REDUX_DEVTOOLS_EXTENSION__());
-
+// const store = createStore(rootReducer)
 const store = createStore(rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__());
-
-
 
 ReactDOM.render(
   <Provider store={store}>

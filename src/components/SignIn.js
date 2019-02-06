@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
+import { getUser } from './actions'
+
+//HIT MY REDUCER TO UPDATE THE STORE, WHEN I SUBMIT IT SHOULD
+// ALSO FETCH TO USERS & GRAB USER DATA TO UPDATE STATE AND MAKE IT AVAILABLE
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
-
 class SignIn extends React.Component {
   state = {
-    // currentUser: {
-      email: '',
-      password: '',
-    // }
+    // email: '',
+    // password: '',
+    first_name: '',
+    last_name: ''
   }
 
   handleChange = (event) => {
@@ -24,14 +27,49 @@ class SignIn extends React.Component {
     console.log(this.state)
   }
 
-    handleSubmit = (event) => {
-      event.preventDefault()
-        this.props.dispatch({
-          type: 'ADD_EMAIL_AND_PW',
-          payload: this.state
-        });
-        // this.props.setCurrentUser(userObject)
-      }
+  handleSubmit = (event) => {
+    event.preventDefault()
+    let currentUser =
+    this.props.users.find(user => {
+    return user.first_name === this.state.first_name
+  })
+    this.props.getUser(currentUser)
+  }
+    // event.preventDefault();
+    // this.props.emailAndPW(this.state)
+    // const currentUser = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     user: {
+    //       first_name: this.state.first_name,
+    //       last_name: this.state.last_name
+    //     }
+    //   })
+    // }
+  //   fetch(usersAPI, currentUser)
+  //   .then(r => r.json())
+  //   .then(currentUser => this.props.getUser(currentUser))
+  // }
+
+  // handleChange = (event) => {
+  //   console.log(event.target.name, event.target.value)
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   })
+  //   console.log(this.state)
+  // }
+  //
+  //   handleSubmit = (event) => {
+  //     event.preventDefault()
+  //       this.props.dispatch({
+  //         type: 'ADD_EMAIL_AND_PW',
+  //         payload: this.state
+  //       });
+  //       // this.props.setCurrentUser(userObject)
+  //     }
 
   // fetch(usersAPI)
   //   .then(r => r.json())
@@ -56,7 +94,7 @@ class SignIn extends React.Component {
         <h1 className="signupHeader">Sign In</h1>
         <br/><br/>
         <div className="login">
-          <form onSubmit={event => this.handleSubmit(event)}>
+          <form onSubmit={this.handleSubmit}>
             <label className="loginLabel">Email:</label>
             <input
               onChange={this.handleChange}
@@ -74,7 +112,8 @@ class SignIn extends React.Component {
               className="loginPlaceholders"
             />
 
-            <input onClick={this.props.handleClick}
+            <input
+              // onClick={this.props.handleClick}
               type="submit"
               className="signupButton"
             />
@@ -88,7 +127,20 @@ class SignIn extends React.Component {
     }
   }
 
-export default connect()(SignIn);
+const mapStateToProps = (state) => {
+  return {
+    users: state.users.users,
+    currentUser: state.currentUser.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUser: (currentUser) => dispatch(getUser(currentUser))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
 
 // handleSubmit = (event) => {

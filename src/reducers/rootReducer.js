@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux';
-import { loginReducer } from './loginReducer';
-import { manageNewUser } from './manageNewUser';
+import suns from './sunReducer'
+import users from './userReducer'
+import currentUser from './usersReducer'
+// import { loginReducer } from './loginReducer';
+// import { manageNewUser } from './manageNewUser';
 
 const rootReducer = combineReducers({
-  currentUser: loginReducer,
-  newUser: manageNewUser
+  suns,
+  users,
+  currentUser
 })
+
+// const rootReducer = combineReducers({
+//   currentUser: loginReducer,
+//   newUser: manageNewUser
+// })
 
 export default rootReducer;

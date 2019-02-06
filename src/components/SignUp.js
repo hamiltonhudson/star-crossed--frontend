@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import '../styling/Login.css'
 import NewUserForm from './NewUserForm'
+import { getUser } from './actions'
+
+const usersAPI = 'http://localhost:3000/api/v1/users/'
 
 class SignUp extends React.Component {
   state = {
-    email: '',
-    password: '',
+    // email: '',
+    // password: '',
+    first_name: '',
+    last_name: ''
   }
 
   handleChange = (event) => {
@@ -19,11 +24,27 @@ class SignUp extends React.Component {
     console.log(this.state)
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    this.props.emailAndPW(this.state)
-    // this.props.setCurrentUser(userObject)
+    // this.props.emailAndPW(this.state)
+    const userObject = {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name
+        }
+      })
+    }
+    fetch(usersAPI, userObject)
+    .then(r => r.json())
+    .then(result => this.props.getUser(result))
   }
+    // this.props.setCurrentUser(currentUser)
+  // }
 
   // handleSubmit = event => {
   //   event.preventDefault();
@@ -76,17 +97,26 @@ class SignUp extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = () => {
   return {
-    emailAndPW: formData => dispatch({
-      type: 'ADD_EMAIL_AND_PW',
-      payload: formData })
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // emailAndPW: formData => dispatch({
+    //   type: 'ADD_EMAIL_AND_PW',
+    //   payload: formData })
+    getUser: (currentUser) => dispatch(getUser(currentUser))
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(SignUp);
 
 // export default connect()(SignUp);
