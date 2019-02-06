@@ -65,16 +65,14 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state.suns)
-    // console.log(this.state.currentUser)
     console.log("state in app is", this.state)
     console.log("props in app is", "users", this.props.users, "suns", this.props.suns, "user", this.props.user)
     return <>
       <Route path='/' exact render={() => <Landing />} />
-      <Route path='/signin' component={SignIn} />
-      {/* <Route path='/signin' render={() => <SignIn setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser} />} /> */}
+      {/* <Route path='/signin' component={SignIn} /> */}
+      <Route path='/signin' render={() => <SignIn setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser} />} />
       <Route path='/signup' component={SignUp} />
-      {/* <Route path='/signup' render={() => <SignUp setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser}/>} /> */}
+      <Route path='/signup' render={() => <SignUp setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser}/>} />
       <Route path='/newuser' component={NewUserForm} />
       {/* <Route path='/newuserform' render{() => <NewUserForm handleNewUser={this.handleNewUser} />}/> */}
       {/* <NewUserForm onSubmit={this.handleNewUser}/> */}

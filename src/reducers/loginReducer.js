@@ -1,7 +1,8 @@
-// import {
-//   ADD_EMAIL_AND_PW
-// } from '../constants/ActionTypes'
-//
+import {
+  GET_EMAIL_AND_PW,
+} from '../constants/ActionTypes'
+
+
 const initialState = {
   email: '',
   password: ''
@@ -9,11 +10,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_EMAIL_AND_PW':
+    case GET_EMAIL_AND_PW:
       return {
         // email: state.email.concat(action.payload.email),
         // password: state.password.concat(action.payload.password)
-    };
+    }
+
     default:
       return state;
   }

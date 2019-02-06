@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
-import { getUser } from './actions'
+import { setUsers, getEmailAndPW, getUser } from '../actions'
 
 //HIT MY REDUCER TO UPDATE THE STORE, WHEN I SUBMIT IT SHOULD
 // ALSO FETCH TO USERS & GRAB USER DATA TO UPDATE STATE AND MAKE IT AVAILABLE
@@ -16,23 +16,29 @@ class SignIn extends React.Component {
     // email: '',
     // password: '',
     first_name: '',
-    last_name: ''
+    last_name: '',
+    loggedIn: false
   }
 
   handleChange = (event) => {
     console.log(event.target.name, event.target.value)
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      loggedIn: true
     })
     console.log(this.state)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let currentUser =
+    console.log(event, this.state)
+    // const currentUser = this.props.users.find(user => user.first_name === user)
+    let currentUser = this.props.users.find(user => user.first_name === this.state.first_name)
     this.props.users.find(user => {
     return user.first_name === this.state.first_name
+    console.log(currentUser)
   })
+   console.log(this.props)
     this.props.getUser(currentUser)
   }
     // event.preventDefault();
@@ -65,7 +71,7 @@ class SignIn extends React.Component {
   //   handleSubmit = (event) => {
   //     event.preventDefault()
   //       this.props.dispatch({
-  //         type: 'ADD_EMAIL_AND_PW',
+  //         type: 'GET_EMAIL_AND_PW',
   //         payload: this.state
   //       });
   //       // this.props.setCurrentUser(userObject)
@@ -87,27 +93,43 @@ class SignIn extends React.Component {
   // `${usersApi}/${userId}`
 
   render() {
-    return(
-    // const signUpForm =
+    // return(
+    const signInForm =
     <div>
       <div className="login-container">
         <h1 className="signupHeader">Sign In</h1>
         <br/><br/>
         <div className="login">
           <form onSubmit={this.handleSubmit}>
-            <label className="loginLabel">Email:</label>
-            <input
+            {/* <label className="loginLabel">Email:</label>
+              <input
               onChange={this.handleChange}
               name="email"
               value={this.state.email}
+              placeholder="Enter Email Address"
+              className="loginPlaceholders"
+              />
+              <label className="loginLabel">Password:</label>
+              <input
+              onChange={this.handleChange}
+              name="password"
+              value={this.state.password}
+              placeholder="Enter Password"
+              className="loginPlaceholders"
+            /> */}
+            <label className="loginLabel">Email:</label>
+            <input
+              onChange={this.handleChange}
+              name="first_name"
+              value={this.state.first_name}
               placeholder="Enter Email Address"
               className="loginPlaceholders"
             />
             <label className="loginLabel">Password:</label>
             <input
               onChange={this.handleChange}
-              name="password"
-              value={this.state.password}
+              name="last_name"
+              value={this.state.last_name}
               placeholder="Enter Password"
               className="loginPlaceholders"
             />
@@ -122,8 +144,8 @@ class SignIn extends React.Component {
         {/* <ProfileContainer /> */}
       </div>
     </div>
-    )
-      // return this.props.currentUser ? <Redirect to="/profile" /> : signUpForm
+    // )
+    return this.props.currentUser ? <Redirect to="/profile" /> : signInForm
     }
   }
 

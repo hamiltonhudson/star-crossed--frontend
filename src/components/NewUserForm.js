@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, propTypes } from 'redux-form';
 import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
+import { addUserDetails } from '../actions'
 
 class NewUserForm extends React.Component {
 // const NewUserForm = (props) => {
@@ -56,9 +57,9 @@ class NewUserForm extends React.Component {
   render() {
     return(
       // const newUserForm =
-      <div>
-        <h1 className="login-header">Create New Account</h1>
-        <div className="login-form">
+      <div className="login-container">
+        <h1 className="signupHeader">Create New Account</h1>
+        <div className="signupform">
           <div>
             <form onSubmit={event => this.handleSubmit(event)}>
               <label>First Name</label>

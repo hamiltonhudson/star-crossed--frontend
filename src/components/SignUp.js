@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import '../styling/Login.css'
 import NewUserForm from './NewUserForm'
-import { getUser } from './actions'
+import { setUsers, getEmailAndPW, getUser } from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
@@ -27,13 +27,14 @@ class SignUp extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     // this.props.emailAndPW(this.state)
+    console.log(this.state)
     const userObject = {
       method: "POST",
       headers: {
         "Content-type": "application/json"
       },
       body: JSON.stringify({
-        user: {
+        currentUser: {
           first_name: this.state.first_name,
           last_name: this.state.last_name
         }
@@ -49,7 +50,7 @@ class SignUp extends React.Component {
   // handleSubmit = event => {
   //   event.preventDefault();
   //   this.props.dispatch({
-  //     type: 'ADD_EMAIL_AND_PW',
+  //     type: 'SET_EMAIL_AND_PW',
   //     payload: this.state
   //   });
   // };
@@ -63,19 +64,35 @@ class SignUp extends React.Component {
         <br/><br/>
         <div className="login">
           <form onSubmit={event => this.handleSubmit(event)}>
-            <label>Email Address:</label>
-            <input
+            {/* <label>Email Address:</label>
+              <input
               type="text"
               name="email"
               value={this.state.email}
               placeholder="Enter Email Address"
               onChange={this.handleChange}
-            />
-            <label>Password:</label>
-            <input
+              />
+              <label>Password:</label>
+              <input
               type="text"
               name="password"
               value={this.state.password}
+              placeholder="Enter Password"
+              onChange={this.handleChange}
+            /> */}
+            <label>first:</label>
+            <input
+              type="text"
+              name="first_name"
+              value={this.state.first_name}
+              placeholder="Enter Email Address"
+              onChange={this.handleChange}
+            />
+            <label>last:</label>
+            <input
+              type="text"
+              name="last_name"
+              value={this.state.last_name}
               placeholder="Enter Password"
               onChange={this.handleChange}
             />
@@ -86,8 +103,8 @@ class SignUp extends React.Component {
             />
           </form>
           <br/><br/>
-          {this.state.email} <br/>
-          {this.state.password} <br/>
+          {this.state.first_name} <br/>
+          {this.state.last_name} <br/>
         </div>
         {/* <p>New User Form</p> */}
         {/* <NewUserForm /> */}
@@ -97,26 +114,22 @@ class SignUp extends React.Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {
-    currentUser: state.currentUser
-  }
-}
+// const mapStateToProps = () => {
+//   return {
+//     users: state.users.users,
+//     currentUser: state.currentUser.currentUser
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     // emailAndPW: formData => dispatch({
+//     //   type: 'SET_EMAIL_AND_PW',
+//     //   payload: formData })
+//     getUser: (currentUser) => dispatch(getUser(currentUser))
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // emailAndPW: formData => dispatch({
-    //   type: 'ADD_EMAIL_AND_PW',
-    //   payload: formData })
-    getUser: (currentUser) => dispatch(getUser(currentUser))
-  };
-};
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-
-// export default connect(
-//   null,
-//   mapDispatchToProps
-// )(SignUp);
-
-// export default connect()(SignUp);
+export default connect()(SignUp);
