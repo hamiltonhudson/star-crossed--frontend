@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, propTypes } from 'redux-form';
 import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
-import { addUserDetails } from '../actions'
+import { getUser, addUserDetails, setUsers } from '../actions'
 
-class NewUserForm extends React.Component {
+class NewUser extends React.Component {
 // const NewUserForm = (props) => {
   state = {
     first_name: '',
@@ -40,7 +40,7 @@ class NewUserForm extends React.Component {
     // })
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault()
     this.props.addUserDetails(this.state)
   }
@@ -55,6 +55,7 @@ class NewUserForm extends React.Component {
 
 
   render() {
+    console.log(this.props.details)
     return(
       // const newUserForm =
       <div className="login-container">
@@ -80,7 +81,7 @@ class NewUserForm extends React.Component {
               />
               <label>Birth Year</label>
               <input
-                type='text'
+                type='number'
                 name='birth_year'
                 value={this.state.birth_year}
                 // value={this.state.newUser.birth_year}
@@ -88,7 +89,7 @@ class NewUserForm extends React.Component {
               />
               <label>Birth Month</label>
               <input
-                type='text'
+                type='number'
                 name='birth_month'
                 value={this.state.birth_month}
                 // value={this.state.newUser.birth_month}
@@ -96,7 +97,7 @@ class NewUserForm extends React.Component {
               />
               <label>Birth Day</label>
               <input
-                type='text'
+                type='number'
                 name='birth_day'
                 value={this.state.birth_day}
                 // value={this.state.newUser.birth_day}
@@ -117,18 +118,22 @@ class NewUserForm extends React.Component {
   }
 }
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      addUserDetails: formData => dispatch({
-        type: 'ADD_USER_DETAILS',
-        payload: formData
-      })
-    }
+const mapStateToProps = (state) => {
+  return {
+    details: state.details.details
   }
+}
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(NewUserForm);
+const mapDispatchToProps = dispatch => {
+  return {
+    // addUserDetails: formData => dispatch({
+    //   type: 'ADD_USER_DETAILS',
+    //   payload: formData
+    // })
+    addUserDetails: (details) => dispatch(addUserDetails(details))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
 
 // export default connect()(NewUser);

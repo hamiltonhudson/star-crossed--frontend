@@ -1,10 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
-import { setUsers, getEmailAndPW, getUser } from '../actions'
+import { setUsers, getUser, findMatches } from '../actions'
 
 //HIT MY REDUCER TO UPDATE THE STORE, WHEN I SUBMIT IT SHOULD
 // ALSO FETCH TO USERS & GRAB USER DATA TO UPDATE STATE AND MAKE IT AVAILABLE
@@ -24,7 +24,6 @@ class SignIn extends React.Component {
     console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value,
-      loggedIn: true
     })
     console.log(this.state)
   }
@@ -32,65 +31,20 @@ class SignIn extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
     console.log(event, this.state)
-    // const currentUser = this.props.users.find(user => user.first_name === user)
-    let currentUser = this.props.users.find(user => user.first_name === this.state.first_name)
-    this.props.users.find(user => {
-    return user.first_name === this.state.first_name
-    console.log(currentUser)
-  })
-   console.log(this.props)
-    this.props.getUser(currentUser)
+      fetch('http://localhost:3000/api/v1/users')
+      .then(r => r.json())
+      .then(data => {
+        this.props.setUsers(data)
+        const currentUser = this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+        this.props.getUser(currentUser)
+        const matchedUsers = this.props.currentUser.matched_users
+        this.props.findMatches(matchedUsers)
+        this.setState({
+          loggedIn: true
+        })
+      console.log(this.props.matches)
+    })
   }
-    // event.preventDefault();
-    // this.props.emailAndPW(this.state)
-    // const currentUser = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     user: {
-    //       first_name: this.state.first_name,
-    //       last_name: this.state.last_name
-    //     }
-    //   })
-    // }
-  //   fetch(usersAPI, currentUser)
-  //   .then(r => r.json())
-  //   .then(currentUser => this.props.getUser(currentUser))
-  // }
-
-  // handleChange = (event) => {
-  //   console.log(event.target.name, event.target.value)
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   })
-  //   console.log(this.state)
-  // }
-  //
-  //   handleSubmit = (event) => {
-  //     event.preventDefault()
-  //       this.props.dispatch({
-  //         type: 'GET_EMAIL_AND_PW',
-  //         payload: this.state
-  //       });
-  //       // this.props.setCurrentUser(userObject)
-  //     }
-
-  // fetch(usersAPI)
-  //   .then(r => r.json())
-  //   .then(data => console.log(data))
-  //   .then(data => {
-  //     this.setState({
-  //       currentUser: data
-  //     })
-  //   })
-  //
-  //   user: {
-  //    name: this.state.name,
-  //    email:this.state.email
-  //  }
-  // `${usersApi}/${userId}`
 
   render() {
     // return(
@@ -99,15 +53,16 @@ class SignIn extends React.Component {
       <div className="login-container">
         <h1 className="signupHeader">Sign In</h1>
         <br/><br/>
-        <div className="login">
+        <div className="login-form">
           <form onSubmit={this.handleSubmit}>
+            <br/><br/>
             {/* <label className="loginLabel">Email:</label>
               <input
               onChange={this.handleChange}
               name="email"
               value={this.state.email}
               placeholder="Enter Email Address"
-              className="loginPlaceholders"
+              className="input-field"
               />
               <label className="loginLabel">Password:</label>
               <input
@@ -115,81 +70,56 @@ class SignIn extends React.Component {
               name="password"
               value={this.state.password}
               placeholder="Enter Password"
-              className="loginPlaceholders"
+              className="input-field"
             /> */}
-            <label className="loginLabel">Email:</label>
+            <label className="loginLabel">First:</label>
             <input
               onChange={this.handleChange}
               name="first_name"
               value={this.state.first_name}
-              placeholder="Enter Email Address"
-              className="loginPlaceholders"
+              placeholder="Enter first name"
+              className="input-field"
             />
-            <label className="loginLabel">Password:</label>
+            <label className="loginLabel">Last:</label>
             <input
               onChange={this.handleChange}
               name="last_name"
               value={this.state.last_name}
-              placeholder="Enter Password"
-              className="loginPlaceholders"
+              placeholder="Enter last name"
+              className="input-field"
             />
-
+            <br/><br/>
             <input
-              // onClick={this.props.handleClick}
               type="submit"
               className="signupButton"
             />
+            <br/><br/>
           </form>
+          <br/><br/>
         </div>
         {/* <ProfileContainer /> */}
       </div>
+      {/* <Link to='/profile'>View Profile</Link> */}
     </div>
     // )
-    return this.props.currentUser ? <Redirect to="/profile" /> : signInForm
+    return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
     }
   }
 
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,
-    currentUser: state.currentUser.currentUser
+    currentUser: state.currentUser.currentUser,
+    matches: state.matches.matches,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: (currentUser) => dispatch(getUser(currentUser))
+    setUsers: (users) => dispatch(setUsers(users)),
+    getUser: (currentUser) => dispatch(getUser(currentUser)),
+    findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers)),
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
-
-
-// handleSubmit = (event) => {
-//   console.log(this.state.first_name)
-//   event.preventDefault()
-//   const userInfo = {
-//   	method:"POST",
-//   	headers: {
-//       "Content-type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       user: {
-//         first_name: this.state.first_name,
-//         last_name: this.state.last_name
-//       }
-//     })
-//   }
-//   fetch(usersAPI, userInfo)
-//     .then(r => r.json())
-//     .then(data => {
-//       this.state.users = data
-//       this.state.users.map(user => user.first_name === this.state.first_name && user.last_name == this.state.last_name)
-//           const userObject = {
-//             first_name: this.state.first_name,
-//             last_name: this.props.last_name
-//           }
-//           // userObject => this.props.setCurrentUser(userObject)
-//     }
-//   )
-// }

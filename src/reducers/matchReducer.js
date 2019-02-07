@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
+  match: {},
   matches: [],
   // matchedUsers: [],
   // currentUser: [],
@@ -15,6 +16,11 @@ const initialState = {
 //different validation checks/conditional renders
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.VIEW_MATCH:
+      return {
+        ...state,
+        match: action.payload
+      }
     case types.ACCEPT_MATCH:
       return {
         ...state,
@@ -51,7 +57,7 @@ export default (state = initialState, action) => {
       return {
         pending: 'remove from pending'
       }
-      
+
     default:
       return state
   }

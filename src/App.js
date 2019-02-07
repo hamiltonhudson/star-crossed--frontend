@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './styling/App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import Landing from './components/Landing';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import NewUserForm from './components/NewUserForm';
+import NewUser from './components/NewUser';
 import ProfileContainer from './components/ProfileContainer';
 import ProfileDetail from './components/ProfileDetail';
 import { setSuns, setUsers, getUser } from './actions'
@@ -22,14 +22,24 @@ class App extends Component {
     .then(data => {
       this.props.setSuns(data)
     })
-    .then(
-      fetch('http://localhost:3000/api/v1/users')
-      .then(r => r.json())
-      .then(data => {
-        this.props.setUsers(data)
-      })
-    )
+    // .then(
+    //   fetch('http://localhost:3000/api/v1/users')
+    //   .then(r => r.json())
+    //   .then(data => {
+    //     this.props.setUsers(data)
+    //     // const currentUser = this.props.getUser.find(data => data.id === 1)
+    //     this.props.getUser(data)
+    //   })
+    // )
   }
+
+  // getUser = () => {
+  //   fetch(`http://localhost:3000/api/v1/users/1`)
+  //   .then(r => r.json())
+  //   .then(result => {
+  //     this.props.getUser(result)
+  //   })
+  // }
   // getUsers = () => {
   //   fetch('http://localhost:3000/api/v1/users')
   //   .then(r => r.json())
@@ -66,27 +76,34 @@ class App extends Component {
 
   render() {
     console.log("state in app is", this.state)
-    console.log("props in app is", "users", this.props.users, "suns", this.props.suns, "user", this.props.user)
-    return <>
-      <Route path='/' exact render={() => <Landing />} />
-      {/* <Route path='/signin' component={SignIn} /> */}
-      <Route path='/signin' render={() => <SignIn setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser} />} />
-      <Route path='/signup' component={SignUp} />
-      <Route path='/signup' render={() => <SignUp setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser}/>} />
-      <Route path='/newuser' component={NewUserForm} />
-      {/* <Route path='/newuserform' render{() => <NewUserForm handleNewUser={this.handleNewUser} />}/> */}
-      {/* <NewUserForm onSubmit={this.handleNewUser}/> */}
-      <Route path='/profile' render={() => <ProfileContainer />} />
-      {/* <Route path='/profile' render={() => <ProfileContainer currentUser={this.props.currentUser} />} /> */}
-    </>
+    console.log("props in app is", "users", this.props.users, "suns", this.props.suns)
+    console.log("props in app is", "currentUser", this.props.currentUser)
+    return (
+      <Router>
+        <Switch>
+          <Route path='/' exact render={() => <Landing />} />
+          <Route path='/signin' exact component={SignIn} />
+          {/* <Route path='/signin' render={() => <SignIn setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser} />} /> */}
+          <Route path='/signup' component={SignUp} />
+          {/* <Route path='/signup' render={() => <SignUp setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser}/>} /> */}
+          <Route path='/newuser' component={NewUser} />
+          {/* <Route path='/newuserform' render{() => <NewUser handleNewUser={this.handleNewUser} />}/> */}
+          {/* <NewUser onSubmit={this.handleNewUser}/> */}
+          {/* <Route path='/profile' render={() => <ProfileContainer/>} /> */}
+          <Route path='/profile' component={ProfileContainer} />
+          {/* <Route path='/profile' render={() => <ProfileContainer currentUser={this.props.currentUser} />} /> */}
+          {/* <Route path={`${match.url}/:id`} component={MatchContainer} /> */}
+        </Switch>
+        </Router>
+    )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     suns: state.suns.suns,
-    users: state.users.users,
-    // curentUser: state.users.currentUser
+    // users: state.users.users,
+    // curentUser: state.currentUser.currentUser
   }
 }
 
@@ -99,8 +116,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setSuns: (suns) => dispatch(setSuns(suns)),
-    setUsers: (users) => dispatch(setUsers(users)),
-    // getUser: () => dispatch({ type: 'GET_CURRENT_USER', paylod: 'who is this user?'})
+    // setUsers: (users) => dispatch(setUsers(users)),
+    // getUser: (currentUser) => dispatch(getUser(currentUser))
   }
 }
 

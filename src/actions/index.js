@@ -1,4 +1,3 @@
-// import * as types from '../constants/ActionTypes'
 import * as types from '../constants/ActionTypes'
 
 export const setSuns = (suns) => {
@@ -22,20 +21,26 @@ export const getUser = (currentUser) => {
   }
 }
 
-export const getEmailAndPW = (currentUser) => {
+export const getEmailAndPW = (email, password) => {
   return {
     type: types.GET_EMAIL_AND_PW,
-    payload: currentUser
+    payload: email, password
   }
 }
 
-export const addUserDetails = (currentUser) => {
+export const addUserDetails = (details) => {
   return {
     type: types.ADD_USER_DETAILS,
-    payload: currentUser
+    payload: details
   }
 }
 
+export const getUserDetails = (userDetails) => {
+  return {
+    type: types.GET_USER_DETAILS,
+    payload: userDetails
+  }
+}
 export const editUserDetails = (currentUser) => {
   return {
     type: types.EDIT_USER_DETAILS,
@@ -47,6 +52,21 @@ export const deleteUser = (currentUser) => {
   return {
     type: types.DELETE_USER,
     payload: currentUser
+  }
+}
+
+export const findMatches = (matchedUsers) => {
+  console.log(matchedUsers)
+  return {
+    type: types.CURRENT_MATCHED_USERS,
+    payload: matchedUsers
+  }
+}
+
+export const viewMatch = (matchId) => {
+  return {
+    type: types.VIEW_MATCH,
+    payload: matchId
   }
 }
 

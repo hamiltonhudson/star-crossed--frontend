@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
+import { redirect } from 'react-router-dom'
 import SignIn from './SignIn'
 import ProfileDetail from './ProfileDetail'
-import { accetMatch, declineMatch } from '../actions'
+import { viewMatch, accetMatch, declineMatch } from '../actions'
+import '../styling/Profile.css'
+import Matches from './Matches'
+// import Tooltip from '@material-ui/core/Tooltip';
 
 class ProfileContainer extends React.Component {
 
@@ -15,36 +19,60 @@ class ProfileContainer extends React.Component {
   //   <p><a href="#">This is a link</a></p>
   // </Card>
 
-  render () {
-    console.log("state in profilecontainer is", this.state)
-    console.log("props in profilecontainer is", this.props)
-    console.log(this.props.currentUser)
-
+  handleDetailClick = (event) => {
+    event.preventDefault()
+    console.log("name clicked", event.target.dataset.name)
     return (
       <div>
-        <div class="cardContent">
-          <span class="card-title">Profile</span>
+        <ProfileDetail name={event.target.dataset.name}/>
+      </div>
+    )
+  }
+
+  handleSignClick = () => {
+    console.log("sign clicked")
+    return (
+      <span>
+        <ProfileDetail />
+      </span>
+    )
+  }
+
+  render () {
+    console.log("state in profilecontainer is", this.state)
+    console.log("props in profilecontainer is", this.props.users)
+    console.log(this.props.currentUser)
+
+    const generateMatches = () => {
+      return this.props.currentUser.matched_users.map((matched_user) => {
+        console.log(matched_user)
+        return <Matches key={matched_user.id} matchedUser={matched_user} />
+      })
+    }
+
+    return (
+      <div className="prof-container">
+        <div className="prof-card">
+          <h1 className="card-title">Profile</h1>
+          <p className="prof-name" data-name="name" onClick={this.handleDetailClick}> {this.props.currentUser.first_name} </p>
+          <br/><br/>
+          <img src="" alt="ProfilePhoto" className="prof-photo"/>
+          <br/><br/>
+          <span className="prof-sun" data-name="sun" onClick={this.handleSignClick}> {this.props.currentUser.sun.sign} </span>
+          <br/><br/><br/>
+          {/* <ProfileDetail matches={this.props.currentUser.matches} /> */}
           {
-            this.props.currentUser ?
-              <ProfileDetail
-                user={this.props.curentUser}
-                currentUser={this.props.currentUser}
-                // handleFilter={this.props.handleFilter}
-                // handleSorted={this.props.handleSorted}
-                // handleMyMatches={this.props.handleMyMatches}
-              />
-            :
-            <SignIn />
+            generateMatches()
           }
-          {/* <p>{this.props.first_name} {this.props.last_name}</p>
-          <p>{this.props.birth_month}/{this.props.birth_day}/{this.props.birth_year}</p> */}
+          {
+            // generateUserMatches()
+          }
         </div>
         {/* {this.renderProfileDetails()} */}
-        </div>
+      </div>
     )
   }
 }
-
 // const mapStateToProps = state => {
 //   return {
 //     // newUser: state.newUser
@@ -56,11 +84,14 @@ class ProfileContainer extends React.Component {
 //     }
 //   }
 //
-//   const mapStateToProps = (state) => {
-//     return {
-//       users: state.users,
-//       suns: state.suns
-//     }
-//   }
-export default ProfileContainer;
-// export default connect(mapStateToProps)(ProfileContainer);
+  const mapStateToProps = (state) => {
+    return {
+      // users: this.state.users,
+      // suns: this.state.suns
+      currentUser: state.currentUser.currentUser,
+      users: state.users.users,
+      // currentUser: state.currentUser.currentUser
+    }
+  }
+
+export default connect(mapStateToProps)(ProfileContainer);
