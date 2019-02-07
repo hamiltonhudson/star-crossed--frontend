@@ -5,7 +5,7 @@ const initialState = {
   currentUser: {},
   matches: [],
   // credentials: {},
-  details: {},
+  userDetails: {},
 }
 
 export default (state = initialState, action) => {
@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
-        details: action.payload
+        userDetails: action.payload
       }
     case types.CURRENT_MATCHED_USERS:
       return {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import '../styling/Profile.css'
 import Matches from './Matches';
-import { acceptMatch, declineMatch } from '../actions';
+// import { acceptMatch, declineMatch } from '../actions';
 
 class ProfileDetail extends React.Component {
 // const ProfileDetail = props => {
@@ -49,6 +50,7 @@ render() {
         //     declineMatch: (match) => dispatch(declineMatch(match))
         //   }
         // } */}
+
 
 export default ProfileDetail;
 // export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetail);

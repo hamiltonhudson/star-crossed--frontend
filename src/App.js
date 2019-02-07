@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import NewUser from './components/NewUser';
 import ProfileContainer from './components/ProfileContainer';
 import ProfileDetail from './components/ProfileDetail';
+import MatchContainer from './components/MatchContainer'
 import { setSuns, setUsers, getUser } from './actions'
 
 class App extends Component {
@@ -92,6 +93,7 @@ class App extends Component {
           {/* <Route path='/profile' render={() => <ProfileContainer/>} /> */}
           <Route path='/profile' component={ProfileContainer} />
           {/* <Route path='/profile' render={() => <ProfileContainer currentUser={this.props.currentUser} />} /> */}
+          <Route path='/matchprofile' component={MatchContainer} />
           {/* <Route path={`${match.url}/:id`} component={MatchContainer} /> */}
         </Switch>
         </Router>

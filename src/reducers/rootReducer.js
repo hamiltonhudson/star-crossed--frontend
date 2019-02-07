@@ -6,20 +6,25 @@ import matches from './userReducer';
 import email from './loginReducer';
 import password from './loginReducer';
 // import credentials from './userReducer';
-import details from './newUserReducer';
-// import loginReducer from './loginReducer';
-// import manageNewUser from './manageNewUser';
-// import match from './matchReducer'
+import userDetails from './newUserReducer';
+import match from './matchReducer';
+import pending from './matchReducer';
+import awaiting from './matchReducer';
+import relation from './matchReducer';
 
 const rootReducer = combineReducers({
   suns,
   email,
   password,
   // credentials,
-  details,
+  userDetails,
   users,
   currentUser,
   matches,
+  match,
+  pending,
+  awaiting,
+  relation
 
 })
 

@@ -46,29 +46,29 @@ body {
   background-color: #000208;
   border-color: #d78daf;
   border-style: inset;
-  text-align: center;
-  float: left;
+  /* text-align: center; */
+  /* float: left;
   width: 300px;
-  padding: 10px;
+  padding: 10px; */
   position: absolute;
-  /* left: 0px;
+  left: 0px;
   width: 300px;
   border: 3px solid #d78daf;
-  padding: 10px; */
+  padding: 10px;
 }
 
 .prof-user-detail {
-  float: right;
-  width: 300px;
-  border: 3px solid #73AD21;
-  padding: 10px;
-  /* position: absolute;
-  right: 0px;
+  /* float: right;
   width: 300px;
   border: 3px solid #73AD21;
   padding: 10px; */
-  class: btn tooltipped;
-  data-position: right
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  /* class: btn tooltipped;
+  data-position: right */
 }
 
 /* .tooltipped {

@@ -10,6 +10,7 @@ import { setUsers, getUser, findMatches } from '../actions'
 // ALSO FETCH TO USERS & GRAB USER DATA TO UPDATE STATE AND MAKE IT AVAILABLE
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
+const retrieveMatches = 'users/:id/user_matches'
 
 class SignIn extends React.Component {
   state = {
@@ -34,6 +35,7 @@ class SignIn extends React.Component {
       fetch('http://localhost:3000/api/v1/users')
       .then(r => r.json())
       .then(data => {
+        console.log(data)
         this.props.setUsers(data)
         const currentUser = this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase())
         this.props.getUser(currentUser)
@@ -41,10 +43,16 @@ class SignIn extends React.Component {
         this.props.findMatches(matchedUsers)
         this.setState({
           loggedIn: true
-        })
+      })
       console.log(this.props.matches)
     })
-  }
+//     fetch(`users/${this.props.currentUser.id}/user_matches/`)
+//     .then(r => r.json())
+// // debugger
+//   .then(updatedMatches => {
+//     this.props.findMatches(updatedMatches)
+//   })
+}
 
   render() {
     // return(

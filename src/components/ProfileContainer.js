@@ -12,13 +12,6 @@ class ProfileContainer extends React.Component {
 
   // renderProfileDetails = () => this.props.map((detail, id) => <ProfileDetail key={id} text={detail} />)
 
-
-  // <Card header={<CardTitle reveal image={"img/office.jpg"} waves='light'/>}
-  //   title="Card Title"
-  //   reveal={<p>Here is some more information about this product that is only revealed once clicked on.</p>}>
-  //   <p><a href="#">This is a link</a></p>
-  // </Card>
-
   handleDetailClick = (event) => {
     event.preventDefault()
     console.log("name clicked", event.target.dataset.name)
@@ -90,7 +83,7 @@ class ProfileContainer extends React.Component {
       // suns: this.state.suns
       currentUser: state.currentUser.currentUser,
       users: state.users.users,
-      // currentUser: state.currentUser.currentUser
+      matches: state.matches.matches
     }
   }
 

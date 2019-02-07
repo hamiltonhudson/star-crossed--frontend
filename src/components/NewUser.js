@@ -7,18 +7,21 @@ import '../styling/Login.css'
 import ProfileContainer from './ProfileContainer'
 import { getUser, addUserDetails, setUsers } from '../actions'
 
+const usersAPI = 'http://localhost:3000/api/v1/users/'
+
 class NewUser extends React.Component {
 // const NewUserForm = (props) => {
   state = {
+    // userDetails: {}
     first_name: '',
     last_name: '',
     birth_year: '',
     birth_month: '',
-    brth_day: ''
+    birth_day: ''
   }
 
   // state = {
-  //   newUser: {
+  //   details: {
   //     first_name: '',
   //     last_name: '',
   //     birth_year: '',
@@ -30,9 +33,12 @@ class NewUser extends React.Component {
   handleChange = (event) => {
     console.log(event.target.name, event.target.value)
     this.setState({
+      // userDetails: {
       [event.target.name]: event.target.value
+      // }
     })
-    console.log(this.state)
+    console.log(this.state.details)
+    console.log(this.state.userDetails)
     // this.setState({
     //   newUser: {
     //     [event.target.name]: event.target.value
@@ -40,10 +46,55 @@ class NewUser extends React.Component {
     // })
   }
 
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   this.props.addUserDetails(this.state)
+  // }
+
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.addUserDetails(this.state)
+    const newUserConfig = {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        userDetails: {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          birth_year: this.state.birth_year,
+          birth_month: this.state.birth_month,
+          birth_day: this.state.birth_day
+        }
+      })
+    }
+    fetch(usersAPI, newUserConfig)
+    .then(r => console.log(r.json()))
+    .then(result => {
+      console.log(result)
+      this.props.addUserDetails(result)
+    })
   }
+
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   const postConfig = {
+  //     method:"POST",
+  //     headers: {
+  //       "Content-type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       user: {
+  //         name: this.state.name,
+  //         email:this.state.email
+  //       }
+  //     })
+  //   }
+    // fetch(apiUsersAddress,postConfig)
+    //   .then(r=>r.json())
+    //   .then(userObj => this.props.setCurrentUser(userObj))
+    // }
 
   // handleSubmit = event => {
   //   event.preventDefault();
@@ -55,7 +106,7 @@ class NewUser extends React.Component {
 
 
   render() {
-    console.log(this.props.details)
+    console.log(this.props.details, this.props.email, this.props.password)
     return(
       // const newUserForm =
       <div className="login-container">
@@ -120,7 +171,9 @@ class NewUser extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    details: state.details.details
+    userDetails: state.userDetails.userDetails,
+    email: state.email.email,
+    password: state.password.password
   }
 }
 
@@ -130,7 +183,7 @@ const mapDispatchToProps = dispatch => {
     //   type: 'ADD_USER_DETAILS',
     //   payload: formData
     // })
-    addUserDetails: (details) => dispatch(addUserDetails(details))
+    addUserDetails: (userDetails) => dispatch(addUserDetails(userDetails))
   }
 }
 

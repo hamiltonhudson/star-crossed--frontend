@@ -28,10 +28,10 @@ export const getEmailAndPW = (email, password) => {
   }
 }
 
-export const addUserDetails = (details) => {
+export const addUserDetails = (userDetails) => {
   return {
     type: types.ADD_USER_DETAILS,
-    payload: details
+    payload: userDetails
   }
 }
 
@@ -63,17 +63,17 @@ export const findMatches = (matchedUsers) => {
   }
 }
 
-export const viewMatch = (matchId) => {
+export const viewMatch = (match) => {
   return {
     type: types.VIEW_MATCH,
-    payload: matchId
+    payload: match
   }
 }
 
-export const acceptMatch = (match) => {
+export const acceptMatch = (clickedMatch) => {
   return {
     type: types.ACCEPT_MATCH,
-    payload: match,
+    payload: clickedMatch,
      // matches
     // (add to pending, should remove from matches [hit crud C for pending, D for matches, patch for json])
   }
