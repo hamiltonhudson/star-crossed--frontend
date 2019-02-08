@@ -1,10 +1,10 @@
 import React from 'react';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/App.css'
 import '../styling/Landing.css'
 // import '../styling/index.css'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import ProfileContainer from './ProfileContainer'
 import Particles from 'react-particles-js'
 // import Star from '..public/images/Star.png'
@@ -16,21 +16,21 @@ class Landing extends React.Component {
       <div className="landing">
         <header className="App-header">
           <h1 className="App-title">Star-Crossed</h1>
-          <Link to='/signup'>Sign Up</Link>
+          <Link to='/signup' className="App-link">Sign Up</Link>
           <br/>
-          <Link to='/signin'>Sign In</Link>
+          <Link to='/signin' className="App-link">Sign In</Link>
           <br/>
-          <Link to='/profile'>View Profile</Link>
+          <Link to='/profile' className="App-link">View Profile</Link>
         </header>
         <Particles className="particle"
           params={
             {
               "particles": {
                 "number": {
-                  "value": 232,
+                  "value": 432,
                   "density": {
                     "enable": true,
-                    "value_area": 7654.732123833044
+                    "value_area": 7854.732123833044
                   }
                 },
                 "color": {
@@ -39,7 +39,7 @@ class Landing extends React.Component {
                 "shape": {
                   "type": "circle",
                   "stroke": {
-                    "width": 0,
+                    "width": 1,
                     "color": "#000000"
                   },
                   "polygon": {

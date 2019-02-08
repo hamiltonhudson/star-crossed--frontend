@@ -60,8 +60,11 @@ class MatchContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    match: state.match.match
+    match: state.matches.match
   }
 }
+
+
+//
 
 export default connect(mapStateToProps)(MatchContainer);

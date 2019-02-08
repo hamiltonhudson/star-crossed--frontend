@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { setUsers, viewMatch, acceptMatch, declineMatch } from '../actions'
+import { setUsers, setCurrentUser, viewMatch, acceptMatch, declineMatch } from '../actions'
 import '../styling/Profile.css'
 import MatchContainer from './MatchContainer'
 
 class Matches extends React.Component {
-  // console.log(props)
-  // props.matchedUser.forEach(m => {
   state = {
     clicked: false
   }
@@ -18,12 +16,11 @@ class Matches extends React.Component {
     // console.log(this.props.users)
     // console.log(this.props.matches)
     // const clickedMatch = this.props.matches.find(match => match.id === matchId)
-    const clickedMatch = this.props.matchedUser
+    const clickedMatch = this.props.matches.find(match => match.id === matchId)
     this.props.viewMatch(clickedMatch)
     this.setState({
       clicked: true
     })
-    console.log(this.props.matchedUser)
   }
   // const generateMatches = () => {
   //   return this.props.currentUser.matched_users.map((matched_user) => {
@@ -33,17 +30,19 @@ class Matches extends React.Component {
   // }
 
   render() {
-    // console.log(this.props.matchedUser)
-    console.log(this.props.match)
+    console.log("STATE IN MATCHES", this.state)
+    console.log("PROPS IN MATCHES",this.props)
+    console.log("this.props.match IN MATCHES", this.props.match)
+    console.log("this.props.matchedUser IN MATCHES", this.props.matchedUser)
     const matchCard =
     // return (
       <div className="Card">
         <div className="matched-users">
-          <div onClick={(event) => this.handleViewMatch(this.props.matchedUser.id)}>
+          {/* <div onClick={(event) => this.handleViewMatch(this.props.matchedUser.id)}>
             <p>{this.props.matchedUser.first_name} >> {this.props.matchedUser.sun.sign}</p>
             <img src="" alt="MatchPhoto" /><br/><br/>
-
-          </div>
+          </div> */}
+          hi from matches component
         </div>
       </div>
     // )
@@ -52,22 +51,23 @@ class Matches extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    matches: state.matches.matches,
-    match: state.match.match,
-    users: state.users.users,
-  }
-}
-
+// const mapStateToProps = (state) => {
+//   return {
+//     currentUser: state.users.currentUser,
+//     matches: state.matches.matches,
+//     match: state.matches.match,
+//     users: state.users.users,
+//   }
+// }
 const mapDispatchToProps = (dispatch) => {
   return {
-    viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch))
+    viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch)),
+    // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
+    // setUsers: (users) => dispatch(setUsers(users)),
   }
 }
 
-// export default Matches
-export default connect(mapStateToProps, mapDispatchToProps)(Matches);
+export default connect(null, mapDispatchToProps)(Matches);
 
 // <Card header={<CardTitle reveal image={"img/office.jpg"} waves='light'/>}
 //   title="Card Title"

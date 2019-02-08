@@ -71,6 +71,15 @@ body {
   data-position: right */
 }
 
+.prof-link {
+
+}
+
+.prof-link:hover {
+  color: hsla(278, 62%, 82%, 0.91);
+  box-shadow: inset 0 0 100px 100px;
+}
+
 /* .tooltipped {
 
 } */

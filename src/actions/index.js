@@ -21,12 +21,19 @@ export const getEmailAndPW = (email, password) => {
   }
 }
 
-export const getUser = (userDetails) => {
-  return {
-    type: types.GET_USER_DETAILS,
-    payload: userDetails
-  }
-}
+// export const getUser = (userDetails) => {
+//   return {
+//     type: types.GET_USER_DETAILS,
+//     payload: userDetails
+//   }
+// }
+
+// export const setUserId = (userId) => {
+//   return {
+//     type: types.SET_USER_ID,
+//     payload: userId
+//   }
+// }
 
 export const setCurrentUser = (currentUser) => {
   return {
@@ -52,7 +59,7 @@ export const deleteUser = (currentUser) => {
 export const findMatches = (matchedUsers) => {
   console.log(matchedUsers)
   return {
-    type: types.CURRENT_MATCHED_USERS,
+    type: types.FIND_MATCHES,
     payload: matchedUsers
   }
 }

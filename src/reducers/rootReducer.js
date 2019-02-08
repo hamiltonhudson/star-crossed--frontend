@@ -1,34 +1,23 @@
 import { combineReducers } from 'redux';
 import suns from './sunReducer';
-import email from './loginReducer';
-import password from './loginReducer';
-import userDetails from './loginReducer';
+// import email from './userReducer';
+// import password from './userReducer';
 import users from './userReducer';
-import currentUser from './userReducer';
-import matches from './userReducer';
-import match from './matchReducer';
-import pending from './matchReducer';
-import awaiting from './matchReducer';
-import relation from './matchReducer';
+// import currentUser from './userReducer';
+import matches from './matchReducer';
 
 const rootReducer = combineReducers({
   suns,
-  email,
-  password,
-  userDetails,
+  // equivalent to suns:suns (where first suns is what is spread to state
+  // in sun Reducer(?) and seconds suns is a key I can call from initialState(?)
+  // -- must have access to that key within the current component / state
+  // email,
+  // password,
   users,
-  currentUser,
+    // equivalent to users:users
   matches,
-  match,
-  pending,
-  awaiting,
-  relation
+  // equivalent to matches:matches
 
 })
-
-// const rootReducer = combineReducers({
-//   currentUser: loginReducer,
-//   newUser: manageNewUser
-// })
 
 export default rootReducer;

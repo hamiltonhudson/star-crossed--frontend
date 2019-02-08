@@ -76,8 +76,8 @@ class SignUp extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.email.email,
-    password: state.password.password,
+    // email: state.email.email,
+    // password: state.password.password,
   }
 }
 

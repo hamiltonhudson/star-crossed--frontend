@@ -9,12 +9,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_SUNS:
-      // console.log(action.payload)
       return {
         ...state,
         suns: action.payload
       }
-      
+
     default:
       return state;
   }

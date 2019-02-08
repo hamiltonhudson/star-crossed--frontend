@@ -2,8 +2,11 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   users: [],
+  // email: '',
+  // password: '',
+  userDetails: {},
   currentUser: {},
-  matches: [],
+  // updatedMatches: [],
 }
 
 export default (state = initialState, action) => {
@@ -13,15 +16,21 @@ export default (state = initialState, action) => {
         ...state,
         users: action.payload
       }
+    // case types.GET_EMAIL_AND_PW:
+    //   return {
+    //     email: action.payload.email,
+    //     password: action.payload.password
+    //   }
+    // case types.SET_USER_ID:
+    //   return {
+    //     ...state,
+    //     userId: action.payload
+    //   }
     case types.SET_CURRENT_USER:
       return {
         ...state,
+        // users: ,
         currentUser: action.payload
-      }
-    case types.CURRENT_MATCHED_USERS:
-      return {
-        ...state,
-        matches: action.payload
       }
     case types.EDIT_USER_DETAILS:
       console.log(action.payload)
@@ -33,6 +42,7 @@ export default (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
+        // users: ,
         currentUser: action.payload
       }
 
@@ -41,39 +51,9 @@ export default (state = initialState, action) => {
   }
 };
 
-// import {
-//   EDIT_USER_DETAILS,
-//   DELETE_USER
-// } from '../constants/ActionTypes'
-//
-// const initialState = {
-//   currentUser: {},
-//   matches: [],
-//   users: []
-//   // credential: {}
-// }
-
-// export default (state = initialState, action) => {
-//   switch (action.type) {
-//     case EDIT_USER_DETAILS:
-//       return {
-//         currentUser: action.payload.currentUser,
-//         users: action.payload.users,
-//         //should update w/ new details?
-//         matches: action.payload.matches
-//         //should get users new matches, update in case any have changed
-//         //with profile update
-//     }
-//     case DELETE_USER:
-//       return {
-//         currentUser: action.payload.currentUser,
-//         //? necessary to update current User?
-//         users: action.payload.users,
-//         //post to all users
-//         matches: action.payload.matches
-//         //necessary to update others matches?
-//     }
-//     default:
-//       return state;
+// case types.GET_USER_DETAILS:
+//   // console.log(action.payload)
+//   return {
+//     ...state
+//     userDetails: action.payload
 //   }
-// }

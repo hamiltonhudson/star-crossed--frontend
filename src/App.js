@@ -15,16 +15,15 @@ import { setSuns } from './actions';
 // import Particles from 'react-particles-js';
 
 class App extends Component {
-  state = {
-    search: ''
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3000/api/v1/suns')
-    .then(response => response.json())
-    .then(data => {
-      this.props.setSuns(data)
-    })
+  // state = {
+  //   search: ''
+  // }
+  // componentDidMount() {
+  //   fetch('http://localhost:3000/api/v1/suns')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     this.props.setSuns(data)
+  //   })
     // .then(
     //   fetch('http://localhost:3000/api/v1/users')
     //   .then(r => r.json())
@@ -34,12 +33,7 @@ class App extends Component {
     //     this.props.getUser(data)
     //   })
     // )
-  }
-
-  // handleNewUser = values => {
-  //   console.log(values)
   // }
-
   render() {
     return (
       <Router>
@@ -56,17 +50,15 @@ class App extends Component {
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    suns: state.suns.suns,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setSuns: (suns) => dispatch(setSuns(suns)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapStateToProps = (state) => {
+//   return {
+//     suns: state.suns.suns,
+//   }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setSuns: (suns) => dispatch(setSuns(suns)),
+//   }
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
