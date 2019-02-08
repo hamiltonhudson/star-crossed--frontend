@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Form.css'
@@ -44,6 +44,7 @@ class SignIn extends React.Component {
     // console.log(this.props)
     const signInForm =
     <div>
+      <Link to='/'>Back</Link>
       <div className="form-container">
         <h1 className="signupHeader">sign in</h1>
         <br/><br/>
@@ -68,19 +69,21 @@ class SignIn extends React.Component {
             /> */}
             <label className="loginLabel">First:</label>
             <input
-              onChange={this.handleChange}
+              className="input-field"
+              type="text"
+              placeholder="Enter first name"
               name="first_name"
               value={this.state.first_name}
-              placeholder="Enter first name"
-              className="input-field"
+              onChange={this.handleChange}
             />
             <label className="loginLabel">Last:</label>
             <input
-              onChange={this.handleChange}
+              className="input-field"
+              type="text"
+              placeholder="Enter last name"
               name="last_name"
               value={this.state.last_name}
-              placeholder="Enter last name"
-              className="input-field"
+              onChange={this.handleChange}
             />
             <br/><br/>
             <input
@@ -89,7 +92,6 @@ class SignIn extends React.Component {
             />
             <br/><br/>
           </form>
-          <br/><br/>
         </div>
       </div>
     </div>

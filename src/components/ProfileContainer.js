@@ -8,25 +8,15 @@ import Matches from './Matches'
 // import Tooltip from '@material-ui/core/Tooltip';
 
 class ProfileContainer extends React.Component {
-
-  handleDetailClick = (event) => {
-    event.preventDefault()
-    console.log("name clicked", event.target.dataset.name)
-    return (
-      <div>
-        <ProfileDetail name={event.target.dataset.name}/>
-      </div>
-    )
+  state = {
+    clicked: '',
   }
 
-  handleSignClick = () => {
-    // event.preventDefault()
-    console.log("sign clicked")
-    return (
-      <span>
-        <ProfileDetail />
-      </span>
-    )
+  handleClick = (event) => {
+    event.preventDefault()
+    this.setState({
+      clicked: event.target.dataset.name
+    })
   }
   // correctUserDetails = () => {
   //   const userId = this.props.userId
@@ -37,32 +27,30 @@ class ProfileContainer extends React.Component {
   //   })
   // }
   render () {
-    console.log("PROFILECONTAINER", this.props)
+    console.log("PROFILECONTAINER PROPS", this.props)
+    console.log("PROFILECONTAINER STATE", this.state)
 
     const generateMatches = () => {
       return this.props.matches.map((match) => {
-        // console.log(matched_user)
-        return <Matches key={match.id} matchedUser={match} />
+        return <Matches key={match.id} matchedDisplay={match} allMatches={this.props.matches}/>
       })
     }
+
     return (
       <div>
         <div className="prof-container">
           <Link to='/edit'>Edit</Link>
           <div className="prof-card">
             <h1 className="card-title">Profile</h1>
-            <p className="prof-name" data-name="name" onClick={this.handleDetailClick}> {this.props.currentUser.first_name} </p>
+            <p className="prof-name" data-name="name" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.first_name} </p>
             <br/><br/>
             <img src="" alt="ProfilePhoto" className="prof-photo"/>
             <br/><br/>
-            <span className="prof-sun" data-name="sun" onClick={this.handleSignClick}> {this.props.currentUser.sun.sign} </span>
+            <span className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </span>
             <br/><br/><br/>
-            {/* <ProfileDetail matches={this.props.currentUser.matches} /> */}
-            {
-              generateMatches()
-            }
+            <ProfileDetail clicked={this.state.clicked} user={this.props.currentUser}/>
+            {generateMatches()}
           </div>
-          {/* {this.renderProfileDetails()} */}
         </div>
       </div>
     )
@@ -79,7 +67,6 @@ const mapStateToProps = (state) => {
     // matches: state.matches.matches
   }
 }
-
   // const mapDispatchToProps = (dispatch) => {
   //   return {
   //     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser))

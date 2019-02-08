@@ -2,8 +2,8 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   users: [],
-  // email: '',
-  // password: '',
+  email: '',
+  password: '',
   userDetails: {},
   currentUser: {},
   // updatedMatches: [],
@@ -16,11 +16,11 @@ export default (state = initialState, action) => {
         ...state,
         users: action.payload
       }
-    // case types.GET_EMAIL_AND_PW:
-    //   return {
-    //     email: action.payload.email,
-    //     password: action.payload.password
-    //   }
+    case types.GET_EMAIL_AND_PW:
+      return {
+        email: action.payload.email,
+        password: action.payload.password
+      }
     // case types.SET_USER_ID:
     //   return {
     //     ...state,

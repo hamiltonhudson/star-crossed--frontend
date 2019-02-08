@@ -151,7 +151,6 @@ class EditUser extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userDetails: state.userDetails.userDetails,
     currentUser: state.currentUser.currentUser,
     matches: state.matches.matches
   }

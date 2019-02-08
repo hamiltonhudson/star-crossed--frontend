@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 // import { reduxForm, Field } from 'redux-form';
-import '../styling/App.css'
-import '../styling/Landing.css'
+import '../styling/App.css';
+import '../styling/Landing.css';
+import Particles from 'react-particles-js';
 // import '../styling/index.css'
 // import { connect } from 'react-redux';
-import ProfileContainer from './ProfileContainer'
-import Particles from 'react-particles-js'
-// import Star from '..public/images/Star.png'
-// "src": "{require('../star.jpeg')}",
+import ProfileContainer from './ProfileContainer';
+
 
 class Landing extends React.Component {
   render() {
@@ -16,11 +15,12 @@ class Landing extends React.Component {
       <div className="landing">
         <header className="App-header">
           <h1 className="App-title">Star-Crossed</h1>
+          <br/><br/>
+          <Link to='/signin' className="App-link">Sign In</Link>
+          <span> ------ </span>
           <Link to='/signup' className="App-link">Sign Up</Link>
           <br/>
-          <Link to='/signin' className="App-link">Sign In</Link>
-          <br/>
-          <Link to='/profile' className="App-link">View Profile</Link>
+          {/* <Link to='/profile' className="App-link">View Profile</Link> */}
         </header>
         <Particles className="particle"
           params={

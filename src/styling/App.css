@@ -37,9 +37,9 @@
   font-family: 'Codystar', cursive;
   font-size: 95px;
   color: white;
-  text-shadow: 4px 4px 6px #95b6bb;
+  /* text-shadow: 4px 4px 6px #95b6bb; */
   background-color: transparent;
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
   /* min-height: 100vh; */
   transition: all 0.3s ease-in;
   text-decoration:none;

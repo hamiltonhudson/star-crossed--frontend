@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { setUsers, setCurrentUser, viewMatch, acceptMatch, declineMatch } from '../actions'
-import '../styling/Profile.css'
-import MatchContainer from './MatchContainer'
+import { viewMatch, findMatches } from '../actions'
+import '../styling/Profile.css';
+import MatchContainer from './MatchContainer';
+// import ProfileContainer from './ProfileContainer'
 
 class Matches extends React.Component {
   state = {
@@ -11,12 +12,9 @@ class Matches extends React.Component {
   }
 
   handleViewMatch = (matchId) => {
-    // event.preventDefault()
-    // console.log(matchId)
-    // console.log(this.props.users)
-    // console.log(this.props.matches)
-    // const clickedMatch = this.props.matches.find(match => match.id === matchId)
+    console.log(matchId)
     const clickedMatch = this.props.matches.find(match => match.id === matchId)
+    console.log(clickedMatch)
     this.props.viewMatch(clickedMatch)
     this.setState({
       clicked: true
@@ -30,18 +28,19 @@ class Matches extends React.Component {
   // }
 
   render() {
-    console.log("STATE IN MATCHES", this.state)
-    console.log("PROPS IN MATCHES",this.props)
-    console.log("this.props.match IN MATCHES", this.props.match)
-    console.log("this.props.matchedUser IN MATCHES", this.props.matchedUser)
+    // console.log("PROPS IN MATCHES",this.props)
+    // console.log("this.props.matchedDisplay IN MATCHES", this.props.matchedDisplay)
+    // console.log("STATE IN MATCHES", this.state)
+    // console.log("this.props.matches IN MATCHES",this.props.matches)
+    // console.log("this.props.match IN MATCHES", this.props.match)
     const matchCard =
     // return (
       <div className="Card">
         <div className="matched-users">
-          {/* <div onClick={(event) => this.handleViewMatch(this.props.matchedUser.id)}>
-            <p>{this.props.matchedUser.first_name} >> {this.props.matchedUser.sun.sign}</p>
+          <div onClick={() => this.handleViewMatch(this.props.matchedDisplay.id)}>
+            <p>{this.props.matchedDisplay.first_name} >> {this.props.matchedDisplay.sun.sign}</p>
             <img src="" alt="MatchPhoto" /><br/><br/>
-          </div> */}
+          </div>
           hi from matches component
         </div>
       </div>
@@ -51,26 +50,22 @@ class Matches extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     currentUser: state.users.currentUser,
-//     matches: state.matches.matches,
-//     match: state.matches.match,
-//     users: state.users.users,
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    // currentUser: state.users.currentUser,
+    matches: state.matches.matches,
+    match: state.matches.match,
+    // users: state.users.users,
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
+    // findMatches: (matches) => dispatch(findMatches(matches))
     viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch)),
     // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
     // setUsers: (users) => dispatch(setUsers(users)),
   }
 }
 
-export default connect(null, mapDispatchToProps)(Matches);
-
-// <Card header={<CardTitle reveal image={"img/office.jpg"} waves='light'/>}
-//   title="Card Title"
-//   reveal={<p>Here is some more information about this product that is only revealed once clicked on.</p>}>
-//   <p><a href="#">This is a link</a></p>
-// </Card>
+export default connect(mapStateToProps, mapDispatchToProps)(Matches);

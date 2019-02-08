@@ -3,25 +3,29 @@ import { connect } from 'react-redux';
 import '../styling/Profile.css'
 
 
-const MatchDetail = () => {
-  console.log(this.props.name)
-  return (
-    <div>
-      <div className='tooltipped'> User Sign </div>
-      <a className="btn tooltipped" data-position="left" data-tooltip="I am a tooltip">Hover me!</a>
 
-      <div> User Details </div>
-      {/* <p>{props.first_name} {props.last_name}</p>
-      <p>{props.birth_month}/{props.birth_day}/{props.birth_year}</p> */}
-    </div>
-  )
+class MatchDetail extends React.Component {
+  renderDetail = () => {
+    if (this.props.clicked === "sun") {
+      return (
+        <div>
+          Sign Details! | {this.props.clickedMatch.sun.sign}
+        </div>
+    )} else if (this.props.clicked === "name") {
+    // )} else if (event.target.dataset.name === "name" || event.target.dataset.name === "photo") {
+      return (
+        <div>
+          Name Details! | {this.props.clickedMatch.first_name}
+        </div>
+    )}
+  }
+  render() {
+      console.log(this.props)
+    return (
+      <div>
+        {this.renderDetail()}
+      </div>
+    )
+  }
 }
-
-
-  // {/* {this.displayMatches} */}
-  // {/* {
-  //     this.props.matches.map(match =>
-  //     return <Match key={match.id} match={...match} />
-  //     )
-  // } */}
-      // let detail = M.Tooltip.getInstance()
+export default MatchDetail;

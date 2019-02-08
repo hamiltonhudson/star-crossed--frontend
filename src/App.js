@@ -9,15 +9,15 @@ import SignUp from './components/SignUp';
 import NewUser from './components/NewUser';
 import ProfileContainer from './components/ProfileContainer';
 import EditUser from './components/EditUser';
-import ProfileDetail from './components/ProfileDetail';
+// import ProfileDetail from './components/ProfileDetail';
 import MatchContainer from './components/MatchContainer'
-import { setSuns } from './actions';
+// import { setSuns } from './actions';
 // import Particles from 'react-particles-js';
 
 class App extends Component {
-  // state = {
-  //   search: ''
-  // }
+  state = {
+    search: ''
+  }
   // componentDidMount() {
   //   fetch('http://localhost:3000/api/v1/suns')
   //   .then(response => response.json())
@@ -61,4 +61,4 @@ class App extends Component {
 //   }
 // }
 // export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export default connect()(App);
