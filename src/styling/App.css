@@ -1,7 +1,3 @@
-/* .App-link {
-  color: #61dafb;
-} */
-
 /*.App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80vmin;
@@ -16,25 +12,25 @@
   }
 } */
 
-/* html {
-  background-color: black;
-} */
-
-body {
-  background-color: black;
-}
-
 .App {
   text-align: center;
-  border-style: solid;
-  border-color: #0c4357;
-  background-color: #000208;
-  /* border-width: 5px; */
-  /* margins: 10px; */
+  display: inline-block;
+  border-style: invisible;
+  background-color: transparent;
+  position: absolute;
+  /* animation-duration: 3s;
+  animation-name: slidein; */
+}
+
+.App-link {
+
+}
+
+.App-link#hover {
+
 }
 
 .App-header {
-  /* background-color: #000208; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,31 +38,64 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: transparent;
 }
 
 .App-title {
   font-family: 'Codystar', cursive;
-  font-size: 50px;
+  font-size: 80px;
+  color: white;
+  text-shadow: 4px 4px 6px #95b6bb;
+  background-color: transparent;
+  /* min-height: 100vh; */
 }
 
-.App-image {
-  /* height: 20em; */
-  height: 15em;
+/* #title {
+  font-family: 'Codystar', cursive;
+  font-size: 80px;
+  color: white;
+  text-shadow: 4px 4px 6px #95b6bb;
+  -webkit-animation-name:             glow;
+  -webkit-animation-duration:         10s;
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-timing-function:	ease-in-out;
+  text-align: center; */
+  /* font-size: 100px; */
+  /* color: #a0dce4; */
+  /* line-height: 100px;
+      opacity: 0; */
+/* } */
+/* @-webkit-keyframes glow {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
-
-
-/* from index.css
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.glow:after {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.5);
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    content: "";
+    border-radius: 3px;
 } */
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}

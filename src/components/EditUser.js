@@ -1,37 +1,43 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../styling/Form.css'
-// import { reduxForm, Field, propTypes } from 'redux-form';
+import { editUserDetails } from '../actions'
 // import ProfileContainer from './ProfileContainer'
-import { getUser, setUsers, findMatches } from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
-class NewUser extends React.Component {
+class EditUser extends React.Component {
   state = {
-    first_name: '',
-    last_name: '',
-    birth_year: '',
-    birth_month: '',
-    birth_day: '',
-    signedUp: false
+    first_name: this.props.currentUser.first_name,
+    last_name: this.props.currentUser.last_name,
+    birth_year: this.props.currentUser.birth_year,
+    birth_month: this.props.currentUser.birth_month,
+    birth_day: this.props.currentUser.birth_day,
+    // first_name: '',
+    // last_name: '',
+    // birth_year: '',
+    // birth_month: '',
+    // birth_day: '',
+    updated: false
   }
 
   handleChange = (event) => {
+    event.preventDefault()
     console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
+    console.log("state", this.state)
+    console.log("props", this.props)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state)
-    console.log(this.props)
-    const newUserConfig = {
-      method: "POST",
+    const userId = this.props.currentUser.id
+    console.log(userId)
+    const userConfig = {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
         "Accept": "application/json"
@@ -46,33 +52,37 @@ class NewUser extends React.Component {
         }
       })
     }
-    fetch(usersAPI, newUserConfig)
+    fetch(`http://localhost:3000/api/v1/users/${userId}`, userConfig)
     .then(r => r.json())
     .then(result => {
+      console.log(result)
       if (result.errors){
-        alert('Please check your details')
-        return <Redirect to="/newuser" />
+        alert('Please enter details correctly')
+        return <Redirect to="/edit" />
       } else {
-        // const userDetails = result
-        this.props.getUser(result)
+        this.props.editUserDetails(result)
         this.setState({
-          signedUp: true
+          updated: true
         })
       }
     })
+    console.log(this.state.updated)
+    console.log("state", this.state)
+    console.log("props", this.props)
   }
 
   profileRedirect = () => {
-    if (this.state.signedUp) {
+    console.log(this.state.updated)
+    if (this.state.updated) {
       return <Redirect to="/profile" />
     }
   }
 
   render() {
-    return(
-      // const newUserForm =
+    return (
       <div className="form-container">
-        <h1 className="signupHeader">Create New Account</h1>
+        <Link to='/profile'>Back</Link>
+        <h1 className="signupHeader">Edit Profile</h1>
         <div className="signupform">
           <div>
             <form onSubmit={event => this.handleSubmit(event)}>
@@ -121,9 +131,10 @@ class NewUser extends React.Component {
                 placeholder="Submit"
               />
             </form>
-            <br/>
+            <br/><br/>
           </div>
           {this.profileRedirect()}
+          <Link to='/profile'>Delete</Link>
         </div>
       </div>
     )
@@ -132,16 +143,14 @@ class NewUser extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.email.email,
-    password: state.password.password,
-    currentUser: state.userDetails.userDetails,
+    currentUser: state.currentUser.currentUser
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: (userDetails) => dispatch(getUser(userDetails)),
+    editUserDetails: (currentUser) => dispatch(editUserDetails(currentUser))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser);

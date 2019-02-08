@@ -1,0 +1,32 @@
+/* from index.css
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+} */
+
+/* html, body, .Landing-component {
+  height: 100%
+} */
+/* html, body, .App-component {
+  height: 100%
+} */
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  background-image: {
+    src: url(https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  }
+  /* margin: 0;
+  padding: 0; */
+}

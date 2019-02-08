@@ -1,11 +1,13 @@
 import {
   GET_EMAIL_AND_PW,
+  GET_USER_DETAILS,
 } from '../constants/ActionTypes'
 
 
 const initialState = {
   email: '',
   password: '',
+  userDetails: {}
   // credential: {}
 }
 
@@ -16,16 +18,12 @@ export default (state = initialState, action) => {
         email: action.payload.email,
         password: action.payload.password
     }
-    // case types.GET_EMAIL_AND_PW:
-    //   return {
-    //     ...state,
-    //     credentials: action.payload
-    //   }
-    // email: state.email.concat(action.payload.email),
-    // password: state.password.concat(action.payload.password)
+    case GET_USER_DETAILS:
+    console.log(action.payload)
+      return {
+        userDetails: action.payload
+      }
     default:
       return state;
   }
 }
-
-// export { loginReducer };

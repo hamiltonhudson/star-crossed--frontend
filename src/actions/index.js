@@ -14,13 +14,6 @@ export const setUsers = (users) => {
   }
 }
 
-export const getUser = (currentUser) => {
-  return {
-    type: types.GET_CURRENT_USER,
-    payload: currentUser
-  }
-}
-
 export const getEmailAndPW = (email, password) => {
   return {
     type: types.GET_EMAIL_AND_PW,
@@ -28,19 +21,20 @@ export const getEmailAndPW = (email, password) => {
   }
 }
 
-export const addUserDetails = (userDetails) => {
-  return {
-    type: types.ADD_USER_DETAILS,
-    payload: userDetails
-  }
-}
-
-export const getUserDetails = (userDetails) => {
+export const getUser = (userDetails) => {
   return {
     type: types.GET_USER_DETAILS,
     payload: userDetails
   }
 }
+
+export const setCurrentUser = (currentUser) => {
+  return {
+    type: types.SET_CURRENT_USER,
+    payload: currentUser
+  }
+}
+
 export const editUserDetails = (currentUser) => {
   return {
     type: types.EDIT_USER_DETAILS,

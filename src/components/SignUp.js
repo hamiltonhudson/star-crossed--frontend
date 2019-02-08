@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import '../styling/Login.css'
+import '../styling/Form.css'
 import NewUser from './NewUser'
 import { getEmailAndPW } from '../actions'
 
@@ -24,23 +24,7 @@ class SignUp extends React.Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state)
-    // const userObject = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     // credentials: {
-    //       email: this.state.email,
-    //       password: this.state.password,
-    //     // }
-    //   })
-    // }
-    // fetch(usersAPI, userObject)
-    // .then(r => r.json())
-    // .then(result => this.props.getEmailAndPW(result))
+    event.preventDefault()
     this.props.getEmailAndPW(this.state)
       this.setState({
         validated: true
@@ -52,10 +36,10 @@ class SignUp extends React.Component {
     console.log(this.props.email, this.props.password)
     const signUpForm =
     // return (
-      <div className="login-container">
-        <h1 className="signupHeader">Sign Up</h1>
+      <div className="form-container">
+        <h1 className="signupHeader">sign up</h1>
         <br/><br/>
-        <div className="login-form">
+        <div className="form">
           <form onSubmit={event => this.handleSubmit(event)}>
             <br/><br/>
             <label>Email Address:</label>
@@ -76,26 +60,8 @@ class SignUp extends React.Component {
               onChange={this.handleChange}
               className="input-field"
             />
-            {/* <label>first:</label>
-              <input
-              type="text"
-              name="first_name"
-              value={this.state.first_name}
-              placeholder="Enter Email Address"
-              onChange={this.handleChange}
-              className="input-field"
-              />
-              <label>last:</label>
-              <input
-              type="text"
-              name="last_name"
-              value={this.state.last_name}
-              placeholder="Enter Password"
-              onChange={this.handleChange}
-              className="input-field"
-            /> */}
             <br/><br/>
-            <input className="login-button"
+            <input className="form-button"
               type="submit"
               placeholder="Submit"
             />
@@ -122,4 +88,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-// export default connect(null, mapDispatchToProps)(SignUp);

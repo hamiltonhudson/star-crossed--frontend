@@ -1,16 +1,13 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
-import '../styling/Login.css'
+import '../styling/Form.css'
 import ProfileContainer from './ProfileContainer'
 import { setUsers, getUser, findMatches } from '../actions'
 
-//HIT MY REDUCER TO UPDATE THE STORE, WHEN I SUBMIT IT SHOULD
-// ALSO FETCH TO USERS & GRAB USER DATA TO UPDATE STATE AND MAKE IT AVAILABLE
-
 const usersAPI = 'http://localhost:3000/api/v1/users/'
-const retrieveMatches = 'users/:id/user_matches'
+// const retrieveMatches = 'users/:id/user_matches'
 
 class SignIn extends React.Component {
   state = {
@@ -22,29 +19,24 @@ class SignIn extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value,
     })
-    console.log(this.state)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event, this.state)
-      fetch('http://localhost:3000/api/v1/users')
+      fetch(usersAPI)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
         this.props.setUsers(data)
-        const currentUser = this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase())
-        this.props.getUser(currentUser)
-        const matchedUsers = this.props.currentUser.matched_users
-        this.props.findMatches(matchedUsers)
+        const userDetails = this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+        this.props.getUser(userDetails)
+        // const matchedUsers = this.props.currentUser.matched_users
+        // this.props.findMatches(matchedUsers)
         this.setState({
           loggedIn: true
       })
-      console.log(this.props.matches)
     })
 //     fetch(`users/${this.props.currentUser.id}/user_matches/`)
 //     .then(r => r.json())
@@ -58,10 +50,10 @@ class SignIn extends React.Component {
     // return(
     const signInForm =
     <div>
-      <div className="login-container">
-        <h1 className="signupHeader">Sign In</h1>
+      <div className="form-container">
+        <h1 className="signupHeader">sign in</h1>
         <br/><br/>
-        <div className="login-form">
+        <div className="form">
           <form onSubmit={this.handleSubmit}>
             <br/><br/>
             {/* <label className="loginLabel">Email:</label>
@@ -105,9 +97,7 @@ class SignIn extends React.Component {
           </form>
           <br/><br/>
         </div>
-        {/* <ProfileContainer /> */}
       </div>
-      {/* <Link to='/profile'>View Profile</Link> */}
     </div>
     // )
     return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
@@ -117,7 +107,7 @@ class SignIn extends React.Component {
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,
-    currentUser: state.currentUser.currentUser,
+    currentUser: state.userDetails.userDetails,
     matches: state.matches.matches,
   }
 }
@@ -125,7 +115,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUsers: (users) => dispatch(setUsers(users)),
-    getUser: (currentUser) => dispatch(getUser(currentUser)),
+    getUser: (userDetails) => dispatch(getUser(userDetails)),
     findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers)),
   }
 }

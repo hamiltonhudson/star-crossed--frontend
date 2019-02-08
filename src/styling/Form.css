@@ -2,7 +2,7 @@ body {
   background-color: black;
 }
 
-.login-container {
+.form-container {
   border-color: #36e3ee;
   border-style: double;
   background-color: #000208;
@@ -10,14 +10,14 @@ body {
   color: white;
 }
 
-.login-header {
+.form-header {
   font-family: 'Times New Roman';
   font-size: 50px;
   color: #65297a;
   background-color: #000208;
 }
 
-.login-form {
+.form {
   border-color: #7e33a6;
   border-style: ridge;
   background-color: #000208;

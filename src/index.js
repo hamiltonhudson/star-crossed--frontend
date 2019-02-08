@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import './styling/index.css'
+// import Particles from 'react-particles-js'
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 // import thunk from 'redux-thunk';

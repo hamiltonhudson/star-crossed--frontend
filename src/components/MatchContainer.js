@@ -11,10 +11,10 @@ class MatchContainer extends React.Component {
     return (
       <div className="prof-container"> Match Detail: Bio
         <span className="prof-user-detail"> Match Detail: Bio>
-        {/* <span>
-          <MatchDetail />
-        </span> */}
-      </span>
+          {/* <span>
+            <MatchDetail />
+          </span> */}
+        </span>
       </div>
     )
   }
@@ -40,8 +40,8 @@ class MatchContainer extends React.Component {
     console.log(this.props)
     return (
       <div>
-        <Link to='/profile'>Back</Link>
         <div className="prof-container">
+          <Link to='/profile'>Back</Link>
           <div className="prof-card">
             <h1 className="card-title">Match Profile</h1>
             <p className="prof-name" data-name="name" onClick={this.handleDetailClick}> {this.props.match.first_name} </p>

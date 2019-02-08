@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
-import { redirect } from 'react-router-dom'
-import SignIn from './SignIn'
+import { Link } from 'react-router-dom'
+// import SignIn from './SignIn'
+import EditUser from './EditUser'
 import ProfileDetail from './ProfileDetail'
-import { viewMatch, accetMatch, declineMatch } from '../actions'
+import { setCurrentUser, viewMatch, acceptMatch, declineMatch } from '../actions'
 import '../styling/Profile.css'
 import Matches from './Matches'
 // import Tooltip from '@material-ui/core/Tooltip';
@@ -11,6 +12,7 @@ import Matches from './Matches'
 class ProfileContainer extends React.Component {
 
   // renderProfileDetails = () => this.props.map((detail, id) => <ProfileDetail key={id} text={detail} />)
+  // const currentUser = this.props.currentUser
 
   handleDetailClick = (event) => {
     event.preventDefault()
@@ -32,6 +34,7 @@ class ProfileContainer extends React.Component {
   }
 
   render () {
+    this.props.setCurrentUser(this.props.userDetails)
     console.log("state in profilecontainer is", this.state)
     console.log("props in profilecontainer is", this.props.users)
     console.log(this.props.currentUser)
@@ -45,6 +48,7 @@ class ProfileContainer extends React.Component {
 
     return (
       <div className="prof-container">
+        <Link to='/edit'>Edit</Link>
         <div className="prof-card">
           <h1 className="card-title">Profile</h1>
           <p className="prof-name" data-name="name" onClick={this.handleDetailClick}> {this.props.currentUser.first_name} </p>
@@ -66,25 +70,21 @@ class ProfileContainer extends React.Component {
     )
   }
 }
-// const mapStateToProps = state => {
-//   return {
-//     // newUser: state.newUser
-//       first_name: this.state.first_name,
-//       last_name: this.state.last_name,
-//       birth_year: this.state.birth_year,
-//       birth_month: this.state.birth_month,
-//       birth_day: this.state.birth_day,
-//     }
-//   }
-//
-  const mapStateToProps = (state) => {
+
+const mapStateToProps = (state) => {
+  return {
+    // users: this.state.users,
+    // suns: this.state.suns
+    currentUser: state.userDetails.userDetails,
+    users: state.users.users,
+    matches: state.matches.matches
+  }
+}
+
+  const mapDispatchToProps = (dispatch) => {
     return {
-      // users: this.state.users,
-      // suns: this.state.suns
-      currentUser: state.currentUser.currentUser,
-      users: state.users.users,
-      matches: state.matches.matches
+      setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser))
     }
   }
 
-export default connect(mapStateToProps)(ProfileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
