@@ -12,28 +12,12 @@ import EditUser from './components/EditUser';
 // import ProfileDetail from './components/ProfileDetail';
 import MatchContainer from './components/MatchContainer'
 // import { setSuns } from './actions';
-// import Particles from 'react-particles-js';
 
 class App extends Component {
   state = {
     search: ''
   }
-  // componentDidMount() {
-  //   fetch('http://localhost:3000/api/v1/suns')
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     this.props.setSuns(data)
-  //   })
-    // .then(
-    //   fetch('http://localhost:3000/api/v1/users')
-    //   .then(r => r.json())
-    //   .then(data => {
-    //     this.props.setUsers(data)
-    //     // const currentUser = this.props.getUser.find(data => data.id === 1)
-    //     this.props.getUser(data)
-    //   })
-    // )
-  // }
+
   render() {
     return (
       <Router>

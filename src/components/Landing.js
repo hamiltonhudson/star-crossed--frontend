@@ -14,7 +14,7 @@ class Landing extends React.Component {
     return (
       <div className="landing">
         <header className="App-header">
-          <h1 className="App-title">Star-Crossed</h1>
+          <h1 id="App-title" className="glow">Star-Crossed</h1>
           <br/><br/>
           <Link to='/signin' className="App-link">Sign In</Link>
           <span> ------ </span>

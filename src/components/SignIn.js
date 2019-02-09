@@ -44,7 +44,8 @@ class SignIn extends React.Component {
     // console.log(this.props)
     const signInForm =
     <div>
-      <Link to='/'>Back</Link>
+      {/* <Link to='/'> Back </Link> */}
+      <Link to='/' className="form-link"> ◁ Back </Link>
       <div className="form-container">
         <h1 className="signupHeader">sign in</h1>
         <br/><br/>
@@ -57,7 +58,7 @@ class SignIn extends React.Component {
               name="email"
               value={this.state.email}
               placeholder="Enter Email Address"
-              className="input-field"
+              className="input"
               />
               <label className="loginLabel">Password:</label>
               <input
@@ -65,11 +66,11 @@ class SignIn extends React.Component {
               name="password"
               value={this.state.password}
               placeholder="Enter Password"
-              className="input-field"
+              className="input"
             /> */}
             <label className="loginLabel">First:</label>
             <input
-              className="input-field"
+              className="input"
               type="text"
               placeholder="Enter first name"
               name="first_name"
@@ -78,7 +79,7 @@ class SignIn extends React.Component {
             />
             <label className="loginLabel">Last:</label>
             <input
-              className="input-field"
+              className="input"
               type="text"
               placeholder="Enter last name"
               name="last_name"
@@ -88,7 +89,9 @@ class SignIn extends React.Component {
             <br/><br/>
             <input
               type="submit"
-              className="signupButton"
+              className="submit-button"
+              // placeholder="Submit"
+                // className="signupButton"
             />
             <br/><br/>
           </form>

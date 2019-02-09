@@ -78,7 +78,9 @@ class NewUser extends React.Component {
       // const newUserForm =
       <div className="form-container">
         <h1 className="signupHeader">Create New Account</h1>
-        <div className="signupform">
+        {/* <h1 className="form-header">Create New Account</h1> */}
+        {/* <div className="signupform"> */}
+        <div className="form">
           <div>
             <form onSubmit={event => this.handleSubmit(event)}>
               <label>First Name</label>
@@ -87,7 +89,7 @@ class NewUser extends React.Component {
                 name='first_name'
                 value={this.state.first_name}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Last Name</label>
               <input
@@ -95,7 +97,7 @@ class NewUser extends React.Component {
                 name='last_name'
                 value={this.state.last_name}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Year</label>
               <input
@@ -103,7 +105,7 @@ class NewUser extends React.Component {
                 name='birth_year'
                 value={this.state.birth_year}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Month</label>
               <input
@@ -111,7 +113,7 @@ class NewUser extends React.Component {
                 name='birth_month'
                 value={this.state.birth_month}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Day</label>
               <input
@@ -119,7 +121,7 @@ class NewUser extends React.Component {
                 name='birth_day'
                 value={this.state.birth_day}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <input className="submit-button"
                 type="submit"

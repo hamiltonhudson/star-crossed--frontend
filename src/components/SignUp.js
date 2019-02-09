@@ -37,7 +37,7 @@ class SignUp extends React.Component {
     const signUpForm =
     // return (
     <div>
-      <Link to='/'>Back</Link>
+      <Link to='/' className="form-link"> ◁ Back  </Link>
       <div className="form-container">
         <h1 className="signupHeader">sign up</h1>
         <br/><br/>
@@ -46,24 +46,25 @@ class SignUp extends React.Component {
             <br/><br/>
             <label>Email Address:</label>
             <input
-              className="input-field"
               type="email"
               placeholder="Enter Email Address"
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
+              className="input"
             />
             <label>Password:</label>
             <input
-              className="input-field"
               type="password"
               placeholder="Enter Password"
               name="password"
               value={this.state.password}
               onChange={this.handleChange}
+              className="input"
             />
             <br/><br/>
-            <input className="form-button"
+            <input className="submit-button"
+              // className="form-button"
               type="submit"
               placeholder="Submit"
             />

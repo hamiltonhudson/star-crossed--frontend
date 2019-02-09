@@ -39,7 +39,7 @@ class ProfileContainer extends React.Component {
     return (
       <div>
         <div className="prof-container">
-          <Link to='/edit'>Edit</Link>
+          <Link to='/edit' className="prof-Link"> ◁ Edit</Link>
           <div className="prof-card">
             <h1 className="card-title">Profile</h1>
             <p className="prof-name" data-name="name" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.first_name} </p>

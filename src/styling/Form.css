@@ -1,45 +1,73 @@
-body {
-  background-color: black;
+body, html {
+  background-color: #EAEBF9;
+}
+
+.form-link {
+  font-family: "Avenir Next Condensed";
+  color: #27116B;
+  margin-left: 10px;
+  /* position:absolute;
+  top:-20;
+  left:-20; */
+}
+
+.form-link:hover {
+  color: #0599E2;
 }
 
 .form-container {
-  border-color: #36e3ee;
-  border-style: double;
-  background-color: #000208;
+  border-color: invisible;
+  /* border-style: double; */
+  background-color: ##EAEBF9;
+  font-family: "Avenir Next" !important;
+  font-size: 22px;
   padding: 80px;
-  color: white;
+  color: #27116B;
 }
 
 .form-header {
   font-family: 'Times New Roman';
   font-size: 50px;
-  color: #65297a;
-  background-color: #000208;
+  color: #27116B;
+  background-color: #EAEBF9;
 }
 
 .form {
-  border-color: #7e33a6;
-  border-style: ridge;
-  background-color: #000208;
+  /* border-color: #27116B; */
+  /* border-style: ridge; */
+  background-color: #EAEBF9;
   display: flex;
-  color: white;
-  /* flex-direction: column; */
-  /* align-items: center;
-  justify-content: center; */
-  /* font-size: calc(10px + 2vmin); */
+  color: #27116B;
+
+
 }
-.input-field {
-  background-color: #000208;
+.form .input {
+  background-color: white !important;
   border-style: solid;
-  /* border-color: #7e33a6;
-  text-align: center; */
-  color: white;
+  border-color: #27116B;
+  /* text-align: center; */
+  color: #27116B;
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box
   /* border-width: 5px; */
   /* margins: 10px; */
 }
 
+.input-field {
+
+}
+
 .submit-button {
-  background-color: #000208;
-  font-size: 12px;
-  /* color: white; */
+  background-color: #E0E0E0;
+  border-radius: 25px;
+  font-family: 'EuphemiaUCAS', sans-serfif !important;
+  font-size: 20px;
+  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
+  color: #EAEBF9;
+  margin-top: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
