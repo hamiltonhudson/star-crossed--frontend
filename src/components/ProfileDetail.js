@@ -10,7 +10,13 @@ class ProfileDetail extends React.Component {
     if (this.props.clicked === "sun") {
       return (
         <div className="prof-sun-detail">
-          Sign Details! | {this.props.user.sun.sign}
+          <h5>{this.props.user.sun.sign}</h5>
+          <span> ------ </span>
+          <p>Vibe  |  {this.props.user.sun.vibe}</p>
+          <p>Symbol  |  {this.props.user.sun.symbol}</p>
+          <p>Element  |  {this.props.user.sun.element}</p>
+          <br/>
+          <p>Qualities  |  {this.props.user.sun.keywords}</p>
         </div>
     )} else if (this.props.clicked === "name") {
     // )} else if (event.target.dataset.name === "name" || event.target.dataset.name === "photo") {

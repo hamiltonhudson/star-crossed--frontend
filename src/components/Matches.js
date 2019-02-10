@@ -12,9 +12,7 @@ class Matches extends React.Component {
   }
 
   handleViewMatch = (matchId) => {
-    console.log(matchId)
     const clickedMatch = this.props.matches.find(match => match.id === matchId)
-    console.log(clickedMatch)
     this.props.viewMatch(clickedMatch)
     this.setState({
       clicked: true
@@ -29,33 +27,42 @@ class Matches extends React.Component {
     // this.props.addrecipe(match)
   }
 
-  declineMatch = (matchedDisplay) => {
+  declineMatch = (matchDisplayId) => {
     // event.preventDefault()
     console.log("clicked decline")
-    console.log("matchId", matchedDisplay)
-    // const match = this.props.matches.find(match => match.id === matchId)
+    // console.log("matchDisplay", matchDisplayId)
+    const match = this.props.matchObjs.find(match => match.user_id === matchDisplayId || match.matched_user_id === matchDisplayId)
     // this.props.declineMatch(match)
-  }
-
-  // const generateMatches = () => {
-  //   return this.props.currentUser.matched_users.map((matched_user) => {
-  //     console.log(matched_user)
-  //     return <Matches key={matched_user.id} matchedUser={matched_user} />
-  //   })
-  // }
+    const userId = this.props.currentUser.id
+    console.log("match", match, "userId", userId, "matchDisplayId", matchDisplayId)
+    // console.log(this.props)
+    const declineConfig = {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          match: {
+            user_id: userId,
+            declined_user_id: matchDisplayId,
+            status: "declined"
+          }
+        })
+      }
+      fetch(`http://localhost:3000/api/v1/matches/${match.id}/declined`, declineConfig)
+      .then(r => r.json())
+      .then(result => {
+        console.log(result)
+      })
+    }
 
   render() {
-    // console.log("PROPS IN MATCHES",this.props)
-    // console.log("this.props.matchedDisplay IN MATCHES", this.props.matchedDisplay)
-    // console.log("STATE IN MATCHES", this.state)
-    // console.log("this.props.matches IN MATCHES",this.props.matches)
-    // console.log("this.props.match IN MATCHES", this.props.match)
     const matchCard =
     // return (
-      <div className="Card">
         <div id="matched-users">
           <div onClick={() => this.handleViewMatch(this.props.matchedDisplay.id)}>
-            <p>{this.props.matchedDisplay.first_name} >> {this.props.matchedDisplay.sun.sign}</p>
+            <p>{this.props.matchedDisplay.first_name}  ☾  {this.props.matchedDisplay.sun.sign}</p>
             <img src="" alt="MatchPhoto" /><br/>
           </div>
           {/* <span className="accept"></span>
@@ -65,10 +72,9 @@ class Matches extends React.Component {
           <button><img src='../images/check_mark_1.png' alt="accept"
             onClick={() => this.acceptMatch(this.props.matchedDisplay.id)} />Accept</button>
           <button><img src='../images/x_mark_1.png' alt="decline"
-            onClick={() => this.declineMatch(this.props.matchedDisplay)} />Decline</button>
+            onClick={() => this.declineMatch(this.props.matchedDisplay.id)} />Decline</button>
           <br/><br/>
         </div>
-      </div>
     // )
     return this.state.clicked === true ? <Redirect to='/matchprofile' /> : matchCard
 
@@ -77,9 +83,10 @@ class Matches extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // currentUser: state.users.currentUser,
+    currentUser: state.users.currentUser,
     matches: state.matches.matches,
     match: state.matches.match,
+    matchObjs: state.users.currentUser.matches
     // users: state.users.users,
   }
 }

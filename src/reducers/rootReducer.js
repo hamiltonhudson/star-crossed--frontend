@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import suns from './sunReducer';
 import users from './userReducer';
-// import currentUser from './userReducer';
 import matches from './matchReducer';
 import email from './userReducer';
 import password from './userReducer';

@@ -4,9 +4,7 @@ const initialState = {
   users: [],
   email: '',
   password: '',
-  userDetails: {},
   currentUser: {},
-  // updatedMatches: [],
 }
 
 export default (state = initialState, action) => {
@@ -21,11 +19,6 @@ export default (state = initialState, action) => {
         email: action.payload.email,
         password: action.payload.password
       }
-    // case types.SET_USER_ID:
-    //   return {
-    //     ...state,
-    //     userId: action.payload
-    //   }
     case types.SET_CURRENT_USER:
       return {
         ...state,
@@ -50,10 +43,3 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-
-// case types.GET_USER_DETAILS:
-//   // console.log(action.payload)
-//   return {
-//     ...state
-//     userDetails: action.payload
-//   }

@@ -37,8 +37,8 @@ class ProfileContainer extends React.Component {
     }
 
     return (
-      <div>
-        <div className="prof-container">
+      <div className="prof-container">
+        <div>
           <Link to='/edit' className="prof-link"> ◁ Edit</Link>
           <div className="prof-card">
             <h3 className="card-title" id="prof-name" data-name="name"

@@ -2,18 +2,18 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../styling/Form.css'
-import { editUserDetails, setUsers, setUserId, findMatches } from '../actions'
-// import ProfileContainer from './ProfileContainer'
+import { setUsers, setCurrentUser, findMatches } from '../actions'
+import ProfileContainer from './ProfileContainer'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
 class EditUser extends React.Component {
   state = {
-    first_name: this.props.userDetails.first_name,
-    last_name: this.props.userDetails.last_name,
-    birth_year: this.props.userDetails.birth_year,
-    birth_month: this.props.userDetails.birth_month,
-    birth_day: this.props.userDetails.birth_day,
+    first_name: this.props.currentUser.first_name,
+    last_name: this.props.currentUser.last_name,
+    birth_year: this.props.currentUser.birth_year,
+    birth_month: this.props.currentUser.birth_month,
+    birth_day: this.props.currentUser.birth_day,
     // first_name: '',
     // last_name: '',
     // birth_year: '',
@@ -34,8 +34,8 @@ class EditUser extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    const userId = this.props.userDetails.id
-    console.log(userId)
+    // const userId = this.props.userDetails.id
+    // console.log(userId)
     const userConfig = {
       method: "PATCH",
       headers: {
@@ -52,30 +52,32 @@ class EditUser extends React.Component {
         }
       })
     }
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, userConfig)
+    fetch(`http://localhost:3000/api/v1/users/${this.props.currentUser.id}`)
     .then(r => r.json())
     .then(result => {
       console.log("result", result)
-      this.props.editUserDetails(result)
-      if (result.errors){
-        alert('Please enter details correctly')
-        return <Redirect to="/edit" />
-      } else {
-        // this.props.editUserDetails(updatedUser)
-      fetch(`http://localhost:3000/api/v1/users/${result.id}/update_matches`)
-      .then(r => r.json())
-      .then(results => {
-        (console.log(results))
-        this.props.findMatches(results)
+      this.props.setCurrentUser(result)
+      this.props.findMatches(result.matched_users)
+      this.setState({
+        updated: true
       })
-        this.setState({
-          updated: true
-        })
-      }
+      // if (result.errors){
+      //   alert('Please enter details correctly')
+      //   return <Redirect to="/edit" />
+      // } else {
+        // this.props.editUserDetails(updatedUser)
+      // fetch(`http://localhost:3000/api/v1/users/${result.id}/update_matches`)
+      // .then(r => r.json())
+      // .then(results => {
+      //   (console.log(results))
+      //   this.props.findMatches(results)
+      // })
+        // this.setState({
+        //   updated: true
+        // })
+      // }
     })
     console.log(this.state.updated)
-    // console.log("state", this.state.updatedUser, this.state.updatedUser.matchedUsers)
-    // console.log("props", this.props)
   }
 
   profileRedirect = () => {
@@ -87,20 +89,23 @@ class EditUser extends React.Component {
 
   render() {
     console.log(this.props.currentUser)
+    console.log(this.state)
     return (
-      <div className="form-container">
-        <Link to='/profile'>Back</Link>
-        <h1 className="signupHeader">Edit Profile</h1>
-        <div className="signupform">
-          <div>
+      <div>
+        <Link to='/profile' className="form-link"> ◁ Back</Link>
+        <div className="form-container">
+          <h1 className="signupHeader">edit profile</h1>
+          <br/><br/>
+          <div className="form">
             <form onSubmit={event => this.handleSubmit(event)}>
+              <br/>
               <label>First Name</label>
               <input
                 type='text'
                 name='first_name'
                 value={this.state.first_name}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Last Name</label>
               <input
@@ -108,7 +113,7 @@ class EditUser extends React.Component {
                 name='last_name'
                 value={this.state.last_name}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Year</label>
               <input
@@ -116,7 +121,7 @@ class EditUser extends React.Component {
                 name='birth_year'
                 value={this.state.birth_year}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Month</label>
               <input
@@ -124,7 +129,7 @@ class EditUser extends React.Component {
                 name='birth_month'
                 value={this.state.birth_month}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <label>Birth Day</label>
               <input
@@ -132,17 +137,17 @@ class EditUser extends React.Component {
                 name='birth_day'
                 value={this.state.birth_day}
                 onChange={event => this.handleChange(event)}
-                className="input-field"
+                className="input"
               />
               <input className="submit-button"
                 type="submit"
                 placeholder="Submit"
               />
+              <button className="delete-button">Delete</button>
             </form>
             <br/><br/>
           </div>
           {this.profileRedirect()}
-          <Link to='/profile'>Delete</Link>
         </div>
       </div>
     )
@@ -150,17 +155,20 @@ class EditUser extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  debugger
   return {
-    currentUser: state.currentUser.currentUser,
+    currentUser: state.users.currentUser,
     matches: state.matches.matches
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
+  debugger
   return {
-    editUserDetails: (currentUser) => dispatch(editUserDetails(currentUser)),
+    setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
     findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers))
   }
 }
 
+// export default EditUser;
 export default connect(mapStateToProps, mapDispatchToProps)(EditUser);

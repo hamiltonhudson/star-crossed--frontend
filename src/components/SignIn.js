@@ -51,7 +51,7 @@ class SignIn extends React.Component {
         <br/><br/>
         <div className="form">
           <form onSubmit={this.handleSubmit}>
-            <br/><br/>
+            <br/>
             {/* <label className="loginLabel">Email:</label>
               <input
               onChange={this.handleChange}

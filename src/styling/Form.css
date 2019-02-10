@@ -41,6 +41,11 @@ body, html {
 
 
 }
+
+.form-label {
+
+}
+
 .form .input {
   background-color: white !important;
   border-style: solid;
@@ -50,9 +55,13 @@ body, html {
   width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing: border-box
+  box-sizing: border-box;
   /* border-width: 5px; */
   /* margins: 10px; */
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* margin-left: 5em; */
 }
 
 .input-field {
@@ -70,4 +79,18 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.delete-button {
+  background-color: #E0E0E0;
+  border-radius: 25px;
+  font-family: 'EuphemiaUCAS', sans-serfif !important;
+  font-size: 20px;
+  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
+  color: #EAEBF9;
+  margin-top: -28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30em;
 }

@@ -3,7 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   match: {},
   matches: [],
-  // matchedUsers: [],
+  inverseMatches: [],
   // currentUser: [],
   pending: [],
   awaiting: [],
