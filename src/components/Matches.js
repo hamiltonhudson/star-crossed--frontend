@@ -20,6 +20,23 @@ class Matches extends React.Component {
       clicked: true
     })
   }
+
+  acceptMatch = (matchId) => {
+    // event.preventDefault()
+    console.log("clicked accept")
+    console.log("matchId", matchId)
+    // const match = this.props.matches.find(match => match.id === matchId)
+    // this.props.addrecipe(match)
+  }
+
+  declineMatch = (matchedDisplay) => {
+    // event.preventDefault()
+    console.log("clicked decline")
+    console.log("matchId", matchedDisplay)
+    // const match = this.props.matches.find(match => match.id === matchId)
+    // this.props.declineMatch(match)
+  }
+
   // const generateMatches = () => {
   //   return this.props.currentUser.matched_users.map((matched_user) => {
   //     console.log(matched_user)
@@ -36,12 +53,20 @@ class Matches extends React.Component {
     const matchCard =
     // return (
       <div className="Card">
-        <div className="matched-users">
+        <div id="matched-users">
           <div onClick={() => this.handleViewMatch(this.props.matchedDisplay.id)}>
             <p>{this.props.matchedDisplay.first_name} >> {this.props.matchedDisplay.sun.sign}</p>
-            <img src="" alt="MatchPhoto" /><br/><br/>
+            <img src="" alt="MatchPhoto" /><br/>
           </div>
-          hi from matches component
+          {/* <span className="accept"></span>
+          <span className="decline"></span> */}
+          {/* <button className="accept"><img src="../images/check_mark_1.png" alt="accept" /></button> */}
+          {/* <button className="decline"><img src="../images/x_mark_1.png" alt="decline" /></button> */}
+          <button><img src='../images/check_mark_1.png' alt="accept"
+            onClick={() => this.acceptMatch(this.props.matchedDisplay.id)} />Accept</button>
+          <button><img src='../images/x_mark_1.png' alt="decline"
+            onClick={() => this.declineMatch(this.props.matchedDisplay)} />Decline</button>
+          <br/><br/>
         </div>
       </div>
     // )
@@ -68,4 +93,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+// export default Matches
 export default connect(mapStateToProps, mapDispatchToProps)(Matches);

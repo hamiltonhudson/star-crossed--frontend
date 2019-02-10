@@ -28,24 +28,46 @@ class MatchContainer extends React.Component {
     })
   }
 
+  acceptMatch = (event) => {
+    event.preventDefault()
+    console.log("clicked accept")
+    // console.log("matchId", matchId)
+    // const match = this.props.matches.find(match => match.id === matchId)
+    // this.props.addrecipe(match)
+  }
+
+  declineMatch = (event) => {
+    event.preventDefault()
+    console.log("clicked decline")
+    // console.log("matchId", matchId)
+    // const match = this.props.matches.find(match => match.id === matchId)
+    // this.props.declineMatch(match)
+  }
+
   render() {
     console.log(this.props.clicked)
     console.log(this.props)
     return (
       <div>
-        hi from match container
         <div className="prof-container">
-          <Link to='/profile'>Back</Link>
+          <Link to='/profile' className="prof-link"> ◁ Back</Link>
           <div className="prof-card">
-            <h1 className="card-title">Match Profile</h1>
-            <span data-name="name" onClick={(event) => this.handleDetailClick(event)}> {this.props.match.first_name} </span>
+            <h2 className="card-title" id="prof-name" data-name="name"
+              onClick={(event) => this.handleDetailClick(event)}
+            > {this.props.match.first_name} </h2>
+            <MatchDetail clicked={this.state.clicked} clickedMatch={this.props.match}/>
             <br/><br/>
             <img src="" alt="ProfilePhoto" className="prof-photo"/>
             <br/><br/>
-            <span data-name="sun" onClick={(event) => this.handleSignClick(event)}> {this.props.match.sun.sign} </span>
-            <br/><br/><br/>
+            <span className="prof-sun" data-name="sun"
+              onClick={(event) => this.handleSignClick(event)}
+            > {this.props.match.sun.sign} </span>
+            <br/><br/>
+            <div className="accept" onClick={this.acceptMatch}>A</div>
+            <div className="decline" onClick={this.declineMatch}>D</div>
+            <br/><br/>
+            <span>Details About The Match</span>
           </div>
-          <MatchDetail clicked={this.state.clicked} clickedMatch={this.props.match}/>
         </div>
       </div>
     )
@@ -59,6 +81,14 @@ const mapStateToProps = (state) => {
 }
 
 
+// acceptMatch = (matchId) => {
+//   const match = this.props.matches.find(match => match.id === matchId)
+//   this.props.addrecipe(match)
+// }
 //
+// declineMatch = (matchId) => {
+//   const match = this.props.matches.find(match => match.id === matchId)
+//   this.props.declineMatch(match)
+// }
 
 export default connect(mapStateToProps)(MatchContainer);

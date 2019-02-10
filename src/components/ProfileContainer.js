@@ -39,16 +39,18 @@ class ProfileContainer extends React.Component {
     return (
       <div>
         <div className="prof-container">
-          <Link to='/edit' className="prof-Link"> ◁ Edit</Link>
+          <Link to='/edit' className="prof-link"> ◁ Edit</Link>
           <div className="prof-card">
-            <h1 className="card-title">Profile</h1>
-            <p className="prof-name" data-name="name" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.first_name} </p>
+            <h3 className="card-title" id="prof-name" data-name="name"
+              onClick={(event) => this.handleClick(event)}
+            > {this.props.currentUser.first_name} </h3>
+            <ProfileDetail clicked={this.state.clicked} user={this.props.currentUser}/>
             <br/><br/>
             <img src="" alt="ProfilePhoto" className="prof-photo"/>
             <br/><br/>
             <span className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </span>
             <br/><br/><br/>
-            <ProfileDetail clicked={this.state.clicked} user={this.props.currentUser}/>
+            <h2 className="matches-header"> Matches </h2>
             {generateMatches()}
           </div>
         </div>
