@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import '../styling/Profile.css'
 import EditUser from './EditUser'
 import ProfileDetail from './ProfileDetail'
-import Matches from './Matches'
+import Matches from './Matches';
+import ViewMatch from '../actions';
+import { findMatchedUsers } from '../actions';
 // import Tooltip from '@material-ui/core/Tooltip';
 
 class ProfileContainer extends React.Component {
@@ -18,40 +20,32 @@ class ProfileContainer extends React.Component {
       clicked: event.target.dataset.name
     })
   }
-  // correctUserDetails = () => {
-  //   const userId = this.props.userId
-  //   fetch(`http://localhost:3000/api/v1/${userId}`)
-  //   .then(r => r.json())
-  //   .then(result => {
-  //     const currentUser = this.props.setCurrentUser(result)
-  //   })
-  // }
+
   render () {
-    console.log("PROFILECONTAINER PROPS", this.props)
-    console.log("PROFILECONTAINER STATE", this.state)
+    console.log("THIS.PROPS PROFILE CONTAINER", this.props)
+    console.log("THIS.STATE PROFILE CONTAINER", this.state)
+    console.log("profileContainer this.props.matches", this.props.matches)
 
-    const generateMatches = () => {
-      return this.props.matches.map((match) => {
-        return <Matches key={match.id} matchedDisplay={match} allMatches={this.props.matches}/>
-      })
-    }
-
+    const profilePhoto = this.props.currentUser.photo
     return (
       <div className="prof-container">
         <div>
-          <Link to='/edit' className="prof-link"> ◁ Edit</Link>
+          <Link to='/' className="prof-link"> ◁ Log Out</Link>
+          <Link to='/edit' className="edit-link"> Edit ▷ </Link>
           <div className="prof-card">
             <h3 className="card-title" id="prof-name" data-name="name"
               onClick={(event) => this.handleClick(event)}
             > {this.props.currentUser.first_name} </h3>
-            <ProfileDetail clicked={this.state.clicked} user={this.props.currentUser}/>
-            <br/><br/>
-            <img src="" alt="ProfilePhoto" className="prof-photo"/>
+            <ProfileDetail clicked={this.state.clicked}/>
+            <span onClick={(event) => this.handleClick(event)}>
+              {profilePhoto ? <img src={profilePhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
+            </span>
             <br/><br/>
             <span className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </span>
             <br/><br/><br/>
             <h2 className="matches-header"> Matches </h2>
-            {generateMatches()}
+            {/* {generateMatches()} */}
+            <Matches />
           </div>
         </div>
       </div>
@@ -61,18 +55,17 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // userDetails: state.users.userDetails,
     currentUser: state.users.currentUser,
-    matches: state.matches.matches
-    // users: state.users.users,
-    // userId: state.userId.userId,
-    // matches: state.matches.matches
+    matchObjs: state.matches.matches,
+    // matchObjs: state.users.currentUser.matches,
+    // matchedUsers: state.matchedUsers.matchedUsers,
   }
 }
-  // const mapDispatchToProps = (dispatch) => {
-  //   return {
-  //     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser))
-  //   }
-  // }
 
-export default connect(mapStateToProps)(ProfileContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

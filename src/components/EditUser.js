@@ -14,11 +14,11 @@ class EditUser extends React.Component {
     birth_year: this.props.currentUser.birth_year,
     birth_month: this.props.currentUser.birth_month,
     birth_day: this.props.currentUser.birth_day,
-    // first_name: '',
-    // last_name: '',
-    // birth_year: '',
-    // birth_month: '',
-    // birth_day: '',
+    gender: this.props.currentUser.gender,
+    gender_pref: this.props.currentUser.gender_pref,
+    location: this.props.currentUser.location,
+    bio: this.props.currentUser.bio,
+    // uploadedFileCloudinaryUrl: this.props.currentUser.photo,
     updated: false
   }
 
@@ -48,7 +48,11 @@ class EditUser extends React.Component {
           last_name: this.state.last_name,
           birth_year: this.state.birth_year,
           birth_month: this.state.birth_month,
-          birth_day: this.state.birth_day
+          birth_day: this.state.birth_day,
+          gender: this.state.gender,
+          gender_pref: this.state.gender_pref,
+          location: this.state.location,
+          bio: this.state.bio,
         }
       })
     }
@@ -57,7 +61,8 @@ class EditUser extends React.Component {
     .then(result => {
       console.log("result", result)
       this.props.setCurrentUser(result)
-      this.props.findMatches(result.matched_users)
+      // this.props.setCurrentUser(this.state)
+      // this.props.findMatches(result.matched_users)
       this.setState({
         updated: true
       })
@@ -88,8 +93,8 @@ class EditUser extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentUser)
-    console.log(this.state)
+    // console.log(this.props.currentUser)
+    // console.log(this.state)
     return (
       <div>
         <Link to='/profile' className="form-link"> ◁ Back</Link>
@@ -139,6 +144,38 @@ class EditUser extends React.Component {
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
+              <label>Gender</label>
+              <input
+                type='text'
+                name='gender'
+                value={this.state.gender}
+                onChange={event => this.handleChange(event)}
+                className="input"
+              />
+              <label>Gender Preference</label>
+              <input
+                type='text'
+                name='gender_pref'
+                value={this.state.gender_pref}
+                onChange={event => this.handleChange(event)}
+                className="input"
+              />
+              <label>Location</label>
+              <input
+                type='text'
+                name='location'
+                value={this.state.location}
+                onChange={event => this.handleChange(event)}
+                className="input"
+              />
+              <label>Bio</label>
+              <input
+                type='text'
+                name='bio'
+                value={this.state.bio}
+                onChange={event => this.handleChange(event)}
+                className="input"
+              />
               <input className="submit-button"
                 type="submit"
                 placeholder="Submit"
@@ -155,18 +192,18 @@ class EditUser extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  debugger
+  // debugger
   return {
     currentUser: state.users.currentUser,
-    matches: state.matches.matches
+    // matches: state.matches.matches
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  debugger
+  // debugger
   return {
     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
-    findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers))
+    // findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers))
   }
 }
 

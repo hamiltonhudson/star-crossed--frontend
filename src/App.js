@@ -18,6 +18,23 @@ class App extends Component {
     search: ''
   }
 
+// ---------------------
+//   componentDidMount = () => {
+//     fetch(`http://localhost:3000/api/v1/users/${this.props.user.id}/budless`)
+//       .then(r => r.json())
+//       .then(budlessUsers => {
+//         this.props.setCurrentListofBudlessUsers(budlessUsers)
+//       })
+//
+//       fetch (`http://localhost:3000/api/v1/users/${this.props.user.id}/friends`)
+//       .then (r => r.json())
+//       .then(friends => {
+//         this.props.setFriends(friends)
+//       })
+//     }
+// -----------------------
+
+
   render() {
     return (
       <Router>

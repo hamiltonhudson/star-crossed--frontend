@@ -3,50 +3,44 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styling/Profile.css'
 import MatchDetail from './MatchDetail'
+// import { acceptMatch, declineMatch } from '../actions';
 
 class MatchContainer extends React.Component {
   state = {
     clicked: '',
-    clickedMatch: ''
   }
 
   handleDetailClick = (event) => {
     event.preventDefault()
-    console.log("event.target.datset = sign", event.target.dataset.name)
+    // console.log("event.target.datset", event.target.dataset.name)
     this.setState({
       clicked: event.target.dataset.name,
-      clickedMatch: this.props.match
     })
   }
 
-  handleSignClick = (event) => {
-    event.preventDefault()
-    console.log("event.target.dataset = name", event.target.dataset.name)
-    this.setState({
-      clicked: event.target.dataset.name,
-      clickedMatch: this.props.match
-    })
-  }
-
-  acceptMatch = (event) => {
-    event.preventDefault()
-    console.log("clicked accept")
-    // console.log("matchId", matchId)
-    // const match = this.props.matches.find(match => match.id === matchId)
-    // this.props.addrecipe(match)
-  }
-
-  declineMatch = (event) => {
-    event.preventDefault()
-    console.log("clicked decline")
-    // console.log("matchId", matchId)
-    // const match = this.props.matches.find(match => match.id === matchId)
-    // this.props.declineMatch(match)
-  }
-
+//
+//   acceptMatch = (event) => {
+//     event.preventDefault()
+//     console.log("clicked accept")
+//     // console.log("matchId", matchId)
+//     // const match = this.props.matches.find(match => match.id === matchId)
+//     // this.props.addrecipe(match)
+//   }
+//
+//   declineMatch = (event) => {
+//     event.preventDefault()
+//     console.log("clicked decline")
+//     // console.log("matchId", matchId)
+//     // const match = this.props.matches.find(match => match.id === matchId)
+//     // this.props.declineMatch(match)
+//   }
+//
   render() {
-    console.log(this.props.clicked)
-    console.log(this.props)
+    const matchPhoto = this.props.viewedMatch.photo
+    // console.log(this.props.clicked)
+    // console.log(this.props)
+    // console.log("this.props.viewedMatch in MatchContainer", this.props.viewedMatch)
+    // console.log("this.state.clicked in MatchContainer", this.state.clicked)
     return (
       <div>
         <div className="prof-container">
@@ -54,14 +48,16 @@ class MatchContainer extends React.Component {
           <div className="prof-card">
             <h2 className="card-title" id="prof-name" data-name="name"
               onClick={(event) => this.handleDetailClick(event)}
-            > {this.props.match.first_name} </h2>
-            <MatchDetail clicked={this.state.clicked} clickedMatch={this.props.match}/>
+            > {this.props.viewedMatch.first_name} </h2>
+            <MatchDetail clicked={this.state.clicked}/>
             <br/><br/>
-            <img src="" alt="ProfilePhoto" className="prof-photo"/>
+            <span onClick={(event) => this.handleDetailClick(event)}>
+              {matchPhoto ? <img src={matchPhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
+            </span>
             <br/><br/>
             <span className="prof-sun" data-name="sun"
-              onClick={(event) => this.handleSignClick(event)}
-            > {this.props.match.sun.sign} </span>
+              onClick={(event) => this.handleDetailClick(event)}
+            > {this.props.viewedMatch.sun.sign} </span>
             <br/><br/>
             <div className="accept" onClick={this.acceptMatch}>A</div>
             <div className="decline" onClick={this.declineMatch}>D</div>
@@ -76,7 +72,7 @@ class MatchContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    match: state.matches.match
+    viewedMatch: state.matches.match
   }
 }
 

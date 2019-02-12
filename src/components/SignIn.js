@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Form.css'
 import ProfileContainer from './ProfileContainer'
-import { setUsers, setCurrentUser, findMatches } from '../actions'
+import { setUsers, setCurrentUser, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
-// const retrieveMatches = 'users/:id/user_matches'
 
 class SignIn extends React.Component {
   state = {
@@ -29,10 +28,18 @@ class SignIn extends React.Component {
       fetch(usersAPI)
       .then(r => r.json())
       .then(data => {
+        console.log(data)
         const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
         this.props.setUsers(data)
         this.props.setCurrentUser(userDetails)
-        this.props.findMatches(userDetails.matched_users)
+        const matchedOrAccepted = userDetails.matches.filter(match => match.status !== "declined")
+        const matched = userDetails.matches.filter(match => match.status === "matched")
+        const accepted = userDetails.matches.filter(match => match.status === "accepted")
+        const declined = userDetails.matches.filter(match => match.status === "declined")
+        this.props.findMatches(userDetails.matches.filter(match => match.status !== "declined"))
+        matched.map(m => this.props.findMatchedUsers(m.matched_user))
+        this.props.findAccepted(accepted)
+        accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
         this.setState({
           loggedIn: true
         })
@@ -54,19 +61,21 @@ class SignIn extends React.Component {
             <br/>
             {/* <label className="loginLabel">Email:</label>
               <input
-              onChange={this.handleChange}
+              className="input"
+              type="email"
+              placeholder="Enter Email Address"
               name="email"
               value={this.state.email}
-              placeholder="Enter Email Address"
-              className="input"
+              onChange={this.handleChange}
               />
               <label className="loginLabel">Password:</label>
               <input
-              onChange={this.handleChange}
+              className="input"
+              type="password"
+              placeholder="Enter Password"
               name="password"
               value={this.state.password}
-              placeholder="Enter Password"
-              className="input"
+              onChange={this.handleChange}
             /> */}
             <label className="loginLabel">First:</label>
             <input
@@ -90,8 +99,6 @@ class SignIn extends React.Component {
             <input
               type="submit"
               className="submit-button"
-              // placeholder="Submit"
-                // className="signupButton"
             />
             <br/><br/>
           </form>
@@ -103,45 +110,16 @@ class SignIn extends React.Component {
     }
   }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     userDetails: state.users.userDetails,
-//     users: state.users.users,
-//     //state.users represents the whole object of 'initial state' in userReducer
-//     //whatever you call on state.users here has to exist as a key in 'initial state' of userReducer
-//     //key of users here just represent this prop, as long as it matches what you call in your app
-//     matches: state.matches.matches,
-//     currentUser: state.users.currentUser,
-//       // userId: state.userId.userId,
-//   }
-// }
-
 const mapDispatchToProps = (dispatch) => {
   return {
     setUsers: (users) => dispatch(setUsers(users)),
     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
-    findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers))
+    findMatches: (matches) => dispatch(findMatches(matches)),
+    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
+    // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches))
+    findAccepted: (accepted) => dispatch(findAccepted(accepted)),
+    findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
   }
 }
 
 export default connect(null, mapDispatchToProps)(SignIn);
-
-// const userId = userDetails.id
-// this.props.setUserId(userId)
-// const currentUser = this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase())
-// this.props.setCurrentUser(this.props.users.find(user => user.first_name.toLowerCase() === this.state.first_name.toLowerCase()))
-// this.props.getUser(userDetails)
-// const currentUser = userDetails
-// const matchedUsers = userDetails.matched_users
-// this.props.findMatches(matchedUsers)
-
-//     fetch(`users/${this.props.currentUser.id}/user_matches/`)
-//     .then(r => r.json())
-// // debugger
-//   .then(updatedMatches => {
-//     this.props.findMatches(updatedMatches)
-//   })
-// setCurrentUser = (users) => {
-//   const user = users.find(u => u.first_name.toLowerCase( ) === this.state.first_name.toLowerCase())
-//   this.props.setCurrentUser(user)
-// }

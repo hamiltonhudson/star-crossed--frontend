@@ -1,41 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { viewMatch, findMatches } from '../actions'
 import '../styling/Profile.css';
 import MatchContainer from './MatchContainer';
 // import ProfileContainer from './ProfileContainer'
+import { viewMatch, declineMatch, acceptMatch } from '../actions'
+
+const acceptBtn = './images/check_mark_1.png'
+const declineBtn = './images/x_mark_1.png'
 
 class Matches extends React.Component {
   state = {
     clicked: false
   }
 
-  handleViewMatch = (matchId) => {
-    const clickedMatch = this.props.matches.find(match => match.id === matchId)
-    this.props.viewMatch(clickedMatch)
+  handleViewMatch = (clickedMatchId) => {
+    this.props.viewMatch(this.props.matchedUsers.find(matchedUser => matchedUser.id === clickedMatchId))
     this.setState({
       clicked: true
     })
   }
 
-  acceptMatch = (matchId) => {
-    // event.preventDefault()
-    console.log("clicked accept")
-    console.log("matchId", matchId)
-    // const match = this.props.matches.find(match => match.id === matchId)
-    // this.props.addrecipe(match)
+  handleAccept = (acceptedUserId) => {
+    console.log("handleDecline clicked")
+    const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
+    const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
+    // console.log(acceptedMatch, acceptedUser)
+    this.props.acceptMatch(acceptedUser)
+    const acceptConfig = {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          status: "accepted"
+        })
+    }
+    fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
+    .then(r => r.json())
+    .then(results => {
+      console.log(results)
+    })
   }
 
-  declineMatch = (matchDisplayId) => {
-    // event.preventDefault()
-    console.log("clicked decline")
-    // console.log("matchDisplay", matchDisplayId)
-    const match = this.props.matchObjs.find(match => match.user_id === matchDisplayId || match.matched_user_id === matchDisplayId)
-    // this.props.declineMatch(match)
-    const userId = this.props.currentUser.id
-    console.log("match", match, "userId", userId, "matchDisplayId", matchDisplayId)
-    // console.log(this.props)
+  handleDecline = (declinedUserId) => {
+    console.log("handleDecline clicked")
+    const declinedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === declinedUserId)
+    const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
+    // console.log(declinedMatch, declinedUser)
+    this.props.declineMatch(declinedUser)
+
     const declineConfig = {
         method: "PATCH",
         headers: {
@@ -43,62 +58,65 @@ class Matches extends React.Component {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          match: {
-            user_id: userId,
-            declined_user_id: matchDisplayId,
-            status: "declined"
-          }
+          status: "declined"
         })
       }
-      fetch(`http://localhost:3000/api/v1/matches/${match.id}/declined`, declineConfig)
-      .then(r => r.json())
-      .then(result => {
-        console.log(result)
-      })
-    }
+    fetch(`http://localhost:3000/api/v1/matches/${declinedMatch.id}/decline`, declineConfig)
+    .then(r => r.json())
+    .then(results => {
+      console.log(results)
+    })
+  }
 
   render() {
-    const matchCard =
-    // return (
-        <div id="matched-users">
-          <div onClick={() => this.handleViewMatch(this.props.matchedDisplay.id)}>
-            <p>{this.props.matchedDisplay.first_name}  ☾  {this.props.matchedDisplay.sun.sign}</p>
-            <img src="" alt="MatchPhoto" /><br/>
-          </div>
-          {/* <span className="accept"></span>
-          <span className="decline"></span> */}
-          {/* <button className="accept"><img src="../images/check_mark_1.png" alt="accept" /></button> */}
-          {/* <button className="decline"><img src="../images/x_mark_1.png" alt="decline" /></button> */}
-          <button><img src='../images/check_mark_1.png' alt="accept"
-            onClick={() => this.acceptMatch(this.props.matchedDisplay.id)} />Accept</button>
-          <button><img src='../images/x_mark_1.png' alt="decline"
-            onClick={() => this.declineMatch(this.props.matchedDisplay.id)} />Decline</button>
-          <br/><br/>
-        </div>
-    // )
-    return this.state.clicked === true ? <Redirect to='/matchprofile' /> : matchCard
+    console.log("THIS.PROPS IN MATCHES", this.props)
 
+    if (this.state.clicked) {
+      return <Redirect to="/matchprofile" />
+    }
+    const generateMatches = () => {
+      // this.props.matchedUsers.map(matchedUser => {
+      return this.props.matchedUsers.map(matchedUser => {
+        const matchPhoto = matchedUser.photo
+        return (
+          <div key={matchedUser.id} id="matched-users">
+            <div onClick={() => this.handleViewMatch(matchedUser.id)}>
+              {matchedUser.first_name}   ☾  {matchPhoto ? <img src={matchPhoto} className="match-photo" alt="match-img" /> : null}   ☾   {matchedUser.sun.sign}
+            </div>
+            <button><img src={acceptBtn} alt="accept" onClick={() => this.handleAccept(matchedUser.id)} /></button>
+            <button><img src={declineBtn} alt="decline" onClick={() => this.handleDecline(matchedUser.id)} /></button>
+          </div>
+        )
+      })
+    }
+    return (
+      <div>
+        {generateMatches()}
+      </div>
+    )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
-    matches: state.matches.matches,
-    match: state.matches.match,
-    matchObjs: state.users.currentUser.matches
-    // users: state.users.users,
+    matchedUsers: state.matches.matchedUsers,
+    matchObjs: state.matches.matches,
+    // viewedMatch: state.matches.match
+    accepted: state.matches.accepted
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // findMatches: (matches) => dispatch(findMatches(matches))
-    viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch)),
-    // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
-    // setUsers: (users) => dispatch(setUsers(users)),
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch)),
+      // declineMatch: (matchedUserId) => dispatch(declineMatch(matchedUserId)),
+      // findMatches: (matches) => dispatch(findMatches(matches)),
+      // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
+      // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches)),
+      declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
+      acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser))
+    }
   }
-}
 
-// export default Matches
 export default connect(mapStateToProps, mapDispatchToProps)(Matches);
