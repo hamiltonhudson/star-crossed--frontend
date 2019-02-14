@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import '../styling/Profile.css';
 import MatchContainer from './MatchContainer';
 // import ProfileContainer from './ProfileContainer'
-import { viewMatch, declineMatch, acceptMatch } from '../actions'
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser } from '../actions'
 
 const acceptBtn = './images/check_mark_1.png'
 const declineBtn = './images/x_mark_1.png'
@@ -22,11 +22,11 @@ class Matches extends React.Component {
   }
 
   handleAccept = (acceptedUserId) => {
-    console.log("handleDecline clicked")
+    // console.log("handleDecline clicked")
     const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
-    // console.log(acceptedMatch, acceptedUser)
-    this.props.acceptMatch(acceptedUser)
+    this.props.acceptMatch(acceptedMatch)
+    this.props.acceptMatchedUser(acceptedUser)
     const acceptConfig = {
         method: "PATCH",
         headers: {
@@ -45,11 +45,10 @@ class Matches extends React.Component {
   }
 
   handleDecline = (declinedUserId) => {
-    console.log("handleDecline clicked")
+    // console.log("handleDecline clicked")
     const declinedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === declinedUserId)
     const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
-    // console.log(declinedMatch, declinedUser)
-    this.props.declineMatch(declinedUser)
+    this.props.declineMatchedUser(declinedUser)
 
     const declineConfig = {
         method: "PATCH",
@@ -70,21 +69,19 @@ class Matches extends React.Component {
 
   render() {
     console.log("THIS.PROPS IN MATCHES", this.props)
-
     if (this.state.clicked) {
       return <Redirect to="/matchprofile" />
     }
     const generateMatches = () => {
-      // this.props.matchedUsers.map(matchedUser => {
       return this.props.matchedUsers.map(matchedUser => {
         const matchPhoto = matchedUser.photo
         return (
           <div key={matchedUser.id} id="matched-users">
             <div onClick={() => this.handleViewMatch(matchedUser.id)}>
-              {matchedUser.first_name}   ☾  {matchPhoto ? <img src={matchPhoto} className="match-photo" alt="match-img" /> : null}   ☾   {matchedUser.sun.sign}
+              {matchedUser.first_name}   ☽   {matchPhoto ? <img src={matchPhoto} className="match-photo" alt="match-img" /> : null}    ☆    {matchedUser.sun.sign}
             </div>
-            <button><img src={acceptBtn} alt="accept" onClick={() => this.handleAccept(matchedUser.id)} /></button>
-            <button><img src={declineBtn} alt="decline" onClick={() => this.handleDecline(matchedUser.id)} /></button>
+            <button className="accept" onClick={() => this.handleAccept(matchedUser.id)}> <span id="picto">☑︎</span> </button>
+            <button className="decline" onClick={() => this.handleDecline(matchedUser.id)}> <span id="picto">☒</span> </button>
           </div>
         )
       })
@@ -102,20 +99,17 @@ const mapStateToProps = (state) => {
     currentUser: state.users.currentUser,
     matchedUsers: state.matches.matchedUsers,
     matchObjs: state.matches.matches,
-    // viewedMatch: state.matches.match
-    accepted: state.matches.accepted
+    accepted: state.matches.accepted,
+    acceptedUsers: state.matches.acceptedUsers,
   }
 }
 
   const mapDispatchToProps = (dispatch) => {
     return {
       viewMatch: (clickedMatch) => dispatch(viewMatch(clickedMatch)),
-      // declineMatch: (matchedUserId) => dispatch(declineMatch(matchedUserId)),
-      // findMatches: (matches) => dispatch(findMatches(matches)),
-      // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
-      // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches)),
-      declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
-      acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser))
+      acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+      acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
+      declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
     }
   }
 

@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../styling/Profile.css'
 import MatchDetail from './MatchDetail'
-// import { acceptMatch, declineMatch } from '../actions';
+import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser } from '../actions';
+
+const acceptBtn = './images/check_mark_1.png'
+const declineBtn = './images/x_mark_1.png'
 
 class MatchContainer extends React.Component {
   state = {
     clicked: '',
+    acceptedOrDenied: false
   }
 
   handleDetailClick = (event) => {
@@ -18,23 +22,67 @@ class MatchContainer extends React.Component {
     })
   }
 
-//
-//   acceptMatch = (event) => {
-//     event.preventDefault()
-//     console.log("clicked accept")
-//     // console.log("matchId", matchId)
-//     // const match = this.props.matches.find(match => match.id === matchId)
-//     // this.props.addrecipe(match)
-//   }
-//
-//   declineMatch = (event) => {
-//     event.preventDefault()
-//     console.log("clicked decline")
-//     // console.log("matchId", matchId)
-//     // const match = this.props.matches.find(match => match.id === matchId)
-//     // this.props.declineMatch(match)
-//   }
-//
+  profileReturn = () => {
+    if (this.state.acceptedOrDenied) {
+      return <Redirect to="/profile" />
+    }
+  }
+
+  handleAccept = (acceptedUserId) => {
+    console.log("handleDecline clicked")
+    const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
+    const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
+    // console.log(acceptedMatch, acceptedUser)
+    // this.props.acceptMatch(acceptedUser)
+    this.props.acceptMatch(acceptedMatch)
+    this.props.acceptMatchedUser(acceptedUser)
+    const acceptConfig = {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          status: "accepted"
+        })
+    }
+    fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
+    .then(r => r.json())
+    .then(results => {
+      console.log(results)
+    })
+    this.setState({
+      acceptedOrDenied: true
+    })
+  }
+
+  handleDecline = (declinedUserId) => {
+    console.log("handleDecline clicked")
+    const declinedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === declinedUserId)
+    const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
+    // console.log(declinedMatch, declinedUser)
+    // this.props.declineMatch(declinedMatch)
+    this.props.declineMatchedUser(declinedUser)
+    const declineConfig = {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          status: "declined"
+        })
+      }
+    fetch(`http://localhost:3000/api/v1/matches/${declinedMatch.id}/decline`, declineConfig)
+    .then(r => r.json())
+    .then(results => {
+      console.log(results)
+    })
+    this.setState({
+      acceptedOrDenied: true
+    })
+  }
+
   render() {
     const matchPhoto = this.props.viewedMatch.photo
     // console.log(this.props.clicked)
@@ -59,11 +107,14 @@ class MatchContainer extends React.Component {
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.sun.sign} </span>
             <br/><br/>
-            <div className="accept" onClick={this.acceptMatch}>A</div>
-            <div className="decline" onClick={this.declineMatch}>D</div>
+            <div>
+              <button><img src={acceptBtn} alt="accept" className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)} /></button>
+              <button><img src={declineBtn} alt="decline" className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)} /></button>
+            </div>
             <br/><br/>
             <span>Details About The Match</span>
           </div>
+          {this.profileReturn()}
         </div>
       </div>
     )
@@ -72,19 +123,27 @@ class MatchContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    viewedMatch: state.matches.match
+    viewedMatch: state.matches.match,
+    matchedUsers: state.matches.matchedUsers,
+    matchObjs: state.matches.matches,
+    accepted: state.matches.accepted,
+    acceptedUsers: state.matches.acceptedUsers,
+    // declined: state.matches.declined,
+    // declinedUsers: state.matches.declinedUsers,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
+    // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
+    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+    acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
+    // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
+    declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
   }
 }
 
 
-// acceptMatch = (matchId) => {
-//   const match = this.props.matches.find(match => match.id === matchId)
-//   this.props.addrecipe(match)
-// }
-//
-// declineMatch = (matchId) => {
-//   const match = this.props.matches.find(match => match.id === matchId)
-//   this.props.declineMatch(match)
-// }
 
-export default connect(mapStateToProps)(MatchContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchContainer);

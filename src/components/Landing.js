@@ -7,6 +7,8 @@ import Particles from 'react-particles-js';
 // import '../styling/index.css'
 // import { connect } from 'react-redux';
 import ProfileContainer from './ProfileContainer';
+// import AcceptedList from './AcceptedList';
+// import ChatsCable from './ChatsCable'
 
 
 class Landing extends React.Component {
@@ -30,7 +32,7 @@ class Landing extends React.Component {
                   "value": 432,
                   "density": {
                     "enable": true,
-                    "value_area": 7854.732123833044
+                    "value_area":5854.732123833044
                   }
                 },
                 "color": {
@@ -62,11 +64,11 @@ class Landing extends React.Component {
                   }
                 },
                 "size": {
-                  "value": 1.8,
+                  "value": 1.9,
                   "random": false,
                   "anim": {
                     "enable": false,
-                    "speed": 3.8,
+                    "speed": 3.9,
                     "size_min": 0.31,
                     "sync": false
                   }
@@ -80,7 +82,7 @@ class Landing extends React.Component {
                 },
                 "move": {
                   "enable": true,
-                  "speed": 1.3,
+                  "speed": 1.4,
                   "direction": "none",
                   "random": true,
                   "straight": false,
@@ -88,13 +90,13 @@ class Landing extends React.Component {
                   "bounce": false,
                   "attract": {
                     "enable": false,
-                    "rotateX": 801.7060304327614,
-                    "rotateY": 881.8766334760375
+                    "rotateX": 803.7060304327614,
+                    "rotateY": 884.8766334760375
                   }
                 }
               },
               "interactivity": {
-                "detect_on": "canvas",
+                "detect_on": "window",
                 "events": {
                   "onhover": {
                     "enable": true,
@@ -115,7 +117,7 @@ class Landing extends React.Component {
                   },
                   "bubble": {
                     "distance": 121.81158184520176,
-                    "size": 8,
+                    "size": 5,
                     "duration": 2.8,
                     "opacity": 0.008120772123013452,
                     "speed": 4
@@ -142,4 +144,11 @@ class Landing extends React.Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     chatEnabled: state.users.chatEnabled
+//   }
+// }
+
+// export default connect(mapStateToProps)(Landing);
 export default Landing;

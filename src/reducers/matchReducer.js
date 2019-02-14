@@ -5,7 +5,9 @@ const initialState = {
   matches: [],
   matchedUsers: [],
   accepted: [],
-  acceptedUsers: []
+  acceptedUsers: [],
+  declined: [],
+  declinedUsers: []
   // pending: [],
   // awaiting: [],
   // relations: []
@@ -38,24 +40,42 @@ export default (state = initialState, action) => {
           ...state,
           accepted: action.payload
         }
-        case types.FIND_ACCEPTED_USERS:
-          // console.log(state.matches.acceptedUsers)
-          console.log("findAcceptedUsers action.payload", action.payload)
-          return {
-            ...state,
-            acceptedUsers: [...state.acceptedUsers, action.payload]
+      case types.FIND_ACCEPTED_USERS:
+        // console.log(state.matches.acceptedUsers)
+      console.log("findAcceptedUsers action.payload", action.payload)
+        return {
+          ...state,
+          acceptedUsers: [...state.acceptedUsers, action.payload]
         }
     case types.ACCEPT_MATCH:
       return {
         ...state,
+        // matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
+        matches: state.matches.filter(match => match.id !== action.payload.id),
+        // accepted: [...state.accepted, action.payload.accdeptedMatch],
+        accepted: [...state.accepted, action.payload],
+        // acceptedUsers: [...state.acceptedUsers, action.payload]
+      }
+      case types.ACCEPT_MATCHED_USER:
+        return {
+          ...state,
+          matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
+          // accepted: [...state.accepted, action.payload.accdeptedMatch],
+          acceptedUsers: [...state.acceptedUsers, action.payload]
+        }
+    // case types.DECLINE_MATCH:
+    //   return {
+    //     ...state,
+    //     // matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
+    //     matches: state.matches.filter(match => match.id !== action.payload.id),
+    //     declined: [...state.declined, action.payload],
+    //   }
+      case types.DECLINE_MATCHED_USER:
+        return {
+          ...state,
         matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-        accepted: [...state.accepted, action.payload]
-      }
-    case types.DECLINE_MATCH:
-      return {
-        ...state,
-        matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id)
-      }
+        // declinedUsers: [...state.declinedUsers, action.payload]
+        }
 
     // case types.ACCEPT_PENDING:
     //   return {

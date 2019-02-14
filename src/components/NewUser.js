@@ -16,15 +16,15 @@ class NewUser extends React.Component {
   state = {
     first_name: '',
     last_name: '',
-    birth_year: '',
     birth_month: '',
     birth_day: '',
+    birth_year: '',
     gender: '',
     gender_pref: '',
     location: '',
     bio: '',
     uploadedFileCloudinaryUrl: '',
-    signedUp: false
+    loggedIn: false
   }
 
   handleChange = (event) => {
@@ -74,9 +74,9 @@ class NewUser extends React.Component {
         user: {
           first_name: this.state.first_name,
           last_name: this.state.last_name,
-          birth_year: this.state.birth_year,
-          birth_month: this.state.birth_month,
           birth_day: this.state.birth_day,
+          birth_month: this.state.birth_month,
+          birth_year: this.state.birth_year,
           gender: this.state.gender,
           gender_pref: this.state.gender_pref,
           location: this.state.location,
@@ -99,7 +99,7 @@ class NewUser extends React.Component {
         .then(results => {
           this.props.setUsers(results)
           this.setState({
-            signedUp: true
+            loggedIn: true
           })
         })
       }
@@ -107,7 +107,7 @@ class NewUser extends React.Component {
   }
 
   profileRedirect = () => {
-    if (this.state.signedUp) {
+    if (this.state.loggedIn) {
       return <Redirect to="/profile" />
     }
   }
@@ -136,27 +136,30 @@ class NewUser extends React.Component {
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
-              <label>Birth Year</label>
+              <label>Birth Day</label>
               <input
                 type='number'
-                name='birth_year'
-                value={this.state.birth_year}
+                placeholder="Please enter correctly, cannot be changed once submitted."
+                name='birth_day'
+                value={this.state.birth_day}
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
               <label>Birth Month</label>
               <input
                 type='number'
+                placeholder="Please enter correctly, cannot be changed once submitted."
                 name='birth_month'
                 value={this.state.birth_month}
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
-              <label>Birth Day</label>
+              <label>Birth Year</label>
               <input
                 type='number'
-                name='birth_day'
-                value={this.state.birth_day}
+                placeholder="Please enter correctly, cannot be changed once submitted."
+                name='birth_year'
+                value={this.state.birth_year}
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
@@ -192,7 +195,7 @@ class NewUser extends React.Component {
                 onChange={event => this.handleChange(event)}
                 className="input"
               />
-              <label>Upload Photo</label>
+              {/* <label>Upload Photo</label> */}
               <Dropzone
                 onDrop={this.onImageDrop.bind(this)}
                 accept="image/*"

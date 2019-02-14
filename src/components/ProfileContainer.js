@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { ActionCableProvider } from 'actioncable';
+import { API_WS_ROOT } from '../constants/ActionTypes';
 import '../styling/Profile.css'
 import EditUser from './EditUser'
 import ProfileDetail from './ProfileDetail'
 import Matches from './Matches';
 import ViewMatch from '../actions';
+import Chat from './Chat'
 import { findMatchedUsers } from '../actions';
+import App from '../App';
 // import Tooltip from '@material-ui/core/Tooltip';
 
 class ProfileContainer extends React.Component {
@@ -21,6 +25,14 @@ class ProfileContainer extends React.Component {
     })
   }
 
+  // openChat = () => {
+  //   return (
+  //     <ActionCableProvider url={API_WS_ROOT+`?user=${this.props.currentUser.id}`}>
+  //       <Chats />
+  //     </ActionCableProvider>
+  //   )
+  // }
+
   render () {
     console.log("THIS.PROPS PROFILE CONTAINER", this.props)
     console.log("THIS.STATE PROFILE CONTAINER", this.state)
@@ -31,6 +43,8 @@ class ProfileContainer extends React.Component {
       <div className="prof-container">
         <div>
           <Link to='/' className="prof-link"> ◁ Log Out</Link>
+          {/* <span style={{"text-align": "center"}}><Link className="accepted-link" to='/accepted'> ☑︎ Accepted Matches ☞ </Link></span> */}
+          <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Link Up ☞ </Link>
           <Link to='/edit' className="edit-link"> Edit ▷ </Link>
           <div className="prof-card">
             <h3 className="card-title" id="prof-name" data-name="name"
