@@ -29,6 +29,13 @@ export const setCurrentUser = (currentUser) => {
   }
 }
 
+export const setUserId = (userId) => {
+  return {
+    type: types.CURRENT_USER_ID,
+    payload: userId
+  }
+}
+
 export const enableChat = (chat) => {
   return {
     type: types.ENABLE_CHAT,

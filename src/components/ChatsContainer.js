@@ -1,20 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
-
-// import { ActionCable } from 'react-actioncable-provider';
-// import { API_ROOT } from '../constants/ActionTypes';
+import { ActionCable } from 'react-actioncable-provider';
+import { API_ROOT } from '../constants/ActionTypes';
 
 // import '../styling/Accepted.css';
 // import '../styling/App.css';
-// import NewChatForm from './NewChatForm';
+import NewChatForm from './NewChatForm';
 import Chat from './Chat'
 import ConversationsArea from './ConversationsArea';
 import ConversationsCable from './Cable';
-// import Cable from './Cable';
+import ChatsCable from './Cable';
 import { thunkSaveChats, saveCurrentChat } from '../actions'
 // import App from '../App';
-
 
 class ChatsContainer extends React.Component {
   // state = {
@@ -68,7 +66,7 @@ class ChatsContainer extends React.Component {
   //         onReceived={this.handleReceivedChat}
   //       />
   //       {this.state.chats.length ? (
-  //         <Cable
+  //         <ChatsCable
   //           chats={chats}
   //           handleReceivedConversation={this.handleReceivedConversation}
   //         />
@@ -126,16 +124,16 @@ class ChatsContainer extends React.Component {
     this.props.thunkSaveChats()
   }
 
-  responsiveChatDisplay = () => {
-    return this.props.chats.map(chat => {
-      return (
-        <div key={chat.id} className="chatBox"
-          onClick = {() => this.props.saveCurrentChat(chat)}>
-          <Chat chat={chat} />
-        </div>
-      )
-    })
-  }
+  // responsiveChatDisplay = () => {
+  //   this.props.chats.map(chat => {
+  //     return (
+  //       <div key={chat.id} className="chatBox"
+  //         onClick = {() => this.props.saveCurrentChat(chat)}>
+  //         <Chat chat={chat} />
+  //       </div>
+  //     )
+  //   })
+  // }
 
   render() {
     console.log("ChatsContainer PROPS", this.props)
@@ -144,7 +142,7 @@ class ChatsContainer extends React.Component {
         { this.props.chats.length ? <ConversationsCable /> : null }
         <h2 className="sunIcon" >Chats</h2>
         <div className="chats-container">
-          {this.responsiveChatDisplay()}
+          {/* {this.responsiveChatDisplay()} */}
         </div>
         { this.props.currentChat ? <ConversationsArea /> : null }
       </div>

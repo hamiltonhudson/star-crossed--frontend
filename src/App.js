@@ -18,6 +18,7 @@ import Cable from 'actioncable';
 import ChatsCable from 'actioncable';
 import ConversationsCable from 'actioncable';
 import Display from './components/Display';
+// import { setUserId } from '../actions'
 
 // import { setSuns } from './actions';
 
@@ -98,14 +99,8 @@ class App extends Component {
 // }
 
 
-//
   render() {
-    // <ActionCableProvider url={API_WS_ROOT+`?user=${this.props.currentUser.id}`}>
-    //   <Chats />
-    // </ActionCableProvider>
     return (
-      // <ActionCableProvider url={'ws://localhost:3000/api/v1/cable'} >
-     <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.currentUser.id}`}>
        <Router>
          <Switch>
            <Route path='/' exact render={() => <Landing />} />
@@ -116,18 +111,20 @@ class App extends Component {
            <Route path='/edit' component={EditUser} />
            <Route path='/matchprofile' component={MatchContainer} />
            <Route path='/chat' component={ChatsBase} />
+
          </Switch>
        </Router>
-     </ActionCableProvider>
+
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    userId: state.users.currentUser.id,
+    userId: state.users.userId,
     currentUser: state.users.currentUser
   }
 }
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps)(App);
 // export default App;
-export default (withRouter(connect(mapStateToProps)(App)));
+// export default (withRouter(connect(mapStateToProps)(App)));

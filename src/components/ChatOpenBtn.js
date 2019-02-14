@@ -32,20 +32,23 @@ const ChatOpenBtn = (props) => {
 
   const handleClick = () => {
     let body = {
-      title: "PRIVATE",
-      sender_id: props.sender_id,
-      receiver_id: props.receiver_id
+      chat: {
+        title: "PRIVATE",
+        sender_id: props.sender_id,
+        receiver_id: props.receiver_id
+      }
     }
     if (chatExists(props.receiver_id)) {
       props.onClickClose()
     } else {
-    fetchToWebSocket("conversations", body);
+    fetchToWebSocket("chats", body);
       // this.fetchToWebSocket("conversations", body);
       props.onClickClose()
     }
   }
   return (
-    <button onClick={() => handleClick()}> {this.props.acceptedUser.first_name} ➣ </button>
+    // <button onClick={() => handleClick()}> {this.props.acceptedUser.first_name} ➣ </button>
+      <button onClick={() => handleClick()} > {this.props.acceptedReceiver.first_name} ➣ </button>
     )
   }
 

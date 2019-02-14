@@ -9,7 +9,7 @@ import Particles from 'react-particles-js';
 import ProfileContainer from './ProfileContainer';
 // import AcceptedList from './AcceptedList';
 // import ChatsCable from './ChatsCable'
-
+import Routes from '../routes'
 
 class Landing extends React.Component {
   render() {

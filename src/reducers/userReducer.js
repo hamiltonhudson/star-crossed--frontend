@@ -5,6 +5,7 @@ const initialState = {
   email: '',
   password: '',
   currentUser: {},
+  userId: ''
   // chatEnabled: false,
 }
 
@@ -26,6 +27,12 @@ export default (state = initialState, action) => {
         // users: ,
         currentUser: action.payload
       }
+      case types.CURRENT_USER_ID:
+        return {
+          ...state,
+          // users: ,
+          userID: action.payload
+        }
     case types.EDIT_USER_DETAILS:
       console.log(action.payload)
       return {

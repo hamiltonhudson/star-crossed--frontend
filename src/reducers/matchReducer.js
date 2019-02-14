@@ -77,26 +77,6 @@ export default (state = initialState, action) => {
         // declinedUsers: [...state.declinedUsers, action.payload]
         }
 
-    // case types.ACCEPT_PENDING:
-    //   return {
-    //     ...state,
-    //     pending: 'remove from pending',
-    //     relations: 'push into relations'
-    //   }
-    // case types.DECLINE_PENDING:
-    //   return {
-    //     pending: 'remove from pending'
-    //   }
-    // case types.ACCEPT_RELATION:
-    //   return {
-    //     ...state,
-    //     pending: 'push into pending'
-    //   }
-    // case types.DECLINE_RELATION:
-    //   return {
-    //     pending: 'remove from pending'
-    //   }
-
     default:
       return state
   }

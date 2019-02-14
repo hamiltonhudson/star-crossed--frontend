@@ -34,8 +34,10 @@ const Chat = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
+    users: state.users.users,
     userId: state.users.currentUser.id,
-    chats: state.chats.chats
+    chats: state.chats.chats,
+    // chat: state.chats.currentChat
   }
 }
 

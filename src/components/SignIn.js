@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { ActionCableProvider } from 'react-actioncable-provider';
+import { ActionCableProvider } from 'react-actioncable-provider';
 // import '../styling/Form.css'
 import '../styling/FormCustom.css'
 import ProfileContainer from './ProfileContainer'
-import { setUsers, setCurrentUser, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
-
+import { setUsers, setCurrentUser, setUserId, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
+import Routes from '../routes'
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
 class SignIn extends React.Component {
@@ -28,8 +28,8 @@ class SignIn extends React.Component {
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
-        const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
+        const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+        // const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
         this.props.setUsers(data)
         this.props.setCurrentUser(userDetails)
         const matchedOrAccepted = userDetails.matches.filter(match => match.status !== "declined")
@@ -51,7 +51,6 @@ class SignIn extends React.Component {
     // console.log(this.props)
     const signInForm =
       <div>
-        {/* <Link to='/'> Back </Link> */}
         <Link to='/' className="form-link"> ◁ Back </Link>
         <div className="form-container">
           <h1 className="signupHeader">sign in</h1>
@@ -60,58 +59,58 @@ class SignIn extends React.Component {
             {/* <div className="custom-form"> */}
             <form onSubmit={this.handleSubmit}>
               <br/>
-              <label className="loginLabel">Email:</label>
-              <div className="form-label">
-                <div className="input-field">
-                  <input
-                    className="input"
-                    type="email"
-                    placeholder="Enter Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              <label className="loginLabel">Password:</label>
-              <div className="form-label">
-                <div className="input-field">
-                  <input
-                    className="input"
-                    type="password"
-                    placeholder="Enter Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              {/* <label className="form-label">First:</label>
+              {/* <label className="loginLabel">Email:</label>
                 <div className="form-label">
                 <div className="input-field">
-                <input
+                  <input
                 className="input"
-                type="text"
-                placeholder="Enter first name"
-                name="first_name"
-                value={this.state.first_name}
+                type="email"
+                placeholder="Enter Email Address"
+                name="email"
+                value={this.state.email}
                 onChange={this.handleChange}
-                />
+                  />
                 </div>
                 </div>
-                <label className="loginLabel">Last:</label>
+                <label className="loginLabel">Password:</label>
                 <div className="form-label">
                 <div className="input-field">
-                <input
+                  <input
                 className="input"
-                type="text"
-                placeholder="Enter last name"
-                name="last_name"
-                value={this.state.last_name}
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                value={this.state.password}
                 onChange={this.handleChange}
-                />
+                  />
                 </div>
               </div> */}
+              <label className="form-label">First:</label>
+              <div className="form-label">
+                <div className="input-field">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Enter first name"
+                    name="first_name"
+                    value={this.state.first_name}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+              <label className="loginLabel">Last:</label>
+              <div className="form-label">
+                <div className="input-field">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Enter last name"
+                    name="last_name"
+                    value={this.state.last_name}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
               <br/><br/>
               <input
                 type="submit"
@@ -124,6 +123,18 @@ class SignIn extends React.Component {
       </div>
       // )
       return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
+        // {/* <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
+        //   <Redirect to="/profile" />
+        //   </ActionCableProvider>
+        //   :
+        // signInForm */}
+      }
+    }
+
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      userDetails: state.users.currentUser
     }
   }
 
@@ -133,10 +144,10 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
     findMatches: (matches) => dispatch(findMatches(matches)),
     findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
-    // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches))
     findAccepted: (accepted) => dispatch(findAccepted(accepted)),
     findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
+    setUserId: (userId) => dispatch(mapDispatchToProps(userId))
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

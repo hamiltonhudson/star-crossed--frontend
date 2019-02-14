@@ -8,10 +8,10 @@ import ChatOpenBtn from './ChatOpenBtn'
 
 class AcceptedMatchesList extends React.Component {
 
-  generateAccepted = (acceptedUsers) => {
-  // generateAccepted = () => {
+  // generateAccepted = (acceptedUsers) => {
+  generateAccepted = () => {
   //   this.props.acceptedUsers.map(acceptedUser => {
-    acceptedUsers.map(acceptedUser => {
+    this.props.acceptedUsers.map(acceptedUser => {
       // active_user = {user.active_user}
       return (
         <div>
@@ -31,12 +31,10 @@ class AcceptedMatchesList extends React.Component {
   render() {
     return (
       <div>
-        {/* <ChatOpenBtn /> */}
         {this.generateAccepted(this.props.acceptedUsers)}
-        {/* {this.generateAccepted()} */}
       </div>
-    )
-  }
+      )
+    }
 }
 
 const mapStateToProps = (state) => {

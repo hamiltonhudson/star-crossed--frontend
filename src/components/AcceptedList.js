@@ -25,58 +25,59 @@ class AcceptedList extends React.Component {
     console.log("AcceptedList PROPS", this.props)
 
     const OpenChat = (props) => {
-      function chatExists(receiverId) {
-        let foundChat = props.chats.filter(chat => chat.users.map((i) => i.id).includes(receiverId))
-        if (foundChat.length > 0) {
-          props.saveCurrentChat(foundChat[0])
-          return true;
-        }
-      }
-
+      // function chatExists(receiverId) {
+      //   let foundChat = props.chats.filter(chat => chat.users.map((i) => i.id).includes(receiverId))
+      //   if (foundChat.length > 0) {
+      //     props.saveCurrentChat(foundChat[0])
+      //     return true;
+      //   }
+      // }
     const handleClick = () => {
       let body = {
         title: "PRIVATE",
         sender_id: props.sender_id,
         receiver_id: props.receiver_id
       }
-      if (chatExists(props.receiver_id)) {
-        props.onClickClose()
-      } else {
-        this.fetchToWebSocket("conversations", body);
+      // if (chatExists(props.receiver_id)) {
+      //   props.onClickClose()
+      // } else {
+        this.fetchToWebSocket("chats", body);
         // this.fetchToWebSocket("conversations", body);
-        props.onClickClose()
+        // props.onClickClose()
       }
-    }
     const acceptedReceiver = this.props.acceptedUsers.find(acceptedUser => acceptedUser.id === props.receiverId)
     return (
       <button onClick={() => handleClick()} id="chatBTN"> {acceptedReceiver.first_name} ➣ </button>
-        )
+    )
   }
+
 
     const generateAccepted = () => {
       return this.props.acceptedUsers.map(acceptedUser => {
         return (
-          <Fragment>
-            receiverId={acceptedUser.id}
-            {/* receiverId={this.props.acceptedUser.id} */}
-            key={acceptedUser.id} className="users-header"
-            onClick={() => this.openChat(acceptedUser.id)}
-            <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
-          </Fragment>
-        )
-      })
-    }
-    // return this.props.acceptedUsers.map(acceptedUser => {
-    //   return (
-    //     <div className="users-card">
-    //       <div className="accepted-container">
-    //         <ul>
-    //           <li key={acceptedUser.id} >{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</li>
-    //         </ul>
-    //       </div>
-    //     </div>
+          <div>
+            <OpenChat
+              receiverId={acceptedUser.id}
+              key={acceptedUser.id} className="users-header"
+              onClick={() => this.openChat(acceptedUser.id)}
+              // {/* <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div> */}
+            /> <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
+          </div>
+      )
+    })
+  }
+    /*
+      return this.props.acceptedUsers.map(acceptedUser => {
+      //   return (
+      //     <div className="users-card">
+      //       <div className="accepted-container">
+      //         <ul>
+      //           <li key={acceptedUser.id} >{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</li>
+      //         </ul>
+      //       </div>
+      //     </div>
       // )}
-    // )
+    // ) */
     return (
       <div className="accepted-container">
         {generateAccepted()}
