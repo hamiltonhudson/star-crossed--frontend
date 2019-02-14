@@ -121,80 +121,116 @@ class NewUser extends React.Component {
           <div>
             <form onSubmit={event => this.handleSubmit(event)}>
               <label>First Name</label>
-              <input
-                type='text'
-                name='first_name'
-                value={this.state.first_name}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='first_name'
+                    value={this.state.first_name}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Last Name</label>
-              <input
-                type='text'
-                name='last_name'
-                value={this.state.last_name}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='last_name'
+                    value={this.state.last_name}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Birth Day</label>
-              <input
-                type='number'
-                placeholder="Please enter correctly, cannot be changed once submitted."
-                name='birth_day'
-                value={this.state.birth_day}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='number'
+                    placeholder="Enter correctly."
+                    name='birth_day'
+                    value={this.state.birth_day}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Birth Month</label>
-              <input
-                type='number'
-                placeholder="Please enter correctly, cannot be changed once submitted."
-                name='birth_month'
-                value={this.state.birth_month}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='number'
+                    placeholder="Enter correctly."
+                    name='birth_month'
+                    value={this.state.birth_month}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Birth Year</label>
-              <input
-                type='number'
-                placeholder="Please enter correctly, cannot be changed once submitted."
-                name='birth_year'
-                value={this.state.birth_year}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='number'
+                    placeholder="Enter correctly."
+                    name='birth_year'
+                    value={this.state.birth_year}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Gender</label>
-              <input
-                type='text'
-                name='gender'
-                value={this.state.gender}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='gender'
+                    value={this.state.gender}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Gender Preference</label>
-              <input
-                type='text'
-                name='gender_pref'
-                value={this.state.gender_pref}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='gender_pref'
+                    value={this.state.gender_pref}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Location</label>
-              <input
-                type='text'
-                name='location'
-                value={this.state.location}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='location'
+                    value={this.state.location}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               <label>Bio</label>
-              <input
-                type='text'
-                name='bio'
-                value={this.state.bio}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              />
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='bio'
+                    value={this.state.bio}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
               {/* <label>Upload Photo</label> */}
               <Dropzone
                 onDrop={this.onImageDrop.bind(this)}

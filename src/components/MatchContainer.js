@@ -95,21 +95,21 @@ class MatchContainer extends React.Component {
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.first_name} </h2>
             <MatchDetail clicked={this.state.clicked}/>
-            <br/><br/>
+            <br/><br/><br/>
             <span onClick={(event) => this.handleDetailClick(event)}>
               {matchPhoto ? <img src={matchPhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
             </span>
-            <br/><br/>
+            <br/><br/><br/>
             <span className="prof-sun" data-name="sun"
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.sun.sign} </span>
-            <br/><br/>
+            <br/><br/><br/>
             <div>
-              <button><img src={acceptBtn} alt="accept" className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)} /></button>
-              <button><img src={declineBtn} alt="decline" className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)} /></button>
+              <button className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <span id="picto">☑︎</span> </button>
+              <button className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <span id="picto">☒</span> </button>
             </div>
             <br/><br/>
-            <span>Details About The Match</span>
+            <span></span>
           </div>
           {this.profileReturn()}
         </div>
