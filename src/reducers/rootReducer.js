@@ -4,7 +4,8 @@ import users from './userReducer';
 import matches from './matchReducer';
 import email from './userReducer';
 import password from './userReducer';
-import chats from './chatsReducer'
+import chats from './chatsReducer';
+import chatEnabled from './chatsReducer';
 // import conversations from './chatReducer'
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   email,
   password,
   chats,
+  chatEnabled
 })
 
 export default rootReducer;

@@ -36,15 +36,6 @@ export const setUserId = (userId) => {
   }
 }
 
-export const enableChat = (chat) => {
-  return {
-    type: types.ENABLE_CHAT,
-    payload: {
-      chatEnabled: chat
-    }
-  }
-}
-
 export const editUserDetails = (currentUser) => {
   return {
     type: types.EDIT_USER_DETAILS,
@@ -134,12 +125,14 @@ export const declineMatchedUser = (declinedUser) => {
   }
 }
 
-// export const API_ROOT = 'http://localhost:3000/api/v1';
-// export const API_WS_ROOT = 'ws://localhost:3000/api/v1/cable';
-// export const HEADERS = {
-//   'Content-Type': 'application/json',
-//   Accept: 'application/json',
-// };
+export const enableChat = (chat) => {
+  return {
+    type: types.ENABLE_CHAT,
+    payload: {
+      chatEnabled: chat
+    }
+  }
+}
 
 export const getChats = (chats) => {
   console.log("getChats in matchReducer 'chats' ", chats)

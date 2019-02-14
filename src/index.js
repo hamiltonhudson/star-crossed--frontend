@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import App from './App';
-// import ActionCableConsumer from 'actioncable';
 import { ActionCableProvider } from 'react-actioncable-provider';
-// import registerServiceWorker from './registerServiceWorker';
+// import { ActionCableConsumer } from 'actioncable';
 import Chat from './components/Chat'
 import ChatsBase from './components/ChatsBase'
 import rootReducer from './reducers/rootReducer';
@@ -18,12 +17,14 @@ import * as serviceWorker from './serviceWorker';
 import routes from './routes.js';
 
 const store = createStore(rootReducer,
-  compose(applyMiddleware(thunk),
-  // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  // window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+  // compose(applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 // const cable = ActionCableConsumer.createConsumer('ws://localhost:3000/api/v1/cable');
+// <ActionCableProvider url="wss://dkt-api.herokuapp.com/api/v1/cable">
+const API_ROOT = 'ws://localhost:3000/api/v1/cable'
 
 ReactDOM.render(
   <ActionCableProvider url={`ws://localhost:3000/api/v1/cable`}>
@@ -42,6 +43,7 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();
 // import * as serviceWorker from './serviceWorker';
 // registerServiceWorker();
+// import registerServiceWorker from './registerServiceWorker';

@@ -213,7 +213,8 @@ class EditUser extends React.Component {
                     >
                       <input {...getInputProps()} />
                       {
-                        <p>Click to select photo or drag and drop.</p>
+                        // <p>Click to select photo or drag and drop.</p>
+                        <p>Click to select photo.</p>
                       }
                     </div>
                   )
@@ -235,7 +236,6 @@ class EditUser extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // debugger
   return {
     currentUser: state.users.currentUser,
     // matches: state.matches.matches
@@ -243,7 +243,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  // debugger
   return {
     setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
     findMatches: (matches) => dispatch(findMatches(matches)),

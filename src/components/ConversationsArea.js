@@ -9,21 +9,6 @@ import { connect } from 'react-redux';
 import NewConversationForm from './NewConversationForm';
 import { eraseCurrentChat } from '../actions'
 
-// const ConversationsArea = ({
-//   // chat: { id, title, conversations },
-//   chat: { id, conversations },
-//
-// }) => {
-//   return(
-//     <div className="conversationsArea">
-//       <h2>Chat Id: {id}</h2>
-//       <ul>{orderedConversations(conversations)}</ul>
-//       <NewConversationForm chat_id={id} />
-//     </div>
-//   )
-// }
-// export default ConversationsArea;
-
 const ConversationsArea = (props) => {
   console.log("ConversationsArea PROPS", props)
 
@@ -123,7 +108,21 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(ConversationsArea);
 
 
-//helpers
+// const ConversationsArea = ({
+//   // chat: { id, title, conversations },
+//   chat: { id, conversations },
+//
+// }) => {
+//   return(
+//     <div className="conversationsArea">
+//       <h2>Chat Id: {id}</h2>
+//       <ul>{orderedConversations(conversations)}</ul>
+//       <NewConversationForm chat_id={id} />
+//     </div>
+//   )
+// }
+// export default ConversationsArea;
+
 
 // const orderedConversations = conversations => {
 //   const sortedConversations = conversations.sort(

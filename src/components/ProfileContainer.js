@@ -43,8 +43,6 @@ class ProfileContainer extends React.Component {
       <div className="prof-container">
         <div>
           <Link to='/' className="prof-link"> ◁ Log Out</Link>
-          {/* <span style={{"text-align": "center"}}><Link className="accepted-link" to='/accepted'> ☑︎ Accepted Matches ☞ </Link></span> */}
-          <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Link Up ☞ </Link>
           <Link to='/edit' className="edit-link"> Edit ▷ </Link>
           <div className="prof-card">
             <h3 className="card-title" id="prof-name" data-name="name"
@@ -62,6 +60,8 @@ class ProfileContainer extends React.Component {
             <Matches />
           </div>
         </div>
+        <br></br>
+        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link>
       </div>
     )
   }

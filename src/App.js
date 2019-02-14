@@ -19,14 +19,45 @@ import ChatsCable from 'actioncable';
 import ConversationsCable from 'actioncable';
 import Display from './components/Display';
 // import { setUserId } from '../actions'
-
 // import { setSuns } from './actions';
 
+// const API_ROOT = 'ws://localhost:3000/api/v1/cable'
+
 class App extends Component {
-  // state = {
-  //   chats: [],
-  //   conversation: []
-  // }
+//   state = {
+//     chats: [],
+//     conversation: []
+//   }
+//
+  render() {
+    return (
+       <Router>
+         <Switch>
+           <Route path='/' exact render={() => <Landing />} />
+           <Route path='/signup' component={SignUp} />
+           <Route path='/newuser' component={NewUser} />
+           <Route path='/signin' component={SignIn} />
+           <Route path='/profile' component={ProfileContainer} />
+           <Route path='/edit' component={EditUser} />
+           <Route path='/matchprofile' component={MatchContainer} />
+           <Route path='/chat' component={ChatsBase} />
+         </Switch>
+       </Router>
+
+    )
+  }
+}
+// const mapStateToProps = (state) => {
+//   return {
+//     userId: state.users.userId,
+//     currentUser: state.users.currentUser
+//   }
+// }
+
+export default App;
+// export default connect(mapStateToProps)(App);
+// export default (withRouter(connect(mapStateToProps)(App)));
+
 
 // ---------------------
 //   componentDidMount = () => {
@@ -43,88 +74,3 @@ class App extends Component {
 //       })
 //     }
 // -----------------------
-// routerFunction = () => {
-// return (
-//   this.props.userId ?
-//     <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
-//       <Switch>
-//         <Route
-//           path="/profile"
-//           component={ProfileContainer}
-//         />
-//         <Route
-//           path='/new'
-//           component={NewUser}
-//         />
-//         <Route
-//           path="/edit"
-//           component={EditUser}
-//         />
-//         <Route
-//           path="/matchprofile"
-//           component={MatchContainer}
-//         />
-//         <Route
-//           path='/chat'
-//           component={ChatsBase}
-//         />
-//         <Route
-//           path='/display'
-//           component={Display}
-//         />
-//         <Route
-//           path='/'
-//           component={Landing}
-//         />
-//         <Route path='/signin'
-//           component={SignIn}
-//         />
-//       </Switch>
-//     </ActionCableProvider>
-//       :
-//       <Route
-//         path='/'
-//         component={Landing}
-//       />
-//     )
-//   };
-//
-// render() {
-//   return (
-//     <div>
-//       {this.routerFunction()}
-//     </div>
-//   )
-// }
-// }
-
-
-  render() {
-    return (
-       <Router>
-         <Switch>
-           <Route path='/' exact render={() => <Landing />} />
-           <Route path='/signup' component={SignUp} />
-           <Route path='/newuser' component={NewUser} />
-           <Route path='/signin' component={SignIn} />
-           <Route path='/profile' component={ProfileContainer} />
-           <Route path='/edit' component={EditUser} />
-           <Route path='/matchprofile' component={MatchContainer} />
-           <Route path='/chat' component={ChatsBase} />
-
-         </Switch>
-       </Router>
-
-    )
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    userId: state.users.userId,
-    currentUser: state.users.currentUser
-  }
-}
-
-export default connect(mapStateToProps)(App);
-// export default App;
-// export default (withRouter(connect(mapStateToProps)(App)));

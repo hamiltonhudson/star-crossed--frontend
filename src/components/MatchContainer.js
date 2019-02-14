@@ -85,10 +85,7 @@ class MatchContainer extends React.Component {
 
   render() {
     const matchPhoto = this.props.viewedMatch.photo
-    // console.log(this.props.clicked)
-    // console.log(this.props)
-    // console.log("this.props.viewedMatch in MatchContainer", this.props.viewedMatch)
-    // console.log("this.state.clicked in MatchContainer", this.state.clicked)
+    // console.log("MatchContainer THIS.PROPS", this.props)
     return (
       <div>
         <div className="prof-container">
@@ -135,12 +132,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
-    // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
-    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
     acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
-    // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
     declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
+    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+    // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
+    // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
+    // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
   }
 }
 

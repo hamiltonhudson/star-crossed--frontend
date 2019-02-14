@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { API_ROOT, HEADERS } from '../constants/ActionTypes';
 import { saveCurrentChat } from '../actions';
 import App from '../App';
+import '../styling/Accepted.css'
 
 class AcceptedList extends React.Component {
 
@@ -47,7 +48,7 @@ class AcceptedList extends React.Component {
       }
     const acceptedReceiver = this.props.acceptedUsers.find(acceptedUser => acceptedUser.id === props.receiverId)
     return (
-      <button onClick={() => handleClick()} id="chatBTN"> {acceptedReceiver.first_name} ➣ </button>
+      <button onClick={() => handleClick()} className="list"> {acceptedReceiver.first_name} ☀︎ {acceptedReceiver.sun.sign} ➣ </button>
     )
   }
 
@@ -58,10 +59,11 @@ class AcceptedList extends React.Component {
           <div>
             <OpenChat
               receiverId={acceptedUser.id}
-              key={acceptedUser.id} className="users-header"
+              key={acceptedUser.id}
               onClick={() => this.openChat(acceptedUser.id)}
               // {/* <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div> */}
-            /> <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
+            />
+            {/* <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign} </div> */}
           </div>
       )
     })
@@ -79,7 +81,7 @@ class AcceptedList extends React.Component {
       // )}
     // ) */
     return (
-      <div className="accepted-container">
+      <div>
         {generateAccepted()}
       </div>
     )
@@ -102,78 +104,3 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AcceptedList);
-
-
-// // fetchToWebSocket = (route, bodyData) => {
-// fetchToWebSocket(route, bodyData) {
-//   fetch(`${API_ROOT}/${route}`, {
-//       method: 'POST',
-//       headers: HEADERS,
-//       // headers: {
-//       //     "Accept": "application/json",
-//       //     "Content-Type": "application/json",
-//       //     "Authorization": `Bearer ${localStorage.getItem("token")}`
-//       //   },
-//       body: JSON.stringify(bodyData)
-//   })
-// }
-//
-//
-// render() {
-//   console.log("AcceptedList PROPS", this.props)
-//
-//   const OpenChat = (props) => {
-//     function chatExists(receiverId) {
-//       let foundChat = props.chats.filter(chat => chat.users.map((i) => i.id).includes(receiverId))
-//       if (foundChat.length > 0) {
-//         props.saveCurrentChat(foundChat[0])
-//         return true;
-//       }
-//     }
-//
-//   const handleClick = () => {
-//     let body = {
-//       title: "PRIVATE",
-//       sender_id: props.sender_id,
-//       receiver_id: props.receiver_id
-//     }
-//     if (chatExists(props.receiver_id)) {
-//       props.onClickClose()
-//     } else {
-//       this.fetchToWebSocket("conversations", body);
-//       // this.fetchToWebSocket("conversations", body);
-//       props.onClickClose()
-//     }
-//   }
-//   return (
-//     <button onClick={() => handleClick()}> chatBTN ➣ </button>
-//   )
-// }
-//
-// // const OpenChat = () => {
-// //   function chatExists(receiverId) {
-// //     let foundChat = this.props.chats.filter(chat => chat.users.map((i) => i.id).includes(receiverId))
-// //     if (foundChat.length > 0) {
-// //       this.props.saveCurrentChat(foundChat[0])
-// //       return true;
-// //     }
-// //   }
-// //
-// // const handleClick = () => {
-// //   let body = {
-// //     title: "PRIVATE",
-// //     sender_id: this.props.sender_id,
-// //     receiver_id: this.props.receiver_id
-// //   }
-// //     if (chatExists(this.props.receiver_id)) {
-// //       this.props.onClickClose()
-// //     } else {
-// //       this.fetchToWebSocket("conversations", body);
-// //     // this.fetchToWebSocket("conversations", body);
-// //       this.props.onClickClose()
-// //     }
-// //   }
-// //   return (
-// //     <button onClick={() => handleClick()}> chatBTN ➣ </button>
-// //   )
-// // }

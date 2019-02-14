@@ -24,13 +24,11 @@ export default (state = initialState, action) => {
         // chats: action.payload
         chats: action.payload.chats
     }
-    // case types.SAVE_CHATS/SAVE_UPDATED_CHATS ?
     case types.ADD_NEW_CHAT:
     console.log("addnewchat action.payload", action.payload)
       return {
         ...state,
         // chats: [...state.chats, action.payload],
-
         // appendedChat: [...state.chats, action.payload],
         chats: [...state.chats, action.payload.appendedChat]
       }

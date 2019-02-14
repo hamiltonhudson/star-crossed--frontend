@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { ActionCable } from 'react-actioncable-provider';
-
 import { saveChats } from '../actions'
 
 class ConversationsCable extends React.Component {
