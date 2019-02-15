@@ -103,13 +103,17 @@ class MatchContainer extends React.Component {
             <span className="prof-sun" data-name="sun"
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.sun.sign} </span>
-            <br/><br/><br/>
+            <br></br>
             <div>
               <button className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <span id="picto">☑︎</span> </button>
               <button className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <span id="picto">☒</span> </button>
             </div>
-            <br/><br/>
-            <span></span>
+            <br/>
+            <p id="detail-name"> this sign's: </p>
+            <span> ------ </span><br/><br/>
+            <span id="sign-info"> vibe  |  {this.props.viewedMatch.sun.vibe}</span><br></br>
+            <span id="sign-info"> motto  |  "{this.props.viewedMatch.sun.motto}"</span><br/><br/>
+            <span id="sign-info"> qualities  |  {this.props.viewedMatch.sun.keywords}</span><br></br>
           </div>
           {this.profileReturn()}
         </div>

@@ -23,7 +23,7 @@ class Landing extends React.Component {
             <br/><br/>
             <Link to='/signin' className="App-link">Sign In</Link>
             <span style={{fontSize: 12, opacity: 0.5, paddingTop: 10, paddingBottom: 10}}> ------ </span>
-            <Link to='/signup' className="App-link">Sign Up</Link>
+            <Link to='/newuser' className="App-link">Sign Up</Link>
             <br/>
             {/* <Link to='/profile' className="App-link">View Profile</Link> */}
           </header>
@@ -113,17 +113,17 @@ class Landing extends React.Component {
                   },
                   "modes": {
                     "grab": {
-                      "distance": 73.08694910712106,
+                      "distance": 72.08694910712106,
                       "line_linked": {
                         "opacity": 0.7568154521972333
                       }
                     },
                     "bubble": {
-                      "distance": 121.81158184520176,
-                      "size": 5,
+                      "distance": 120.81158184520176,
+                      "size": 6,
                       "duration": 2.8,
                       "opacity": 0.008120772123013452,
-                      "speed": 4
+                      "speed": 5
                     },
                     "repulse": {
                       "distance": 284.2270243054708,

@@ -105,6 +105,30 @@
   font-size: 28px;
 }
 
+#detail-name {
+  background-color: #231F4D;
+  text-align: center;
+  font-family: 'Cardo', serif;
+  font-style: bold;
+  font-size: 34px;
+  transition: all 0.3s ease-in;
+  text-decoration:none;
+}
+
+#sign-info {
+  font-family: Raleway;
+  text-align: center;
+  font-size: 16px;
+  /* font-family: Cormorant;
+  font-family: Garamond;
+  font-family: Codystar;
+  font-family: Jacques+Francois;
+  font-family: Raleway;
+  font-family: PT+Sans+Caption;
+  font-family: PT+Sans;
+  font-family: Prompt */
+}
+
 .prof-photo {
   /* background-color: #231F4D;
   border-color: #8ee8b2;
@@ -128,19 +152,28 @@
 .prof-name-detail {
   background-color: transparent;
   position: absolute;
-  right: 0px;
-  width: 300px;
-  margin-top: 2px;
+  margin-right: 6em;
+  /* right: 0px; */
+  width: 275px;
   padding: 10px;
-
   /* class: btn tooltipped;
   data-position: right */
+}
+
+.prof-info-deets {
+  background-color: transparent;
+  position: absolute;
+  right: 12em;
+  /* left: 0px; */
+  width: 275px;
+  padding: 10px;
 }
 
 .prof-sun-detail {
   background-color: transparent;
   position: absolute;
-  left: 0px;
+  margin-left: 6em;
+  /* left: 0px; */
   width: 275px;
   padding: 10px;
 }
@@ -170,6 +203,10 @@
   margin-right: auto;
 }
 
+.matched-user-box {
+  height: 210px;
+  overflow-y: scroll;
+}
 #matched-text {
 
 }

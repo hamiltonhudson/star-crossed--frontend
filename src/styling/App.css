@@ -12,6 +12,10 @@
   }
 } */
 
+html {
+  background: #231F4D
+}
+
 .App {
   text-align: center;
   display: inline-block;

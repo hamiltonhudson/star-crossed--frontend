@@ -48,6 +48,7 @@ class ProfileContainer extends React.Component {
             <h3 className="card-title" id="prof-name" data-name="name"
               onClick={(event) => this.handleClick(event)}
             > {this.props.currentUser.first_name} </h3>
+            <br></br>
             <ProfileDetail clicked={this.state.clicked}/>
             <span onClick={(event) => this.handleClick(event)}>
               {profilePhoto ? <img src={profilePhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
@@ -56,12 +57,13 @@ class ProfileContainer extends React.Component {
             <span className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </span>
             <br/><br/><br/>
             <h2 className="matches-header"> Matches </h2>
+            <br></br>
             {/* {generateMatches()} */}
             <Matches />
           </div>
         </div>
-        <br></br>
         <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link>
+        <br/><br/><br/>
       </div>
     )
   }

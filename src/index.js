@@ -32,7 +32,7 @@ ReactDOM.render(
       <Router>
         <App/>
       </Router>
-    </Provider>,
+    </Provider>
   </ActionCableProvider>,
   document.getElementById('root')
 );

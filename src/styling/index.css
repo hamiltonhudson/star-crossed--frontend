@@ -21,12 +21,15 @@ code {
   height: 100%
 } */
 
-html, body {
+/* html, body {
   width: 100%;
   height: 100vh;
   background-image: {
     src: url(https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
-  }
+  } */
   /* margin: 0;
   padding: 0; */
-}
+
+html {
+  background: #231F4D
+  }

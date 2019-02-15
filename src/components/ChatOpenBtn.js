@@ -48,7 +48,7 @@ const ChatOpenBtn = (props) => {
   }
   return (
     // <button onClick={() => handleClick()}> {this.props.acceptedUser.first_name} ➣ </button>
-      <button onClick={() => handleClick()} style={{paddingLeft: 50, paddingTop: 15, paddingBottom: 15}}> {this.props.acceptedReceiver.first_name} ➣ </button>
+      <button onClick={() => handleClick()} style={{size: 30, paddingLeft: 50, paddingTop: 15, paddingBottom: 15}}> {this.props.acceptedReceiver.first_name} ➣ </button>
     )
   }
 

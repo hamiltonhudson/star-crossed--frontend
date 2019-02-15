@@ -85,7 +85,7 @@ class ChatsBase extends React.Component {
                     "value": 700,
                     "density": {
                       "enable": true,
-                      "value_area": 400
+                      "value_area": 700
                     }
                   },
                   "color": {

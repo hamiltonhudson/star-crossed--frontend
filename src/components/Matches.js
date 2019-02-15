@@ -87,7 +87,7 @@ class Matches extends React.Component {
       })
     }
     return (
-      <div>
+      <div className="matched-user-box">
         {generateMatches()}
       </div>
     )
