@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 // import { reduxForm, Field, propTypes } from 'redux-form';
 // import ProfileContainer from './ProfileContainer'
-import { setUsers, setCurrentUser, findMatches } from '../actions'
+import { setUsers, setCurrentUser, findMatches, findMatchedUsers } from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
@@ -88,12 +88,18 @@ class NewUser extends React.Component {
     fetch(usersAPI, newUserConfig)
     .then(r => r.json())
     .then(result => {
+      console.log(result)
       if (result.errors){
         alert('Please check your details')
         return <Redirect to="/newuser" />
       } else {
         this.props.setCurrentUser(result)
-        this.props.findMatches(result.matched_users)
+        // this.props.findMatches(result.matched_users)
+        const newUserMatches = result.matches
+        this.props.findMatches(result.matches)
+        // this.props.findMatches(newUserMatches)
+        result.matches.map(m => this.props.findMatchedUsers(m.matched_user))
+        // newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
         fetch(usersAPI)
         .then(r => r.json())
         .then(results => {
@@ -144,19 +150,6 @@ class NewUser extends React.Component {
                   />
                 </span>
               </span>
-              <label>Birth Day</label>
-              <span className="form-label">
-                <span className="input-field">
-                  <input
-                    type='number'
-                    placeholder="Enter correctly."
-                    name='birth_day'
-                    value={this.state.birth_day}
-                    onChange={event => this.handleChange(event)}
-                    className="input"
-                  />
-                </span>
-              </span>
               <label>Birth Month</label>
               <span className="form-label">
                 <span className="input-field">
@@ -165,6 +158,19 @@ class NewUser extends React.Component {
                     placeholder="Enter correctly."
                     name='birth_month'
                     value={this.state.birth_month}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
+              </span>
+              <label>Birth Day</label>
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='number'
+                    placeholder="Enter correctly."
+                    name='birth_day'
+                    value={this.state.birth_day}
                     onChange={event => this.handleChange(event)}
                     className="input"
                   />
@@ -279,7 +285,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUsers: (users) => dispatch(setUsers(users)),
     setCurrentUser: (userDetails) => dispatch(setCurrentUser(userDetails)),
-    findMatches: (matchedUsers) => dispatch(findMatches(matchedUsers)),
+    findMatches: (matches) => dispatch(findMatches(matches)),
+    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers))
   }
 }
 

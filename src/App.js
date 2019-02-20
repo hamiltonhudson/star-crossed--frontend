@@ -12,12 +12,8 @@ import NewUser from './components/NewUser';
 import ProfileContainer from './components/ProfileContainer';
 import EditUser from './components/EditUser';
 import MatchContainer from './components/MatchContainer'
-import Chat from './components/Chat';
 import ChatsBase from './components/ChatsBase';
-import Cable from 'actioncable';
-import ChatsCable from 'actioncable';
-import ConversationsCable from 'actioncable';
-import Display from './components/Display';
+import Spotify from './components/Spotify'
 // import { setUserId } from '../actions'
 // import { setSuns } from './actions';
 
@@ -37,7 +33,7 @@ class App extends Component {
            <Route path='/signup' component={SignUp} />
            <Route path='/newuser' component={NewUser} />
            <Route path='/signin' component={SignIn} />
-           <Route path='/profile' component={ProfileContainer} />
+           <Route path='/profile' component={ProfileContainer} spotify={Spotify}/>
            <Route path='/edit' component={EditUser} />
            <Route path='/matchprofile' component={MatchContainer} />
            <Route path='/chat' component={ChatsBase} />
