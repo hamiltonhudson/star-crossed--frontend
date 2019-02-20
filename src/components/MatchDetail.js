@@ -17,7 +17,7 @@ class MatchDetail extends React.Component {
           <p>Symbol  |  {this.props.viewedMatch.sun.symbol}</p>
           <p>Element  |  {this.props.viewedMatch.sun.element}</p><br></br>
           <span> ------ </span>
-          <p> Compatible With | {this.props.viewedMatch.sun.compat_signs} </p>
+          <p> Compatible With | {this.props.viewedMatch.sun.compat_signs}, {this.props.viewedMatch.sun.sign} </p>
           {/* <p>Qualities  |  {this.props.viewedMatch.sun.keywords}</p> */}
         </div>
     )} else if (this.props.clicked === "name" || this.props.clicked === "photo") {

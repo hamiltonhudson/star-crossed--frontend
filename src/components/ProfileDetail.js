@@ -15,7 +15,7 @@ class ProfileDetail extends React.Component {
           <p>Symbol  |  {this.props.currentUser.sun.symbol}</p>
           <p>Element  |  {this.props.currentUser.sun.element}</p><br/>
           <span> ------ </span>
-          <p> Compatible With | {this.props.currentUser.sun.compat_signs} </p>
+          <p> Compatible With | {this.props.currentUser.sun.compat_signs}, {this.props.currentUser.sun.sign} </p>
           {/* <p>Qualities  |  {this.props.currentUser.sun.keywords}</p> */}
         </div>
     )} else if (this.props.clicked === "name" || this.props.clicked === "photo") {
