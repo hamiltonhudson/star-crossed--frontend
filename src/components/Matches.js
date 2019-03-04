@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import '../styling/Profile.css';
 import MatchContainer from './MatchContainer';
 // import ProfileContainer from './ProfileContainer'
-import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser } from '../actions'
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions'
 
 const acceptBtn = './images/check_mark_1.png'
 const declineBtn = './images/x_mark_1.png'
@@ -25,8 +25,8 @@ class Matches extends React.Component {
     // console.log("handleDecline clicked")
     const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
-    this.props.acceptMatch(acceptedMatch)
-    this.props.acceptMatchedUser(acceptedUser)
+    // this.props.acceptMatch(acceptedMatch)
+    // this.props.acceptMatchedUser(acceptedUser)
     const acceptConfig = {
         method: "PATCH",
         headers: {
@@ -39,8 +39,13 @@ class Matches extends React.Component {
     }
     fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
-    .then(results => {
-      console.log(results)
+    .then(result => {
+      console.log(result)
+      this.props.setCurrentUser(result)
+      const resultMatch = result.matches.find(match => match.id === acceptedMatch.id)
+      const resultMatchedUser = resultMatch.matched_user
+      this.props.acceptMatch(resultMatch)
+      this.props.acceptMatchedUser(resultMatchedUser)
     })
   }
 
@@ -86,9 +91,28 @@ class Matches extends React.Component {
         )
       })
     }
+    const generatePending = () => {
+      const pending = this.props.currentUser.matches.filter(match => match.status === "pending")
+      const pendingUsers = pending.map(p => p.matched_user)
+      console.log("pending", pending)
+      console.log("pendingUsers", pendingUsers)
+      return pendingUsers.map(p => {
+        return (
+          <span key={p.id}>| {p.first_name} |</span>
+        )
+      })
+    }
     return (
-      <div className="matched-user-box">
-        {generateMatches()}
+      <div>
+        <div className="matched-user-box">
+          {generateMatches()}
+        </div><br/>
+        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link>
+        <br/><br/>
+        Pending
+        <div>
+          {generatePending()}
+        </div>
       </div>
     )
   }
@@ -110,6 +134,7 @@ const mapStateToProps = (state) => {
       acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
       acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
       declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
+      setCurrentUser: (user) => dispatch(setCurrentUser(user))
     }
   }
 

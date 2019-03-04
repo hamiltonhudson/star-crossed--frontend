@@ -34,12 +34,18 @@ class SignIn extends React.Component {
         // const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
         this.props.setUsers(data)
         this.props.setCurrentUser(userDetails)
-        const matchedOrAccepted = userDetails.matches.filter(match => match.status !== "declined")
-        const matched = userDetails.matches.filter(match => match.status === "matched")
+        const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
+        console.log("matched or awaiting", matchedOrAwaiting)
+        // const matched = userDetails.matches.filter(match => match.status === "matched")
+        const pending = userDetails.matches.filter(match => match.status === "pending")
+        console.log("pending", pending)
+        const awaiting = userDetails.matches.filter(match => match.status === "awaiting")
+        console.log("awaiting", awaiting)
         const accepted = userDetails.matches.filter(match => match.status === "accepted")
         const declined = userDetails.matches.filter(match => match.status === "declined")
-        this.props.findMatches(matchedOrAccepted)
-        matched.map(m => this.props.findMatchedUsers(m.matched_user))
+        this.props.findMatches(matchedOrAwaiting)
+        // matched.map(m => this.props.findMatchedUsers(m.matched_user))
+        matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
         this.props.findAccepted(accepted)
         accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
         this.setState({
@@ -50,7 +56,7 @@ class SignIn extends React.Component {
 
   render() {
     // return(
-    // console.log(this.props)
+    console.log(this.props)
     const signInForm =
       <div>
         <Link to='/' className="form-link"> ◁ Back </Link>

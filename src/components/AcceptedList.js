@@ -54,7 +54,10 @@ class AcceptedList extends React.Component {
 
 
     const generateAccepted = () => {
-      return this.props.acceptedUsers.map(acceptedUser => {
+      const accepted = this.props.currentUser.matches.filter(match => match.status === "accepted")
+      const acceptedUsers = accepted.map(a => a.matched_user)
+      return acceptedUsers.map(acceptedUser => {
+      // return this.props.acceptedUsers.map(acceptedUser => {
         return (
           <div>
             <OpenChat

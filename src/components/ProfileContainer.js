@@ -62,7 +62,7 @@ class ProfileContainer extends React.Component {
             <Matches />
           </div>
         </div>
-        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link>
+        {/* <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link> */}
         <br/><br/><br/>
       </div>
     )
