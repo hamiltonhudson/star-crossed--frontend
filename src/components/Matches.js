@@ -98,7 +98,7 @@ class Matches extends React.Component {
       console.log("pendingUsers", pendingUsers)
       return pendingUsers.map(p => {
         return (
-          <span key={p.id}>| {p.first_name} |</span>
+          <span key={p.id} className="pending">| {p.first_name} |</span>
         )
       })
     }
@@ -107,9 +107,9 @@ class Matches extends React.Component {
         <div className="matched-user-box">
           {generateMatches()}
         </div><br/>
-        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link>
+        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Accepted ☞ </Link>
         <br/><br/>
-        Pending
+        <span id="pending-list">Pending</span>
         <div>
           {generatePending()}
         </div>

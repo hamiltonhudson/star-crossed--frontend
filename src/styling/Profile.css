@@ -26,6 +26,7 @@
   font-family: "Avenir Next Condensed";
   /* color: #EAEBF9; */
   color: hsla(278, 62%, 82%, 0.91);
+  font-size: 20px;
   /* margin-left: 30em; */
   /* position: absolute;
   left: auto;
@@ -278,4 +279,21 @@
   /* background:url(../images/x_mark_1.png) no-repeat; */
   /* background-reapeat: no-repeat; */
   background-color: hsla(278, 62%, 82%, 0.91);
+}
+
+#pending-list {
+  font-family: 'Cardo', serif;
+  font-style: bold;
+  font-size: 20px;
+}
+
+.pending {
+  font-family: "Avenir Next Condensed";
+  color: white;
+  font-size: 16px;
+}
+
+.pending:hover {
+  color: hsla(278, 62%, 82%, 0.91);
+  opacity: 0.95;
 }

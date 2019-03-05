@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import '../styling/Profile.css'
 import MatchDetail from './MatchDetail'
-import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser } from '../actions';
+import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions';
 
 const acceptBtn = './images/check_mark_1.png'
 const declineBtn = './images/x_mark_1.png'
@@ -34,8 +34,8 @@ class MatchContainer extends React.Component {
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
     // console.log(acceptedMatch, acceptedUser)
     // this.props.acceptMatch(acceptedUser)
-    this.props.acceptMatch(acceptedMatch)
-    this.props.acceptMatchedUser(acceptedUser)
+    // this.props.acceptMatch(acceptedMatch)
+    // this.props.acceptMatchedUser(acceptedUser)
     const acceptConfig = {
         method: "PATCH",
         headers: {
@@ -48,8 +48,16 @@ class MatchContainer extends React.Component {
     }
     fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
-    .then(results => {
-      console.log(results)
+    // .then(results => {
+    //   console.log(results)
+    // })
+    .then(result => {
+      console.log(result)
+      this.props.setCurrentUser(result)
+      const resultMatch = result.matches.find(match => match.id === acceptedMatch.id)
+      const resultMatchedUser = resultMatch.matched_user
+      this.props.acceptMatch(resultMatch)
+      this.props.acceptMatchedUser(resultMatchedUser)
     })
     this.setState({
       acceptedOrDenied: true
@@ -110,7 +118,7 @@ class MatchContainer extends React.Component {
             </div>
             <br/>
             <p id="detail-name"> this sign's: </p>
-            <span> ------ </span><br/><br/>
+            <span> ——— </span><br/><br/>
             <span id="sign-info"> vibe  |  {this.props.viewedMatch.sun.vibe}</span><br></br>
             <span id="sign-info"> motto  |  "{this.props.viewedMatch.sun.motto}"</span><br/><br/>
             <span id="sign-info"> qualities  |  {this.props.viewedMatch.sun.keywords}</span><br></br>
@@ -129,6 +137,7 @@ const mapStateToProps = (state) => {
     matchObjs: state.matches.matches,
     accepted: state.matches.accepted,
     acceptedUsers: state.matches.acceptedUsers,
+    currentUser: state.users.currentUser,
     // declined: state.matches.declined,
     // declinedUsers: state.matches.declinedUsers,
   }
@@ -139,6 +148,7 @@ const mapDispatchToProps = (dispatch) => {
     acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
     declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
     acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
     // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
     // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
     // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
