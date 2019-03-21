@@ -17,7 +17,7 @@ class MatchDetail extends React.Component {
           <p>Symbol  |  {this.props.viewedMatch.sun.symbol}</p>
           <p>Element  |  {this.props.viewedMatch.sun.element}</p><br></br>
           <span> ——— </span>
-          <p> Compatible With | {this.props.viewedMatch.sun.compat_signs}, {this.props.viewedMatch.sun.sign} </p>
+          <p> Compatible With | {this.props.viewedMatch.sun.compat_signs} </p>
           {/* <p>Qualities  |  {this.props.viewedMatch.sun.keywords}</p> */}
         </div>
     )} else if (this.props.clicked === "name" || this.props.clicked === "photo") {
@@ -34,7 +34,8 @@ class MatchDetail extends React.Component {
           <span> ——— </span>
           <p>{this.props.viewedMatch.bio}</p>
         </div>
-    )}
+      )
+    }
   }
   render() {
     return (
@@ -45,10 +46,10 @@ class MatchDetail extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    // match: state.matches.match,
+  const mapStateToProps = (state) => {
+    return {
+      // match: state.matches.match,
     viewedMatch: state.matches.match
+    }
   }
-}
 export default connect(mapStateToProps)(MatchDetail);

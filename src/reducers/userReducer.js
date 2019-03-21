@@ -30,8 +30,12 @@ export default (state = initialState, action) => {
       case types.CURRENT_USER_ID:
         return {
           ...state,
-          // users: ,
-          userID: action.payload
+          userId: action.payload
+        }
+      case types.SET_USER_ID:
+        return {
+          ...state,
+          userId: action.payload
         }
     case types.EDIT_USER_DETAILS:
       console.log(action.payload)
@@ -44,6 +48,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         // users: ,
+        // currentUser: {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
         currentUser: action.payload
       }
     case types.ENABLE_CHAT:

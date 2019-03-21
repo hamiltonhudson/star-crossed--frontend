@@ -17,12 +17,16 @@ body, html {
 
 .form-container {
   border-color: invisible;
-  /* border-style: double; */
   background-color: ##EAEBF9;
   font-family: "Avenir Next" !important;
   font-size: 22px;
-  padding: 80px;
   color: #27116B;
+  margin-left: 50px;
+  margin-right: 50px;
+  /* margin: auto; */
+  /* padding-left: 60px; */
+  /* padding-right: 60px; */
+  /* margin-top: -25px; */
 }
 
 .form-header {
@@ -30,42 +34,58 @@ body, html {
   font-size: 50px;
   color: #27116B;
   background-color: #EAEBF9;
+  display: flex;
 }
 
 .form {
-  /* border-color: #27116B; */
-  /* border-style: ridge; */
   background-color: #EAEBF9;
-  display: flex;
   color: #27116B;
-
-
+  /* border-style: ridge; */
+  /* display: flex; */
+  /* width: 100% */
 }
 
 .form-label {
-
+  width: 70%;
+  margin-right:20px;
 }
 
 .form .input {
   background-color: white !important;
+  /* font-family: "Roboto 2.0", sans-serif; */
   border-style: solid;
   border-color: #27116B;
-  /* text-align: center; */
   color: #27116B;
   width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
-  box-sizing: border-box;
+  width: 200px
+  /* text-align: center; */
+  /* box-sizing: border-box; */
   /* border-width: 5px; */
-  /* margins: 10px; */
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   /* margin-left: 5em; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margins: 10px; */
+}
+
+.selected {
+  border-style: solid;
+  border-color: #27116B !important;
+  box-sizing: border-box;
+  /* color: #27116B; */
+  /* padding: 12px 20px; */
+  /* margin: 8px 0; */
+  /* width: 80%; */
+  /* display:flex; */
+  /* color: #27116B; */
 }
 
 .input-field {
-
+  font-family: "Roboto 2.0", sans-serif !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  width: 70%;
 }
 
 .submit-button {
@@ -73,9 +93,9 @@ body, html {
   border-radius: 25px;
   font-family: 'EuphemiaUCAS', sans-serfif !important;
   font-size: 20px;
-  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
   color: #EAEBF9;
-  margin-top: 2em;
+  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
+  margin-top: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,8 +106,8 @@ body, html {
   border-radius: 25px;
   font-family: 'EuphemiaUCAS', sans-serfif !important;
   font-size: 20px;
-  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
   color: #EAEBF9;
+  text-shadow: -1px 0 #27116B, 0 1px #27116B, 1px 0 #27116B, 0 -1px #27116B;
   margin-top: -28px;
   display: flex;
   align-items: center;

@@ -16,7 +16,6 @@ class MatchContainer extends React.Component {
 
   handleDetailClick = (event) => {
     event.preventDefault()
-    // console.log("event.target.datset", event.target.dataset.name)
     this.setState({
       clicked: event.target.dataset.name,
     })
@@ -29,7 +28,6 @@ class MatchContainer extends React.Component {
   }
 
   handleAccept = (acceptedUserId) => {
-    console.log("handleDecline clicked")
     const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
     // console.log(acceptedMatch, acceptedUser)
@@ -65,7 +63,6 @@ class MatchContainer extends React.Component {
   }
 
   handleDecline = (declinedUserId) => {
-    console.log("handleDecline clicked")
     const declinedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === declinedUserId)
     const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
     // console.log(declinedMatch, declinedUser)
@@ -93,25 +90,26 @@ class MatchContainer extends React.Component {
 
   render() {
     const matchPhoto = this.props.viewedMatch.photo
-    // console.log("MatchContainer THIS.PROPS", this.props)
+    console.log("MatchContainer THIS.PROPS", this.props)
     return (
       <div>
         <div className="prof-container">
-          <Link to='/profile' className="prof-link"> ◁ Back</Link>
+          <div style={{"marginTop": "10px"}}>
+            <Link to='/profile' className="prof-link"> ◁ Back</Link>
+          </div>
           <div className="prof-card">
             <h2 className="card-title" id="prof-name" data-name="name"
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.first_name} </h2>
             <MatchDetail clicked={this.state.clicked}/>
-            <br/><br/><br/>
             <span onClick={(event) => this.handleDetailClick(event)}>
               {matchPhoto ? <img src={matchPhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
             </span>
-            <br/><br/><br/>
+            <br/>
             <span className="prof-sun" data-name="sun"
               onClick={(event) => this.handleDetailClick(event)}
             > {this.props.viewedMatch.sun.sign} </span>
-            <br></br>
+            <br></br><br/>
             <div>
               <button className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <span id="picto">☑︎</span> </button>
               <button className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <span id="picto">☒</span> </button>
@@ -130,30 +128,30 @@ class MatchContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    viewedMatch: state.matches.match,
-    matchedUsers: state.matches.matchedUsers,
-    matchObjs: state.matches.matches,
-    accepted: state.matches.accepted,
-    acceptedUsers: state.matches.acceptedUsers,
-    currentUser: state.users.currentUser,
-    // declined: state.matches.declined,
-    // declinedUsers: state.matches.declinedUsers,
+  const mapStateToProps = (state) => {
+    return {
+      viewedMatch: state.matches.match,
+      matchedUsers: state.matches.matchedUsers,
+      matchObjs: state.matches.matches,
+      accepted: state.matches.accepted,
+      acceptedUsers: state.matches.acceptedUsers,
+      currentUser: state.users.currentUser,
+      // declined: state.matches.declined,
+      // declinedUsers: state.matches.declinedUsers,
+    }
   }
-}
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
-    declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
-    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
-    // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
-    // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
-    // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
+      declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
+      acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+      setCurrentUser: (user) => dispatch(setCurrentUser(user))
+      // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
+      // acceptMatch: (acceptedUser) => dispatch(acceptMatch(acceptedUser)),
+      // declineMatch: (declinedMatch, declinedUser) => dispatch(declineMatch(declinedMatch, declinedUser)),
+    }
   }
-}
 
 
 

@@ -1,19 +1,9 @@
-/*.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80vmin;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
 html {
   background: #231F4D
+}
+
+body {
+  overflow: hidden
 }
 
 .App {
@@ -41,8 +31,8 @@ html {
   font-family: 'Codystar', cursive;
   font-size: 95px;
   color: white;
-  /* text-shadow: 4px 4px 6px #95b6bb; */
   background-color: transparent;
+  /* text-shadow: 4px 4px 6px #95b6bb; */
   /* padding-bottom: 100px; */
   /* min-height: 100vh; */
   transition: all 0.3s ease-in;
@@ -68,61 +58,12 @@ html {
 }
 
 .App-link:hover {
-  /* color: #61dafb; */
-  /* color: #EAEBF8; */
-  /* color: #d9cdee; */
-  /* color: #c6b0f6; */
-  /* color: rgba(165, 134, 209, 0.75); */
-  /* color: hsla(253, 64%, 83%, 1; */
-  /* color: hsla(278, 66%, 87%, 0.91); */
-  /* color: rgba(224, 182, 218, 0.7); */
-    color: hsla(278, 62%, 82%, 0.91);
-    /* color: hsla(278, 62%, 82%, 0.91); */
   opacity: 0.75;
   -webkit-stroke-width: 5.3px;
   -webkit-stroke-color: #FFFFFF;
   -webkit-fill-color: #FFFFFF;
   text-shadow: 1px 0px 20px yellow;
-    /* text-shadow: 2px 1px 20px red; */
 }
-
-/* #title {
-  font-family: 'Codystar', cursive;
-  font-size: 80px;
-  color: white;
-  text-shadow: 4px 4px 6px #95b6bb;
-  -webkit-animation-name:             glow;
-  -webkit-animation-duration:         10s;
-  -webkit-animation-iteration-count:  infinite;
-  -webkit-animation-timing-function:	ease-in-out;
-  text-align: center; */
-  /* font-size: 100px; */
-  /* color: #a0dce4; */
-  /* line-height: 100px;
-      opacity: 0; */
-/* } */
-/* @-webkit-keyframes glow {
-	0% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-.glow:after {
-    background: rgba(255,255,255,0.5);
-    border: 1px solid rgba(255,255,255,0.5);
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    right: -1px;
-    bottom: -1px;
-    content: "";
-    border-radius: 3px;
-} */
 
 @keyframes slidein {
   from {
@@ -135,3 +76,17 @@ html {
     width: 100%;
   }
 }
+
+/*.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80vmin;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */

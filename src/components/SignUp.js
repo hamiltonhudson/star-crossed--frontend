@@ -3,7 +3,6 @@ import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { reduxForm, Field } from 'redux-form';
 import '../styling/Form.css'
-// import NewUser from './NewUser'
 import { getEmailAndPW } from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
@@ -37,13 +36,15 @@ class SignUp extends React.Component {
     const signUpForm =
     // return (
     <div>
-      <Link to='/' className="form-link"> ◁ Back  </Link>
-      <div className="form-container">
+      <div style={{"margin-top": "10px"}}>
+        <Link to='/' className="form-link"> ◁ Back  </Link>
+      </div>
+      <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
         <h1 className="signupHeader">sign up</h1>
         <br/><br/>
-        <div className="form">
+        <div className="form" style={{"width": "85%"}}>
           <form onSubmit={this.handleSubmit}>
-            <br/><br/>
+            <br/>
             <label className="loginLabel">Email Address:</label>
             <div className="form-label">
               <div className="input-field">
@@ -59,17 +60,17 @@ class SignUp extends React.Component {
             </div>
             <label className="loginLabel">Password:</label>
             <div className="form-label">
-            <div className="input-field">
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                className="input"
-              />
+              <div className="input-field">
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  className="input"
+                />
+              </div>
             </div>
-          </div>
             <br/><br/>
             <input className="submit-button"
               // className="form-button"

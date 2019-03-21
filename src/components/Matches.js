@@ -22,11 +22,8 @@ class Matches extends React.Component {
   }
 
   handleAccept = (acceptedUserId) => {
-    // console.log("handleDecline clicked")
     const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
-    // this.props.acceptMatch(acceptedMatch)
-    // this.props.acceptMatchedUser(acceptedUser)
     const acceptConfig = {
         method: "PATCH",
         headers: {
@@ -50,11 +47,9 @@ class Matches extends React.Component {
   }
 
   handleDecline = (declinedUserId) => {
-    // console.log("handleDecline clicked")
     const declinedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === declinedUserId)
     const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
     this.props.declineMatchedUser(declinedUser)
-
     const declineConfig = {
         method: "PATCH",
         headers: {
@@ -78,10 +73,11 @@ class Matches extends React.Component {
       return <Redirect to="/matchprofile" />
     }
     const generateMatches = () => {
+      console.log("this.props.matchedUsers in Matches", this.props.matchedUsers)
       return this.props.matchedUsers.map(matchedUser => {
         const matchPhoto = matchedUser.photo
         return (
-          <div key={matchedUser.id} id="matched-users">
+          <div key={matchedUser.id} className="matched-users">
             <div onClick={() => this.handleViewMatch(matchedUser.id)}>
               {matchedUser.first_name}   ☽   {matchPhoto ? <img src={matchPhoto} className="match-photo" alt="match-img" /> : null}    ☆    {matchedUser.sun.sign}
             </div>
@@ -107,10 +103,12 @@ class Matches extends React.Component {
         <div className="matched-user-box">
           {generateMatches()}
         </div><br/>
-        <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Accepted ☞ </Link>
-        <br/><br/>
-        <span id="pending-list">Pending</span>
-        <div>
+        <div style={{"marginTop": "5px", "marginBottom": "5px"}}>
+          <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Accepted ☞ </Link>
+        </div>
+        {/* <br/> */}
+        <div id="pending-list">Pending</div>
+        <div style={{"marginBottom": "10px"}}>
           {generatePending()}
         </div>
       </div>
@@ -118,15 +116,16 @@ class Matches extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser,
-    matchedUsers: state.matches.matchedUsers,
-    matchObjs: state.matches.matches,
-    accepted: state.matches.accepted,
-    acceptedUsers: state.matches.acceptedUsers,
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      matchedUsers: state.matches.matchedUsers,
+      matchObjs: state.matches.matches,
+      accepted: state.matches.accepted,
+      acceptedUsers: state.matches.acceptedUsers,
+      // alreadyMatched:
+    }
   }
-}
 
   const mapDispatchToProps = (dispatch) => {
     return {

@@ -2,11 +2,12 @@ import React, { Fragment } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ActionCableProvider } from 'react-actioncable-provider';
+import Routes from '../routes'
 // import '../styling/Form.css'
 import '../styling/FormCustom.css'
 import ProfileContainer from './ProfileContainer'
 import { setUsers, setCurrentUser, setUserId, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
-import Routes from '../routes'
+
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
 class SignIn extends React.Component {
@@ -30,8 +31,9 @@ class SignIn extends React.Component {
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+        // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
         // const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
+        const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase() && d.password === this.state.password)
         this.props.setUsers(data)
         this.props.setCurrentUser(userDetails)
         const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
@@ -58,12 +60,14 @@ class SignIn extends React.Component {
     // return(
     console.log(this.props)
     const signInForm =
-      <div>
-        <Link to='/' className="form-link"> ◁ Back </Link>
-        <div className="form-container">
+      <Fragment>
+        <div style={{"marginTop": "10px"}}>
+          <Link to='/' className="form-link"> ◁ Back </Link>
+        </div>
+        <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
           <h1 className="signupHeader">sign in</h1>
           <br/><br/>
-          <div className="form">
+          <div className="form" style={{"width": "85%"}}>
             {/* <div className="custom-form"> */}
             <form onSubmit={this.handleSubmit}>
               <br/>
@@ -80,6 +84,19 @@ class SignIn extends React.Component {
                   />
                 </div>
               </div>
+              {/* <label className="loginLabel">Email Address:</label>
+                <div className="form-label">
+                <div className="input-field">
+                  <input
+                className="input"
+                type="email"
+                placeholder="Enter Email Address"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                  />
+                </div>
+              </div> */}
               <label className="loginLabel">Password:</label>
               <div className="form-label">
                 <div className="input-field">
@@ -93,32 +110,6 @@ class SignIn extends React.Component {
                   />
                 </div>
               </div>
-              {/* <label className="form-label">First:</label>
-                <div className="form-label">
-                <div className="input-field">
-                <input
-                className="input"
-                type="text"
-                placeholder="Enter first name"
-                name="first_name"
-                value={this.state.first_name}
-                onChange={this.handleChange}
-                />
-                </div>
-                </div>
-                <label className="loginLabel">Last:</label>
-                <div className="form-label">
-                <div className="input-field">
-                <input
-                className="input"
-                type="text"
-                placeholder="Enter last name"
-                name="last_name"
-                value={this.state.last_name}
-                onChange={this.handleChange}
-                />
-                </div>
-              </div> */}
               <br/><br/>
               <input
                 type="submit"
@@ -128,7 +119,7 @@ class SignIn extends React.Component {
             </form>
           </div>
         </div>
-      </div>
+      </Fragment>
       // )
       return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
         // {/* <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>

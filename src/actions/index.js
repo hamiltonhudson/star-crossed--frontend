@@ -29,9 +29,16 @@ export const setCurrentUser = (currentUser) => {
   }
 }
 
-export const setUserId = (userId) => {
+export const currentUserId = (userId) => {
   return {
     type: types.CURRENT_USER_ID,
+    payload: userId
+  }
+}
+
+export const setUserId = (userId) => {
+  return {
+    type: types.SET_USER_ID,
     payload: userId
   }
 }
@@ -107,14 +114,14 @@ export const acceptMatchedUser = (acceptedUser) => {
   }
 }
 
-// export const declineMatch = (declinedMatch) => {
-//   return {
-//     type: types.DECLINE_MATCH,
-//     payload: declinedMatch
-//     // payload: pending, matches
-//     // (remove from pending, should not go back to matches [hit crud D for pending])
-//   }
-// }
+export const declineMatch = (declinedMatch) => {
+  return {
+    type: types.DECLINE_MATCH,
+    payload: declinedMatch
+    // payload: pending, matches
+    // (remove from pending, should not go back to matches [hit crud D for pending])
+  }
+}
 
 export const declineMatchedUser = (declinedUser) => {
   return {

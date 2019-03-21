@@ -1,20 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import Routes from '../routes'
 import '../styling/App.css';
 import '../styling/Landing.css';
+// import '../styling/index.css'
 import Particles from 'react-particles-js';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { ActionCable } from 'react-actioncable-provider';
-// import '../styling/index.css'
-// import { connect } from 'react-redux';
 import ProfileContainer from './ProfileContainer';
+import { setCurrentUser } from '../actions'
 // import AcceptedList from './AcceptedList';
 // import ChatsCable from './ChatsCable'
-import Routes from '../routes'
 
 class Landing extends React.Component {
   render() {
+    let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
+    this.props.setCurrentUser(nonExistentUser)
+    console.log("this.props.currentUser in Landing", this.props.currentUser)
     return (
       // <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
         <div className="landing">
@@ -148,11 +151,20 @@ class Landing extends React.Component {
   }
 }
 
-// export default connect(mapStateToProps)(Landing);
-export default Landing;
+// export default Landing;
 
-// const mapStateToProps = (state) => {
-//   return {
-//     chatEnabled: state.users.chatEnabled
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    // chatEnabled: state.users.chatEnabled
+    currentUser: state.users.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches))
+    setCurrentUser: (userObj) => dispatch(setCurrentUser(userObj))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Landing);
