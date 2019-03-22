@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '../styling/Form.css'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { setUsers, setCurrentUser, setUserId, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers, deleteUser} from '../actions'
+import { setUsers, setCurrentUser, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
 import ProfileContainer from './ProfileContainer'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
@@ -19,7 +19,6 @@ class EditUser extends React.Component {
     gender: this.props.currentUser.gender,
     gender_pref: this.props.currentUser.gender_pref,
     // birth_date: this.props.currentUser.birth_date,
-    // location: this.props.currentUser.location,
     city: this.props.city,
     usstate: this.props.usstate,
     bio: this.props.currentUser.bio,
@@ -30,12 +29,9 @@ class EditUser extends React.Component {
 
   handleChange = (event) => {
     event.preventDefault()
-    console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log("state", this.state)
-    console.log("props", this.props)
   }
 
   onImageDrop(files) {
@@ -119,6 +115,7 @@ class EditUser extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    const currentMatchIds = this.props.matches.map(match => match.id)
     const userConfig = {
       method: "PATCH",
       headers: {
@@ -141,56 +138,40 @@ class EditUser extends React.Component {
     fetch(`http://localhost:3000/api/v1/users/${this.props.currentUser.id}`, userConfig)
     .then(r => r.json())
     .then(result => {
-      console.log("result", result)
       if (result.errors){
         alert('Please enter details correctly')
         return <Redirect to="/edit" />
       } else {
-        // this.props.setCurrentUser(result)
         let updatedUser = result
         this.props.setCurrentUser(updatedUser)
-        // this.props.setUserId(updatedUser.id)
-        let matchedOrAwaiting
-        matchedOrAwaiting = updatedUser.matches.filter(match => match.status === "matched" || match.status === "awaiting")
-        console.log("this.props.matches in EditUser", this.props.matches)
-        matchedOrAwaiting = matchedOrAwaiting.filter(ma => !this.props.matches.includes(ma))
-        // matchedOrAwaiting = matchedOrAwaiting.filter(ma => this.props.matches.includes(ma))
-        // matchedOrAwaiting = matchedOrAwaiting.reject(ma => !this.props.matches.includes(ma))
-        // matchedOrAwaiting = matchedOrAwaiting.reject(ma => this.props.matches.includes(ma))
-        // matchedOrAwaiting = matchedOrAwaiting.map(ma => !this.props.matches.includes(ma))
-        console.log("matchedOrAwaiting after filter in Edit User", matchedOrAwaiting)
-        // const matched = updatedUser.matches.filter(match => match.status === "matched")
-        const pending = updatedUser.matches.filter(match => match.status === "pending")
-        console.log("pending", pending)
-        const awaiting = updatedUser.matches.filter(match => match.status === "awaiting")
-        console.log("awaiting", awaiting)
-        const accepted = updatedUser.matches.filter(match => match.status === "accepted")
-        const declined = updatedUser.matches.filter(match => match.status === "declined")
-        // declined.map(d => this.props.declineMatch(d.matched_user))
-        this.props.findMatches(matchedOrAwaiting)
-        // matched.map(m => this.props.findMatchedUsers(m.matched_user))
-        matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
-        this.props.findAccepted(accepted)
-        accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
-      // fetch(`http://localhost:3000/api/v1/users/${result.id}/updated_matches`)
-      // .then(r => r.json())
-      // .then(results => {
-      //   (console.log(results))
-      //   const matched = results.filter(result => result.status === "matched")
-      //   this.props.findMatches(matched)
-      //   matched.map(m => this.props.findMatchedUsers(m.matched_user))
-      // })
+        let matchedOrAwaiting = updatedUser.matches.filter(match => match.status === "matched" || match.status === "awaiting")
+        let declined = updatedUser.matches.filter(match => match.status === "declined")
+        let newMatches = matchedOrAwaiting.filter(ma => !currentMatchIds.includes(ma.id))
+        let oldMatches = declined.filter(d => currentMatchIds.includes(d.id))
+
+        if (newMatches.length > 0 && oldMatches.length === 0) {
+          newMatches.map(newMatch => this.props.updateMatches(newMatch))
+          newMatches.map(newMatch => this.props.findMatchedUsers(newMatch.matched_user))
+        } else if (newMatches.length === 0) {
+          this.props.findMatches(matchedOrAwaiting)
+          let updatedMatchedUsers = matchedOrAwaiting.map(ma => ma.matched_user)
+          this.props.updateMatchedUsers(updatedMatchedUsers)
+        } else if (newMatches.length > 0 && oldMatches.length > 0) {
+          this.props.findMatches(matchedOrAwaiting)
+          let updatedMatchedUsers = matchedOrAwaiting.map(ma => ma.matched_user)
+          this.props.updateMatchedUsers(updatedMatchedUsers)
+        }
         this.setState({
           updated: true
         })
       }
     })
     console.log(this.state.updated)
+    console.log(this.props.matches)
   }
 
 
   deleteUser = (userId) => {
-    // fetch(`http://localhost:3000/api/v1/users/${userId}`, {
     fetch(`${usersAPI}${userId}`, {
       method: 'DELETE',
       headers: {
@@ -198,38 +179,21 @@ class EditUser extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        // user: {
           id: `${userId}`
-        // }
       })
     })
     .then(r => r.json())
     .then(response => {
-      console.log(response)
       let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
-      // this.props.deleteUser(this.props.currentUser)
       this.props.deleteUser(nonExistentUser)
       this.props.setUsers(response)
       this.setState({
-        // updated: false,
         deleted: true
       })
-      // this.props.deleteUser(this.props.currentUser)
     })
   }
 
-  // landingRedirect = () => {
-  //   console.log(this.state.deleted)
-  //   console.log(this.props.currentUser)
-  //   if (this.state.deleted) {
-  //     return <Redirect to="/" />
-  //   }
-  // }
-
   userRedirect = () => {
-    console.log("this.state.deleted in userRedirect", this.state.deleted)
-    console.log("this.props.currentUser in userRedirect", this.state.pudated)
-    console.log("this.state.updated in userRedirect", this.state.updated)
     if (this.state.deleted === true) {
       return <Redirect to="/" />
     } else if (this.state.updated === true) {
@@ -238,12 +202,6 @@ class EditUser extends React.Component {
   }
 
   render() {
-    console.log("this.state.uploadedFileCloudinaryUrl", this.state.uploadedFileCloudinaryUrl)
-    console.log("this.props.currentUser.photo", this.props.currentUser.photo)
-    console.log("this.state.updated in render", this.state.updated)
-    // let genderPref = this.state.gender_pref
-    // let city = this.props.currentUser.location.split(", ")[0]
-    // let usstate = this.props.currentUser.location.split(", ")[1]
     return (
       <Fragment>
         <div style={{"marginTop": "10px"}}>
@@ -251,9 +209,9 @@ class EditUser extends React.Component {
         </div>
         <div className="form-container">
           <h1 className="signupHeader">edit profile</h1>
-          <div className="form">
+          <div className="form" onSubmit={event => this.handleSubmit(event)}>
             {/* <form onSubmit={event => this.handleSubmit(event)}> */}
-            <form className="col s12" onSubmit={event => this.handleSubmit(event)}>
+            <form className="col s12">
               <div className="row">
                 <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
                   <span className="form-label">
@@ -284,30 +242,20 @@ class EditUser extends React.Component {
                   </span>
                 </div>
               </div>
-              {/* <label>Birth Year</label>
-                <input
-                type='number'
-                name='birth_year'
-                value={this.state.birth_year}
+              {/* <label>Birth Date</label>
+                <span className="form-label">
+                <span className="input-field">
+                  <input
+                type='date'
+                select-years="15"
+                placeholder="Enter correctly."
+                name='birth_date'
+                value={this.state.birth_date}
                 onChange={event => this.handleChange(event)}
                 className="input"
-                />
-                <label>Birth Month</label>
-                <input
-                type='number'
-                name='birth_month'
-                value={this.state.birth_month}
-                onChange={event => this.handleChange(event)}
-                className="input"
-                />
-                <label>Birth Day</label>
-                <input
-                type='number'
-                name='birth_day'
-                value={this.state.birth_day}
-                onChange={event => this.handleChange(event)}
-                className="input"
-              /> */}
+                  />
+                </span>
+              </span> */}
               <div className="row">
                 <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
                   <span className="form-label">
@@ -406,7 +354,7 @@ class EditUser extends React.Component {
                 placeholder="Submit"
               />
             </form>
-            <span style={{"lineHeight": "0px"}}><button className="delete-button" onClick={() => this.deleteUser(this.props.currentUser.id)}>Delete</button></span>
+            {/* <span style={{"lineHeight": "0px"}}><button className="delete-button" onClick={() => this.deleteUser(this.props.currentUser.id)}>Delete</button></span> */}
           </div>
           {this.userRedirect()}
         </div>
@@ -420,27 +368,23 @@ const mapStateToProps = (state) => {
     currentUser: state.users.currentUser,
     city: state.users.currentUser.location.split(", ")[0],
     usstate: state.users.currentUser.location.split(", ")[1],
-    // matchedUsers: state.users.matchedUsers,
     matchedUsers: state.matches.matchedUsers,
     matches: state.matches.matches,
     gender: state.users.currentUser.gender,
     genderPref: state.users.currentUser.gender_pref,
-    userId: state.users.userId
+    // userId: state.users.userId
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    // setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
-    // findMatches: (matches) => dispatch(findMatches(matches)),
-    // findMatchedUsers: (matchedUsers) => dispatch(findMatches(matchedUsers))
     setUsers: (users) => dispatch(setUsers(users)),
     setCurrentUser: (updatedUser) => dispatch(setCurrentUser(updatedUser)),
+    updateMatches: (updatedMatches) => dispatch(updateMatches(updatedMatches)),
     findMatches: (matches) => dispatch(findMatches(matches)),
     findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
+    updateMatchedUsers: (updatedMatchedUsers) => dispatch(updateMatchedUsers(updatedMatchedUsers)),
     findAccepted: (accepted) => dispatch(findAccepted(accepted)),
     findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
-    // declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
-    // setUserId: (userId) => dispatch(mapDispatchToProps(userId)),
     deleteUser: (currentUser) => dispatch(deleteUser(currentUser))
   }
 }

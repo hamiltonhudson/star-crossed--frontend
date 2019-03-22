@@ -8,9 +8,6 @@ const initialState = {
   acceptedUsers: [],
   declined: [],
   declinedUsers: []
-  // pending: [],
-  // awaiting: [],
-  // relations: []
 }
 
 export default (state = initialState, action) => {
@@ -22,8 +19,6 @@ export default (state = initialState, action) => {
         matches: action.payload
       }
       case types.FIND_MATCHED_USERS:
-        // console.log(state.matches.matchedUsers)
-        // console.log("findMatchedUsers action.payload", action.payload)
         return {
           ...state,
           matchedUsers: [...state.matchedUsers, action.payload]
@@ -41,8 +36,6 @@ export default (state = initialState, action) => {
           accepted: action.payload
         }
       case types.FIND_ACCEPTED_USERS:
-        // console.log(state.matches.acceptedUsers)
-      console.log("findAcceptedUsers action.payload", action.payload)
         return {
           ...state,
           acceptedUsers: [...state.acceptedUsers, action.payload]
@@ -50,32 +43,37 @@ export default (state = initialState, action) => {
     case types.ACCEPT_MATCH:
       return {
         ...state,
-        // matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
         matches: state.matches.filter(match => match.id !== action.payload.id),
-        // accepted: [...state.accepted, action.payload.accdeptedMatch],
         accepted: [...state.accepted, action.payload],
-        // acceptedUsers: [...state.acceptedUsers, action.payload]
       }
       case types.ACCEPT_MATCHED_USER:
         return {
           ...state,
           matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-          // accepted: [...state.accepted, action.payload.accdeptedMatch],
           acceptedUsers: [...state.acceptedUsers, action.payload]
         }
     case types.DECLINE_MATCH:
       return {
         ...state,
-        // matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
         matches: state.matches.filter(match => match.id !== action.payload.id),
         declined: [...state.declined, action.payload],
       }
-      case types.DECLINE_MATCHED_USER:
-        return {
-          ...state,
+    case types.DECLINE_MATCHED_USER:
+      return {
+        ...state,
         matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-        // declinedUsers: [...state.declinedUsers, action.payload]
-        }
+      }
+    case types.UPDATE_MATCHED_USERS:
+      return {
+        ...state,
+        matchedUsers: action.payload
+      }
+    case types.UPDATE_MATCHES:
+    console.log("action.payload in matchReducer", action.payload)
+      return {
+        ...state,
+        matches: [...state.matches, action.payload]
+      }
 
     default:
       return state

@@ -132,6 +132,21 @@ export const declineMatchedUser = (declinedUser) => {
   }
 }
 
+export const updateMatchedUsers = (updatedMatchedUsers) => {
+  return {
+    type: types.UPDATE_MATCHED_USERS,
+    payload: updatedMatchedUsers
+  }
+}
+
+export const updateMatches = (updatedMatches) => {
+  console.log("updatedMatches in index", updatedMatches)
+  return {
+    type: types.UPDATE_MATCHES,
+    payload: updatedMatches
+  }
+}
+
 export const enableChat = (chat) => {
   return {
     type: types.ENABLE_CHAT,

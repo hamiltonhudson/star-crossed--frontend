@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import '../styling/Profile.css';
 import MatchContainer from './MatchContainer';
-// import ProfileContainer from './ProfileContainer'
 import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions'
 
 const acceptBtn = './images/check_mark_1.png'
@@ -37,7 +36,6 @@ class Matches extends React.Component {
     fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
     .then(result => {
-      console.log(result)
       this.props.setCurrentUser(result)
       const resultMatch = result.matches.find(match => match.id === acceptedMatch.id)
       const resultMatchedUser = resultMatch.matched_user
@@ -63,17 +61,14 @@ class Matches extends React.Component {
     fetch(`http://localhost:3000/api/v1/matches/${declinedMatch.id}/decline`, declineConfig)
     .then(r => r.json())
     .then(results => {
-      console.log(results)
     })
   }
 
   render() {
-    console.log("THIS.PROPS IN MATCHES", this.props)
     if (this.state.clicked) {
       return <Redirect to="/matchprofile" />
     }
     const generateMatches = () => {
-      console.log("this.props.matchedUsers in Matches", this.props.matchedUsers)
       return this.props.matchedUsers.map(matchedUser => {
         const matchPhoto = matchedUser.photo
         return (
@@ -90,8 +85,6 @@ class Matches extends React.Component {
     const generatePending = () => {
       const pending = this.props.currentUser.matches.filter(match => match.status === "pending")
       const pendingUsers = pending.map(p => p.matched_user)
-      console.log("pending", pending)
-      console.log("pendingUsers", pendingUsers)
       return pendingUsers.map(p => {
         return (
           <span key={p.id} className="pending">| {p.first_name} |</span>
@@ -120,6 +113,7 @@ class Matches extends React.Component {
     return {
       currentUser: state.users.currentUser,
       matchedUsers: state.matches.matchedUsers,
+      matches: state.matches.matches,
       matchObjs: state.matches.matches,
       accepted: state.matches.accepted,
       acceptedUsers: state.matches.acceptedUsers,

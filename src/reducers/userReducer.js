@@ -24,7 +24,6 @@ export default (state = initialState, action) => {
     case types.SET_CURRENT_USER:
       return {
         ...state,
-        // users: ,
         currentUser: action.payload
       }
       case types.CURRENT_USER_ID:
@@ -47,8 +46,6 @@ export default (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
-        // users: ,
-        // currentUser: {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
         currentUser: action.payload
       }
     case types.ENABLE_CHAT:

@@ -6,8 +6,6 @@ import '../styling/FormCustom.css'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers } from '../actions'
-// import { reduxForm, Field, propTypes } from 'redux-form';
-// import ProfileContainer from './ProfileContainer'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
@@ -17,9 +15,6 @@ class NewUser extends React.Component {
   state = {
     first_name: '',
     last_name: '',
-    // birth_month: '',
-    // birth_day: '',
-    // birth_year: '',
     birth_date: '',
     gender: '',
     gender_pref: '',
@@ -31,15 +26,10 @@ class NewUser extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log("event.target.name", event.target.name)
-    console.log("event.target.value", event.target.value)
-    console.log(event)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
-    console.log(this.state.gender)
-    // console.log("this.state.birth_date", this.state.birth_date)
+    // console.log(this.state)
   }
 
   onImageDrop(files) {
@@ -93,19 +83,16 @@ class NewUser extends React.Component {
     fetch(usersAPI, newUserConfig)
     .then(r => r.json())
     .then(result => {
-      console.log(result)
+      console.log("result in NewUser", result)
       if (result.errors){
         alert('Please check your details')
         return <Redirect to="/newuser" />
       } else {
         this.props.setCurrentUser(result)
         this.props.setUserId(result.id)
-        // this.props.findMatches(result.matched_users)
         const newUserMatches = result.matches
-        this.props.findMatches(result.matches)
-        // this.props.findMatches(newUserMatches)
-        result.matches.map(m => this.props.findMatchedUsers(m.matched_user))
-        // newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
+        this.props.findMatches(newUserMatches)
+        newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
         fetch(usersAPI)
         .then(r => r.json())
         .then(results => {
@@ -126,7 +113,6 @@ class NewUser extends React.Component {
 
   render() {
     return(
-      // const newUserForm =
       <div className="form-container">
         <h1 className="signupHeader" style={{"marginTop": "-10px"}}>create new</h1>
         <div className="form">
@@ -196,14 +182,9 @@ class NewUser extends React.Component {
                   <span className="input-field">
                     <select className="browser-default" name="gender_pref" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
                       <option value="" className="input-area" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}></option>
-                      {/* <option value="" className="selected" id="select" type="input" style={{"borderColor": "#27116B !important"}}/> */}
                       <option value="F" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Women</option>
                       <option value="M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men</option>
                       <option value="F,M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men & Women</option>
-                      {/* type='text' */}
-                      {/* name='gender_pref' */}
-                      {/* value={this.state.gender_pref} */}
-                      {/* onChange={event => this.handleChange(event)} */}
                       className="input"
                     </select>
                   </span>
