@@ -45,7 +45,7 @@ class SignUp extends React.Component {
         <div className="form" style={{"width": "85%"}}>
           <form onSubmit={this.handleSubmit}>
             <br/>
-            <label className="loginLabel">Email Address:</label>
+            <label className="loginLabel">Email:</label>
             <div className="form-label">
               <div className="input-field">
                 <input

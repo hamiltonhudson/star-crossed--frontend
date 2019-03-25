@@ -11,8 +11,8 @@ const usersAPI = 'http://localhost:3000/api/v1/users/'
 
 class SignIn extends React.Component {
   state = {
-    first_name: '',
-    // email: '',
+    // first_name: '',
+    email: '',
     password: '',
     loggedIn: false
   }
@@ -29,8 +29,8 @@ class SignIn extends React.Component {
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
-        // const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
+        // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+        const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
         // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase() && d.password === this.state.password)
         this.props.setUsers(data)
         this.props.setCurrentUser(userDetails)
@@ -64,32 +64,32 @@ class SignIn extends React.Component {
             {/* <div className="custom-form"> */}
             <form onSubmit={this.handleSubmit}>
               <br/>
-              <label className="loginLabel">Name:</label>
-              <div className="form-label">
-                <div className="input-field">
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Enter Name"
-                    name="first_name"
-                    value={this.state.first_name}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              {/* <label className="loginLabel">Email Address:</label>
+              {/* <label className="loginLabel">Name:</label>
                 <div className="form-label">
                 <div className="input-field">
                   <input
                 className="input"
-                type="email"
-                placeholder="Enter Email Address"
-                name="email"
-                value={this.state.email}
+                type="text"
+                placeholder="Enter Name"
+                name="first_name"
+                value={this.state.first_name}
                 onChange={this.handleChange}
                   />
                 </div>
               </div> */}
+              <label className="loginLabel">Email:</label>
+              <div className="form-label">
+                <div className="input-field">
+                  <input
+                    className="input"
+                    type="email"
+                    placeholder="Enter Email Address"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
               <label className="loginLabel">Password:</label>
               <div className="form-label">
                 <div className="input-field">
