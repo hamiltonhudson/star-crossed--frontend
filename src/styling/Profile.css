@@ -11,7 +11,8 @@
 }
 
 .prof-link {
-  font-family: "Avenir Next Condensed";
+  font-family: "LemonMilklight";
+  /* font-size: 12px; */
   color: hsla(278, 62%, 82%, 0.91);
   margin-left: 10px;
 }
@@ -22,9 +23,13 @@
 }
 
 #accepted-link {
-  font-family: "Avenir Next Condensed";
+  /* font-family: "Thirthy-Regular"; */
+  /* font-family: "SummerMornings-Regular";
+  font-size: 24px; */
+  font-family: 'Code-Light';
+  font-size: 22px;
+  font-weight: bold;
   color: hsla(278, 62%, 82%, 0.91);
-  font-size: 20px;
   position:relative;
   margin:0 auto;
   clear:left;
@@ -43,7 +48,8 @@
 }
 
 .edit-link {
-  font-family: "Avenir Next Condensed";
+  font-family: "LemonMilklight";
+  /* font-size: 12px; */
   /* color: #EAEBF9; */
   color: hsla(278, 62%, 82%, 0.91);
   position: absolute;
@@ -72,7 +78,7 @@
 #prof-name {
   background-color: #231F4D;
   text-align: center;
-  font-family: 'Cardo', serif;
+  font-family: 'GeosansLight';
   font-style: bold;
   font-size: 34px;
   transition: all 0.3s ease-in;
@@ -91,7 +97,7 @@
 .prof-sun {
   background-color: #231F4D;
   text-align: center;
-  font-family: 'Herculanum' !important;
+  font-family: 'GeosansLight';
   font-style: bold;
   font-size: 28px;
 }
@@ -99,17 +105,25 @@
 #detail-name {
   background-color: #231F4D;
   text-align: center;
-  font-family: 'Cardo', serif;
-  font-style: bold;
-  font-size: 34px;
+  font-family: 'Undella';
+  font-size: 46px;
+  /* font-family: 'UnderScript'; */
+  /* font-family: "Rockness"; */
+  /* font-family: 'Sensaka'; */
+  /* font-size: 44px; */
   transition: all 0.3s ease-in;
   text-decoration:none;
+  margin-bottom: -2px;
 }
 
 #sign-info {
-  font-family: Raleway;
+  /* font-family: 'GeosansLight'; */
+  /* font-family: 'Adam'; */
+  /* font-weight: bold; */
+  /* font-family: 'Lane - Narrow'; */
+  font-family: 'Datalegreya-Thin';
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   /* font-family: Cormorant;
   font-family: Garamond;
   font-family: Codystar;
@@ -172,15 +186,17 @@
 }
 
 .matches-header {
-  font-family: 'Cardo', serif;
+  font-family: 'WhiteAngelicaRegular';
   font-style: bold;
   font-size: 44px;
+  padding-bottom: 4px;
 }
 
 
 .matched-users {
   background-color: #231F4D;
-  font-family: "Avenir Next Condensed";
+  font-family: "Adam";
+  /* font-family: 'Bondoluo Peek Thin'; */
   font-color: #f4faf9;
   font-size: 18px;
   width: 35%;
@@ -270,13 +286,17 @@
 }
 
 #pending-list {
-  font-family: 'Cardo', serif;
+  font-family: 'PrequelDemo-Regular';
+  font-size: 14px;
+  padding-top: 8px;
+  margin-bottom: 2px;
+  /* font-family: 'BigNoodleTitling';
+  font-size: 20px; */
   font-style: bold;
-  font-size: 20px;
 }
 
 .pending {
-  font-family: "Avenir Next Condensed";
+  font-family: "Adam";
   color: white;
   font-size: 16px;
 }

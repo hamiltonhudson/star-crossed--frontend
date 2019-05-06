@@ -48,7 +48,11 @@ body {
 
 .App-link {
   /* font-family: 'Roboto', sans-serif; */
-  font-family: "Avenir Next" !important;
+  /* font-family: "Avenir Next" !important; */
+  /* font-family: 'Neou-Thin'; */
+  /* font-family: 'ModernSansLight'; */
+  /* font-family: 'Raleway-ExtraLight'; */
+  font-family: 'Adam';
   font-size: 22px;
   color: #ffffff;
   opacity: 0.65;

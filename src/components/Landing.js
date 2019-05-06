@@ -25,7 +25,7 @@ class Landing extends React.Component {
             <h1 id="App-title" className="glow">Star-Crossed</h1>
             <br/><br/>
             <Link to='/signin' className="App-link">Sign In</Link>
-            <span style={{fontSize: 12, opacity: 0.5, paddingTop: 10, paddingBottom: 10}}> ------ </span>
+            <span style={{fontSize: 12, opacity: 0.5, paddingTop: 10, paddingBottom: 10}}> ———— </span>
             <Link to='/newuser' className="App-link">Sign Up</Link>
             <br/>
             {/* <Link to='/profile' className="App-link">View Profile</Link> */}

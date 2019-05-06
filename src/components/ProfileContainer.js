@@ -44,7 +44,7 @@ class ProfileContainer extends React.Component {
       <div className="prof-container">
         <div>
           <div style={{"marginTop": "10px"}}>
-            <Link to='/' className="prof-link"> ◁ Log Out</Link>
+            <Link to='/' className="prof-link"> ◁ LogOut</Link>
             {/* <Link to='/' className="prof-link" onClick={this.props.setCurrentUser({first_name: "", last_name: "", birth_date: "", gender: "", gender_pref: "", location: ""})}> ◁ Log Out</Link> */}
             <Link to='/edit' className="edit-link"> Edit ▷ </Link>
           </div>
