@@ -1,5 +1,5 @@
 .back-link {
-  font-family: "Avenir Next Condensed";
+  font-family: "LemonMilklight";
   /* color: #EAEBF9; */
   color: hsla(278, 62%, 82%, 0.91);
   /* margin-left: 30em; */
@@ -17,9 +17,9 @@
 }
 
 #chat {
-  font-family: "Avenir Next Condensed";
+  font-family: "WhiteAngelicaRegular";
   color: white;
-  font-size: 34px;
+  font-size: 38px;
   opacity: 0.7;
   transition: all 0.3s ease-in;
   margin-left: 55px;
@@ -45,7 +45,7 @@
   /* text-align: center */
   text-align: center;
   font-color: #ffffff;
-
+  margin-top: 50px;
 }
 
 .list {
