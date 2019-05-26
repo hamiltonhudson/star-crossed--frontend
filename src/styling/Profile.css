@@ -1,3 +1,11 @@
+html {
+  height: 100%
+}
+
+body {
+  min-height: 100%
+}
+
 .prof-container {
   background-color: #231F4D;
   border-color: none;

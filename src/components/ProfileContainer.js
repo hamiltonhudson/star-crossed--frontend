@@ -9,6 +9,7 @@ import Matches from './Matches';
 // import { findMatchedUsers, setCurrentUser } from '../actions';
 // import { ViewMatch } from '../actions';
 import '../styling/Profile.css'
+import '../styling/App.css'
 import Chat from './Chat'
 import App from '../App';
 // import Tooltip from '@material-ui/core/Tooltip';
