@@ -1,10 +1,10 @@
-html {
+/* html {
   height: 100%
 }
 
 body {
   min-height: 100%
-}
+} */
 
 .prof-container {
   background-color: #231F4D;
@@ -12,17 +12,17 @@ body {
   border-width: 1px;
   border-style: double;
   /* margin: auto; */
-  /* padding: 40px; */
   padding: 10px;
   width: 100%;
   height: 100vh;
+  overflow: scroll;
 }
 
 .prof-link {
   font-family: "LemonMilklight";
-  /* font-size: 12px; */
+  font-size: 1vw;
   color: hsla(278, 62%, 82%, 0.91);
-  margin-left: 10px;
+  text-align: left;
 }
 
 .prof-link:hover {
@@ -31,19 +31,17 @@ body {
 }
 
 #accepted-link {
-  /* font-family: "Thirthy-Regular"; */
-  /* font-family: "SummerMornings-Regular";
-  font-size: 24px; */
-  font-family: 'Code-Light';
-  font-size: 22px;
+  /* font-family: 'Code-Light'; */
+  font-family: 'Loves';
+  font-size: 3vh;
   font-weight: bold;
   color: hsla(278, 62%, 82%, 0.91);
-  position:relative;
-  margin:0 auto;
-  clear:left;
-  height:auto;
+  position: relative;
+  margin: 0 auto;
+  clear: left;
+  height: auto;
   z-index: 0;
-  text-align:center;
+  text-align: center;
   /* position: absolute;
   left: auto;
   right: auto; */
@@ -57,11 +55,10 @@ body {
 
 .edit-link {
   font-family: "LemonMilklight";
-  /* font-size: 12px; */
-  /* color: #EAEBF9; */
+  font-size: 1vw;
   color: hsla(278, 62%, 82%, 0.91);
-  position: absolute;
-  right: 15px;
+  text-align: right;
+  letter-spacing: 1px;
 }
 
 .edit-link:hover {
@@ -73,8 +70,15 @@ body {
   background-color: transparent;
   color: #f4faf9;
   text-align: center;
-  /* border: groove; */
   /* position: absolute; */
+  /* vertical-align: middle; */
+}
+
+.user-card {
+  margin-bottom: 1vh;
+  /* dispay: flex;
+  justify-content: space-between; */
+  /* vertical-align: middle; */
 }
 
 /* br {
@@ -83,12 +87,24 @@ body {
    line-height: 1px;;
 } */
 
+/* .card-title {
+  font-family: "Prequel Regular";
+} */
+
+h5 {
+  font-family: "WhiteAngelicaRegular";
+  font-size: 2.25vh;
+  font-weight: lighter;
+}
+
 #prof-name {
   background-color: #231F4D;
   text-align: center;
-  font-family: 'GeosansLight';
-  font-style: bold;
+  font-family: "LOVES";
+  font-weight: bold;
+  letter-spacing: 1px;
   font-size: 34px;
+  font-size: 4vh;
   transition: all 0.3s ease-in;
   text-decoration:none;
   margin-top: 10px;
@@ -105,134 +121,114 @@ body {
 .prof-sun {
   background-color: #231F4D;
   text-align: center;
-  font-family: 'GeosansLight';
-  font-style: bold;
-  font-size: 28px;
-}
-
-#detail-name {
-  background-color: #231F4D;
-  text-align: center;
-  font-family: 'Undella';
-  font-size: 46px;
-  /* font-family: 'UnderScript'; */
-  /* font-family: "Rockness"; */
-  /* font-family: 'Sensaka'; */
-  /* font-size: 44px; */
-  transition: all 0.3s ease-in;
-  text-decoration:none;
-  margin-bottom: -2px;
-}
-
-#sign-info {
-  /* font-family: 'GeosansLight'; */
-  /* font-family: 'Adam'; */
-  /* font-weight: bold; */
-  /* font-family: 'Lane - Narrow'; */
-  font-family: 'Datalegreya-Thin';
-  text-align: center;
-  font-size: 18px;
-  /* font-family: Cormorant;
-  font-family: Garamond;
-  font-family: Codystar;
-  font-family: Jacques+Francois;
-  font-family: Raleway;
-  font-family: PT+Sans+Caption;
-  font-family: PT+Sans;
-  font-family: Prompt */
+  font-family: "LOVES";
+  font-size: 3vh;
 }
 
 .prof-photo {
-  display: inline-block;
-  max-width:300px;
-  max-height:250px;
+  /* display: inline-block; */
+  max-width: 21vw;
+  max-height: 29vh;
   width: auto;
   height: auto;
-  width: 100%;
-  height: auto;
-  /* background-color: #231F4D; */
-  /* display: block; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
-  /* width: 40%;  */
-  /* border-width: 5px; */
+  min-width: 192px;
+  min-height: 128px;
+  /* width: 100%; */
+  vertical-align: middle;
 }
 
-
-
-.prof-name-detail {
-  background-color: transparent;
-  position: absolute;
-  margin-right: 6em;
-  width: 275px;
-  padding: 10px;
-  /* right: 0px; */
-  /* class: btn tooltipped;
-  data-position: right */
-}
-
-/* .tooltipped {
-
-} */
-
-.prof-info-deets {
-  background-color: transparent;
-  position: absolute;
-  width: 275px;
-  padding: 10px;
-  right: 12em;
-  /* left: 0px; */
+.side-card {
+  vertical-align: middle;
+  align-content: center;
+  margin-top: 2.5vh;
 }
 
 .prof-sun-detail {
   background-color: transparent;
-  position: absolute;
-  margin-left: 6em;
-  width: 275px;
-  padding: 10px;
-  /* left: 0px; */
+  font-size: 1.65vh;
+  font-family: "Adam";
+  font-weight: bold;
+}
+
+.prof-info-deets {
+  background-color: transparent;
+  font-size: 1.65vh;
+  font-family: "Adam";
+  font-weight: bold;
 }
 
 .matches-header {
   font-family: 'WhiteAngelicaRegular';
   font-style: bold;
-  font-size: 44px;
-  padding-bottom: 4px;
+  font-size: 4vh;
+  margin-top: 1.5vh;
+  padding-bottom: .25vh;
 }
 
-
-.matched-users {
-  background-color: #231F4D;
-  font-family: "Adam";
-  /* font-family: 'Bondoluo Peek Thin'; */
-  font-weight: bold;
-  font-color: #f4faf9;
-  font-size: 18px;
-  width: 35%;
-  position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /* vertical-align: center */
+.match-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  vertical-align: middle;
+  overflow-y: scroll;
+  /* height: 20vh; */
 }
 
 .matched-user-box {
-  height: 210px;
+  /* height: 210px; */
+  display: grid;
+  height: 27vh;
+  max-width: 60%;
+  width: 40vw;
+  overflow-x: visible;
   overflow-y: scroll;
+  margin-bottom: .5%;
+}
+
+/* .matched-user-box::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+.matched-user-box::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+} */
+
+.matched-users {
+  background-color: #231F4D;
+  font-family: 'Adam';
+  /* font-family: 'GeosansLight'; */
+  font-weight: bold;
+  font-color: #f4faf9;
+  font-size: 2.25vh;
+  width: 100%;
 }
 
 #matched-text {
+}
 
+.glow2 {
+  text-align: center;
+  -webkit-animation: glow2 5s ease-in-out infinite alternate;
+  -moz-animation: glow2 5s ease-in-out infinite alternate;
+  animation: glow2 5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow2 {
+  from {
+    text-shadow: 0 0 4px #8a7bb6, 0 0 4.25px #d9a6e2, 0 0 4.5px #d9a6e2, 0 0 4.75px #d9a6e2, 0 0 5px #d9a6e2;
+    /* 0 0 5.25px #d9a6e2, 0 0 5.75px #d9a6e2; */
+  }
+  to {
+    text-shadow: 0 0 1px #8a7bb6, 0 0 1.5px   #8a7bb6, 0 0 2px #8a7bb6, 0 0 2.5px #8a7bb6, 0 0 3px   #8a7bb6, 0 0 3.5px #8a7bb6, 0 0 4px #8a7bb6,
+  }
 }
 
 .match-photo {
-  display: inline-block;
-  max-width:100px;
-  max-height:75px;
-  width: auto;
-  height: auto;
-  width: 100%;
-  height: auto;
+  max-height: 15vh;
+  max-width: 10vw;
   padding: 10px;
   vertical-align: middle;
 }
@@ -241,71 +237,82 @@ body {
   font-size: 22px;
 }
 
-#picto {
-  font-size: 18px;
-}
-
-.accept {
-  background-color: #EAEBF9;
-  border-radius: 28px;
-  margin-bottom: 5px;
-  margin-top: -2px;
-  /* padding-right:1px; */
-  display:inline-block;
+.buttonDiv {
   vertical-align: middle;
-  /* background: url('../images/check_mark_1.png'); */
-  /* background:url(../images/check_mark_1.png) no-repeat; */
-  /* background-reapeat: no-repeat; */
-  /* color: white;
-  cursor:pointer;
-  border:none;
-  width:40px;
-  height:40px; */
 }
 
-.accept:active {
-  background-color: hsla(278, 62%, 82%, 0.91);
-  /* background: url('../images/check_mark_1.png'); */
-  /* background:url(../images/check_mark_1.png) no-repeat; */
-  /* background-reapeat: no-repeat; */
+.matchBtn {
+  font-size: 2vh;
+  background: transparent;
+  border: none;
+  /* display: inline-flex; */
 }
 
-.decline {
-  background-color: #EAEBF9;
-  border-radius: 28px;
-  margin-bottom: 5px;
-  margin-top: -2px;
-  /* padding-bottom: -10px; */
-  display:inline-block;
+.matchBtn:hover {
+}
+
+#acceptBtn {
+  background-color: hsla(244, 30%, 41%, 0.77);
+  border-radius: 100px;
+  height: 1.15vmax;
+  width: 1.15vmax;
   vertical-align: middle;
-  /* background-image: url('../images/x_mark_1.png') no-repeat; */
-  /* background:url(../images/x_mark_1.png) no-repeat; */
-  /* background-reapeat: no-repeat; */
-  /* cursor:pointer;
-  border:none;
-  width:20px;
-  height:20px; */
+  /* padding: .9px; */
+  padding-bottom: 1px;
+  opacity: 0.75;
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  box-shadow: -1px -.5px 12.5px .65px #8a7bb6;
 }
 
-.decline:active {
-  background-color: hsla(278, 62%, 82%, 0.91);
-  /* background-image: url('../images/x_mark_1.png') no-repeat; */
-  /* background:url(../images/x_mark_1.png) no-repeat; */
-  /* background-reapeat: no-repeat; */
+#acceptBtn:hover {
+  background-color: #231F4D;
+  padding: .5px;
+  /* padding-bottom: 1.5px; */
+  opacity: 0.75;
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  box-shadow: 1px 0px 20px 5px #8a7bb6;
+}
+
+#declineBtn {
+  background-color: hsla(244, 30%, 41%, 0.77);
+  border-radius: 100px;
+  height: 1.25vmax;
+  width: 1.25vmax;
+  vertical-align: middle;
+  transform: rotate(-5deg);
+  padding: 1px;
+  opacity: 0.75;
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  box-shadow: -1px -.5px 10px .15px #8a7bb6;
+}
+
+#declineBtn:hover {
+  background-color: #231F4D;
+  padding: 1.35px;
+  transform: rotate(-3.5deg);
+  opacity: 0.75;
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  box-shadow: 1px 0px 20px 5px #8a7bb6;
 }
 
 #pending-list {
-  font-family: 'PrequelDemo-Regular';
-  font-size: 14px;
+  font-family: 'Loves';
+  font-size: 2.5vh;
   padding-top: 8px;
   margin-bottom: 2px;
-  /* font-family: 'BigNoodleTitling';
-  font-size: 20px; */
   font-style: bold;
 }
 
 .pending {
-  font-family: "Adam";
+  font-family: 'Adam';
   color: white;
   font-size: 16px;
 }
@@ -323,3 +330,31 @@ body {
   z-index: 0;
   text-align:center;
 } */
+
+match-sign-detail {
+  font-family: 'WhiteAngelicaRegular';
+  font-style: bold;
+  font-size: 3.5vh;
+  height: 4vh;
+  margin-top: 1.5vh;
+  padding-bottom: .5vh;
+}
+
+#detail-name  {
+  background-color: #231F4D;
+  color: hsla(278, 62%, 82%, 0.91);
+  text-align: center;
+  /* font-size: 1.15vw;
+  font-family: "Prequel Regular"; */
+  font-size: 1.65vw;
+  font-family: 'LOVES';
+  transition: all 0.3s ease-in;
+  text-decoration:none;
+  margin-bottom: -2px;
+}
+
+#sign-info {
+  text-align: center;
+  font-family: 'Adam';
+  font-size: 1.5vw;
+}

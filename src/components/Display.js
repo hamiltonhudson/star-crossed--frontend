@@ -31,7 +31,7 @@ const Display = (props) => {
   return (
     <Fragment>
       <div className="chat-display-container">
-        <span id="chat"> ↡ · Chat · ↡ </span>
+        <h6 className="chat glow3"> ↡ · Chat · ↡ </h6>
         <ChatsCable />
         {props.chatEnabled}
         {retrieveChats()}

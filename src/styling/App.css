@@ -1,9 +1,50 @@
-html {
+/* html {
   background: #231F4D
-}
+} */
 
-body {
-  overflow: hidden
+@font-face {
+  font-family: 'Adam';
+  src: local('Adam'), url(../fonts/Adam.otf) format('woff');
+}
+@font-face {
+  font-family: 'Code Light';
+  src: local('Code Light'), url(../fonts/CODE-Light.otf) format('woff');
+}
+@font-face {
+  font-family: 'Codystar Light';
+  src: local('Codystar Light'), url(../fonts/codystar-light.ttf) format('woff');
+}
+@font-face {
+  font-family: 'Codystar Reg';
+  src: local('Codystar Reg'), url(../fonts/codystar-regular.ttf) format('woff');
+}
+@font-face {
+  font-family: 'Datalegreya Thin';
+  src: local('Datalegreya Thin'), url(../fonts/Datalegreya-Thin.otf) format('woff');
+}
+@font-face {
+  font-family: 'Geosans Light';
+  src: local('Geosans Light'), url(../fonts/GeosansLight.ttf) format('woff');
+}
+@font-face {
+  font-family: 'Lemon/Milk Light';
+  src: local('Lemon/Milk Light'), url(../fonts/LemonMilklight.otf) format('woff');
+}
+@font-face {
+  font-family: 'Loves';
+  src: local('Loves'), url(../fonts/LOVES.ttf) format('woff');
+}
+@font-face {
+  font-family: 'Prequel Regular';
+  src: local('Prequel Regular'), url(../fonts/PrequelDEMO-Regular.ttf) format('woff');
+}
+@font-face {
+  font-family: 'Undella';
+  src: local('Undella'), url(../fonts/Undella.otf) format('woff');
+}
+@font-face {
+  font-family: 'White Angelica';
+  src: local('White Angelica'), url(../fonts/WhiteAngelica.ttf) format('woff');
 }
 
 .App {
@@ -28,12 +69,13 @@ body {
 }
 
 #App-title {
-  font-family: 'Codystar', cursive;
-  font-size: 95px;
+  font-family: 'Codystar Reg', cursive;
   color: white;
-  background-color: transparent;
+  /* font-size: 8.5vw; */
+  font-size: 9vw;
+  /* height: 15vh; */
+  /* background-color: transparent; */
   /* text-shadow: 4px 4px 6px #95b6bb; */
-  /* padding-bottom: 100px; */
   /* min-height: 100vh; */
   transition: all 0.3s ease-in;
   text-decoration:none;
@@ -47,19 +89,15 @@ body {
 }
 
 .App-link {
-  /* font-family: 'Roboto', sans-serif; */
-  /* font-family: "Avenir Next" !important; */
-  /* font-family: 'Neou-Thin'; */
-  /* font-family: 'ModernSansLight'; */
-  /* font-family: 'Raleway-ExtraLight'; */
   font-family: 'Adam';
-  font-weight: bold;
-  font-size: 22px;
+  font-weight: bolder;
+  font-size: 2.5vw;
   color: #ffffff;
   opacity: 0.65;
-  line-height: 15px; /* 4px +12px + 4px */
+  /* line-height: 15px;  */
+  /* line-height: 4px +12px + 4px; */
   transition: all 0.3s ease-in;
-  text-decoration:none;
+  text-decoration: none;
 }
 
 .App-link:hover {
@@ -81,17 +119,3 @@ body {
     width: 100%;
   }
 }
-
-/*.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80vmin;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

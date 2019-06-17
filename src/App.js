@@ -27,19 +27,18 @@ class App extends Component {
 //
   render() {
     return (
-       <Router>
-         <Switch>
-           <Route path='/' exact render={() => <Landing />} />
-           <Route path='/signup' component={SignUp} />
-           <Route path='/newuser' component={NewUser} />
-           <Route path='/signin' component={SignIn} />
-           <Route path='/profile' component={ProfileContainer} spotify={Spotify}/>
-           <Route path='/edit' component={EditUser} />
-           <Route path='/matchprofile' component={MatchContainer} />
-           <Route path='/chat' component={ChatsBase} />
-         </Switch>
-       </Router>
-
+        <Router>
+          <Switch>
+            <Route path='/' exact render={() => <Landing />} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/newuser' component={NewUser} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/profile' component={ProfileContainer} spotify={Spotify}/>
+            <Route path='/edit' component={EditUser} />
+            <Route path='/matchprofile' component={MatchContainer} />
+            <Route path='/chat' component={ChatsBase} />
+          </Switch>
+        </Router>
     )
   }
 }

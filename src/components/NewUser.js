@@ -22,6 +22,7 @@ class NewUser extends React.Component {
     usstate: '',
     bio: '',
     uploadedFileCloudinaryUrl: '',
+    delay: false,
     loggedIn: false
   }
 
@@ -32,11 +33,17 @@ class NewUser extends React.Component {
     // console.log(this.state)
   }
 
+
+
   onImageDrop(files) {
     this.setState({
       uploadedFile: files[0]
     });
     this.handleImageUpload(files[0]);
+    // return (
+    //   setTimeout(() => {this.setState({delay: true})}, 3000)
+    // )
+    // return this.state.delay ? <p>Photo added!</p> : <p>Hang tight</p>
   }
 
   handleImageUpload(file) {
@@ -48,7 +55,6 @@ class NewUser extends React.Component {
       if (err) {
         console.error(err);
       }
-
       if (response.body.secure_url !== '') {
         this.setState({
           uploadedFileCloudinaryUrl: response.body.secure_url
@@ -113,154 +119,162 @@ class NewUser extends React.Component {
 
   render() {
     return(
-      <div className="form-container">
-        <h1 className="signupHeader" style={{"marginTop": "-10px"}}>create new</h1>
-        <div className="form">
-          {/* <div> */}
-          {/* <form onSubmit={event => this.handleSubmit(event)}> */}
-          <form className="col s12" onSubmit={event => this.handleSubmit(event)}>
-            <div className="row">
-              <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
-                <span className="form-label">
-                  <label>First Name</label>
-                  <span className="input-field">
-                    <input
-                      type='text'
-                      name='first_name'
-                      value={this.state.first_name}
-                      onChange={event => this.handleChange(event)}
-                      className="input"
-                    />
+        <div className="form-container">
+          <h1 className="signupHeader" style={{"fontSize": "5vw"}}>create new</h1>
+          <div className="form">
+            {/* <div> */}
+            {/* <form onSubmit={event => this.handleSubmit(event)}> */}
+            <form className="col s12" onSubmit={event => this.handleSubmit(event)}>
+              <div className="row">
+                <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
+                  <span className="form-label">
+                    <label>First Name</label>
+                    <span className="input-field">
+                      <input
+                        type='text'
+                        name='first_name'
+                        value={this.state.first_name}
+                        onChange={event => this.handleChange(event)}
+                        className="input"
+                      />
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                <span className="form-label">
-                  <label>Last Name</label>
-                  <span className="input-field">
-                    <input
-                      type='text'
-                      name='last_name'
-                      value={this.state.last_name}
-                      onChange={event => this.handleChange(event)}
-                      className="input"
-                    />
+                </div>
+                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                  <span className="form-label">
+                    <label>Last Name</label>
+                    <span className="input-field">
+                      <input
+                        type='text'
+                        name='last_name'
+                        value={this.state.last_name}
+                        onChange={event => this.handleChange(event)}
+                        className="input"
+                      />
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
-            </div>
-            <label>Birth Date</label>
-            <span className="form-label">
-              <span className="input-field">
-                <input
-                  type='date'
-                  select-years="15"
-                  placeholder="Enter correctly."
-                  name='birth_date'
-                  value={this.state.birth_date}
-                  onChange={event => this.handleChange(event)}
-                  className="input"
-                />
+              <label>Birth Date</label>
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='date'
+                    select-years="15"
+                    placeholder="Enter correctly."
+                    name='birth_date'
+                    value={this.state.birth_date}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
               </span>
-            </span>
-            <div className="row">
-              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                <span className="form-label">
-                  <label>Gender</label>
-                  <span className="input-field">
-                    <select className="browser-default" name="gender" onChange={event => this.handleChange(event)} style={{"borderStyle": "solid", "borderColor": "#27116B !important", "fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                      <option value="" className="selected" id="select" type="input" style={{"borderColor": "#27116B !important"}}/>
-                      <option value="F" className="input" id="select" type="input" >Female</option>
-                      <option value="M" className="input" id="select" type="input">Male</option>
-                    </select>
+              <div className="row">
+                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                  <span className="form-label">
+                    <label>Gender</label>
+                    <span className="input-field">
+                      <select className="browser-default" name="gender" onChange={event => this.handleChange(event)} style={{"borderStyle": "solid", "borderColor": "#27116B !important", "fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                        <option value="" className="selected" id="select" type="input" style={{"borderColor": "#27116B !important"}}/>
+                        <option value="F" className="input" id="select" type="input" >Female</option>
+                        <option value="M" className="input" id="select" type="input">Male</option>
+                      </select>
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                <span className="form-label">
-                  <label>Gender Preference</label>
-                  <span className="input-field">
-                    <select className="browser-default" name="gender_pref" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                      <option value="" className="input-area" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}></option>
-                      <option value="F" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Women</option>
-                      <option value="M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men</option>
-                      <option value="F,M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men & Women</option>
-                      className="input"
-                    </select>
+                </div>
+                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                  <span className="form-label">
+                    <label>Gender Preference</label>
+                    <span className="input-field">
+                      <select className="browser-default" name="gender_pref" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                        <option value="" className="input-area" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}></option>
+                        <option value="F" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Women</option>
+                        <option value="M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men</option>
+                        <option value="F,M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men & Women</option>
+                        className="input"
+                      </select>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                <span className="form-label">
-                  <label>City</label>
-                  <span className="input-field">
-                    <input
-                      type='text'
-                      name='city'
-                      value={this.state.city}
-                      onChange={event => this.handleChange(event)}
-                      className="input"
-                    />
+              <div className="row">
+                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                  <span className="form-label">
+                    <label>City</label>
+                    <span className="input-field">
+                      <input
+                        type='text'
+                        name='city'
+                        value={this.state.city}
+                        onChange={event => this.handleChange(event)}
+                        className="input"
+                      />
+                    </span>
                   </span>
-                </span>
-              </div>
-              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                <span className="form-label">
-                  <label>State</label>
-                  <span className="input-field">
-                    <select className="browser-default" id="state" name="usstate" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                      <option value="">---</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
-                      <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="Cuba">Cuba</option><option value="DE">DE</option>
-                      <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GE</option><option value="Guam">Guam</option><option value="HI">HI</option>
-                      <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option>
-                      <option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
-                      <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
-                      <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
-                      <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
-                      <option value="OR">OR</option><option value="PA">PA</option><option value="Puerto Rico">Puerto Rico</option><option value="RI">RI</option>
-                      <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
-                      <option value="VT">VT</option><option value="VA">VA</option><option value="Virgin Islands">Virgin Islands</option><option value="WA">WA</option>
-                      <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
-                    </select>
+                </div>
+                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                  <span className="form-label">
+                    <label>State</label>
+                    <span className="input-field">
+                      <select className="browser-default" id="state" name="usstate" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                        <option value="">---</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
+                        <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="Cuba">Cuba</option><option value="DE">DE</option>
+                        <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GE</option><option value="Guam">Guam</option><option value="HI">HI</option>
+                        <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option>
+                        <option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
+                        <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
+                        <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
+                        <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
+                        <option value="OR">OR</option><option value="PA">PA</option><option value="Puerto Rico">Puerto Rico</option><option value="RI">RI</option>
+                        <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                        <option value="VT">VT</option><option value="VA">VA</option><option value="Virgin Islands">Virgin Islands</option><option value="WA">WA</option>
+                        <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                      </select>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
-            </div>
-            <label>Bio</label>
-            <span className="form-label">
-              <span className="input-field">
-                <input
-                  type='text'
-                  name='bio'
-                  value={this.state.bio}
-                  onChange={event => this.handleChange(event)}
-                  className="input"
-                />
+              <label>Bio</label>
+              <span className="form-label">
+                <span className="input-field">
+                  <input
+                    type='text'
+                    name='bio'
+                    value={this.state.bio}
+                    onChange={event => this.handleChange(event)}
+                    className="input"
+                  />
+                </span>
               </span>
-            </span>
-            {/* <label>Upload Photo</label> */}
-            <Dropzone
-              onDrop={this.onImageDrop.bind(this)}
-              accept="image/*"
-              multiple={false}>
-              {({getRootProps, getInputProps}) => {
-                return (
-                  <div
-                    {...getRootProps()}
-                  >
-                    <input {...getInputProps()} />
-                    {
-                      <p>Click to select photo or drag and drop.</p>
-                    }
-                  </div>
-                )
-              }}
-            </Dropzone>
-            <input className="submit-button"
-              type="submit"
-              placeholder="Submit"
+              <Dropzone
+                onDrop={this.onImageDrop.bind(this)}
+                accept="image/*"
+                multiple={false}>
+                {({getRootProps, getInputProps}) => {
+                  return (
+                    <div
+                      {...getRootProps()}
+                    >
+                      <input {...getInputProps()} />
+                      {
+                        <p style={{"fontSize": "2vw"}}>Click to select photo or drag and drop.</p>
+                      }
+                    </div>
+                  )
+                }}
+              </Dropzone>
+              <div>
+                {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                <span>
+                  {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
+                  <img src={this.state.uploadedFileCloudinaryUrl} style={{"maxHeight": "20vh", "maxWidth": "10vw"}} alt={'profile pic'}/>
+                  <p> Photo added! </p>
+                </span>}
+                {/* {this.state.delay ? <p>Photo added!</p> : <p>Hang tight</p>} */}
+              </div>
+              <input className="submit-button"
+                type="submit"
+                placeholder="Submit"
             />
           </form>
           <br/>

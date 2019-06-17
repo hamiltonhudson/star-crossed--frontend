@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import '../styling/Profile.css'
-import MatchDetail from './MatchDetail'
+import MatchDetail from './MatchDetail';
+import MatchSun from './MatchSun';
 import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions';
-
-const acceptBtn = './images/check_mark_1.png'
-const declineBtn = './images/x_mark_1.png'
+import acceptBtn from '../images/check_mark_white.png'
+import declineBtn from '../images/x_mark_white.png'
 
 class MatchContainer extends React.Component {
   state = {
@@ -92,37 +92,44 @@ class MatchContainer extends React.Component {
     const matchPhoto = this.props.viewedMatch.photo
     console.log("MatchContainer THIS.PROPS", this.props)
     return (
-      <div>
         <div className="prof-container">
-          <div style={{"marginTop": "10px"}}>
-            <Link to='/profile' className="prof-link"> ◁ Back</Link>
+          <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+            <Link to='/profile' className="prof-link col s6"> ◀︎ Back</Link>
           </div>
           <div className="prof-card">
-            <h2 className="card-title" id="prof-name" data-name="name"
-              onClick={(event) => this.handleDetailClick(event)}
-            > {this.props.viewedMatch.first_name} </h2>
-            <MatchDetail clicked={this.state.clicked}/>
-            <span onClick={(event) => this.handleDetailClick(event)}>
-              {matchPhoto ? <img src={matchPhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
-            </span>
-            <br/>
-            <span className="prof-sun" data-name="sun"
-              onClick={(event) => this.handleDetailClick(event)}
-            > {this.props.viewedMatch.sun.sign} </span>
-            <br></br><br/>
-            <div>
-              <button className="accept" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <span id="picto">☑︎</span> </button>
-              <button className="decline" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <span id="picto">☒</span> </button>
+            <div className="user-card row">
+              <MatchSun clicked={this.state.clicked}/>
+              <div className="col l4 m6 s12">
+                <h3 className="card-title" id="prof-name" data-name="name"
+                  onClick={(event) => this.handleDetailClick(event)}>
+                  {this.props.viewedMatch.first_name}
+                </h3>
+                <span onClick={(event) => this.handleDetailClick(event)}>
+                  {matchPhoto ? <img src={matchPhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
+                </span>
+                <br/>
+                <h6 className="prof-sun" data-name="sun" onClick={(event) => this.handleDetailClick(event)}> {this.props.viewedMatch.sun.sign} </h6>
+              </div>
+              <MatchDetail clicked={this.state.clicked}/>
             </div>
-            <p id="detail-name"> this sign's: </p>
-            <span> ——— </span><br/><br/>
-            <span id="sign-info"> vibe  |   {this.props.viewedMatch.sun.vibe}</span><br></br>
-            <span id="sign-info"> motto  |  "{this.props.viewedMatch.sun.motto}"</span><br/><br/>
-            <span id="sign-info"> qualities  |  {this.props.viewedMatch.sun.keywords}</span><br></br>
+            <br/>
+            <div className="row">
+              <div className="buttonDiv">
+                <button className="matchBtn" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <img id="acceptBtn" src={require('../images/check_mark_white.png')} alt='accept' /> </button>
+                <button className="matchBtn" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <img id="declineBtn" src={require('../images/x_mark_white.png')} alt='decline' /> </button>
+              </div>
+            </div>
+            <div className="row">
+              <h6 className="match-sign-detail glow2"> this sign's: </h6>
+              <br/><br/><span> ——— </span><br/><br/>
+              <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">{this.props.viewedMatch.sun.vibe}</span><br></br>
+              <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">"{this.props.viewedMatch.sun.motto}"</span><br/><br/>
+              <span id="detail-name"> qualities </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">{this.props.viewedMatch.sun.keywords}.</span><br></br>
+              {this.profileReturn()}
+            </div>
           </div>
-          {this.profileReturn()}
+          <br/><br/><br/>
         </div>
-      </div>
     )
   }
 }

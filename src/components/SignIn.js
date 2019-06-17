@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ActionCableProvider } from 'react-actioncable-provider';
@@ -53,66 +53,55 @@ class SignIn extends React.Component {
     // return(
     console.log(this.props)
     const signInForm =
-      <Fragment>
-        <div style={{"marginTop": "10px"}}>
-          <Link to='/' className="form-link"> ◁ Back </Link>
+      <div>
+        <div style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+          <Link to='/' className="form-link"> ◀︎ Back </Link>
         </div>
+        <br/><br/>
         <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
           <h1 className="signupHeader">sign in</h1>
-          <br/><br/>
+          {/* <br/><br/> */}
           <div className="form" style={{"width": "85%"}}>
             {/* <div className="custom-form"> */}
-            <form onSubmit={this.handleSubmit}>
+            <form className="col s12" onSubmit={this.handleSubmit}>
               <br/>
-              {/* <label className="loginLabel">Name:</label>
-                <div className="form-label">
-                <div className="input-field">
+              {/* <label className="loginLabel">Email:</label> */}
+              <span className="form-label">
+                <label>Email</label>
+                <div className="input-field col s6">
                   <input
-                className="input"
-                type="text"
-                placeholder="Enter Name"
-                name="first_name"
-                value={this.state.first_name}
-                onChange={this.handleChange}
-                  />
-                </div>
-              </div> */}
-              <label className="loginLabel">Email:</label>
-              <div className="form-label">
-                <div className="input-field">
-                  <input
-                    className="input"
                     type="email"
                     placeholder="Enter Email Address"
                     name="email"
                     value={this.state.email}
                     onChange={this.handleChange}
+                    className="input"
                   />
                 </div>
-              </div>
-              <label className="loginLabel">Password:</label>
-              <div className="form-label">
-                <div className="input-field">
+              </span>
+              {/* <label className="loginLabel">Password:</label> */}
+              <span className="form-label">
+                <label>Password</label>
+                <div className="input-field col s6">
                   <input
-                    className="input"
                     type="password"
                     placeholder="Enter Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.handleChange}
+                    className="input"
                   />
                 </div>
-              </div>
+              </span>
               <br/><br/>
               <input
                 type="submit"
                 className="submit-button"
               />
-              <br/><br/>
             </form>
           </div>
         </div>
-      </Fragment>
+      </div>
       // )
       return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
         // {/* <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>

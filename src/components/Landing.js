@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Routes from '../routes'
+// import '../styling/index.css'
 import '../styling/App.css';
 import '../styling/Landing.css';
-// import '../styling/index.css'
+import star from '../images/Star.png';
 import Particles from 'react-particles-js';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { ActionCable } from 'react-actioncable-provider';
@@ -14,6 +15,7 @@ import { setCurrentUser } from '../actions'
 // import ChatsCable from './ChatsCable'
 
 class Landing extends React.Component {
+
   render() {
     let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
     this.props.setCurrentUser(nonExistentUser)
@@ -22,13 +24,11 @@ class Landing extends React.Component {
       // <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
         <div className="landing">
           <header className="App-header">
-            <h1 id="App-title" className="glow">Star-Crossed</h1>
+            <h1 id="App-title" className="glow1">Star-Crossed</h1>
             <br/><br/>
             <Link to='/signin' className="App-link">Sign In</Link>
-            <span style={{fontSize: 12, opacity: 0.5, paddingTop: 10, paddingBottom: 10}}> ———— </span>
+            <p style={{fontSize: "1.25vw", opacity: 0.5, "margin": "0 auto"}}> ———— </p>
             <Link to='/newuser' className="App-link">Sign Up</Link>
-            <br/>
-            {/* <Link to='/profile' className="App-link">View Profile</Link> */}
           </header>
           <Particles className="particle"
             params={
@@ -54,7 +54,7 @@ class Landing extends React.Component {
                       "nb_sides": 8
                     },
                     "image": {
-                      "src": "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                      // "src": "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
                       "width": 100,
                       "height": 100
                     }
@@ -142,7 +142,6 @@ class Landing extends React.Component {
                 },
                 "retina_detect": true
               }
-
             }
           />
         </div>

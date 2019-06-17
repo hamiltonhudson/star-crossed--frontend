@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ActionCableProvider } from 'actioncable';
 import { API_WS_ROOT } from '../constants/ActionTypes';
 import ProfileDetail from './ProfileDetail'
+import ProfileSun from './ProfileSun'
 import Matches from './Matches';
 // import EditUser from './EditUser'
 // import { findMatchedUsers, setCurrentUser } from '../actions';
@@ -38,35 +39,36 @@ class ProfileContainer extends React.Component {
   render () {
     console.log("THIS.PROPS PROFILE CONTAINER", this.props)
     console.log("THIS.STATE PROFILE CONTAINER", this.state)
-    console.log("profileContainer this.props.matches", this.props.matches)
     const profilePhoto = this.props.currentUser.photo
 
     return (
       <div className="prof-container">
-        <div>
-          <div style={{"marginTop": "10px"}}>
-            <Link to='/' className="prof-link"> ◁ LogOut</Link>
-            {/* <Link to='/' className="prof-link" onClick={this.props.setCurrentUser({first_name: "", last_name: "", birth_date: "", gender: "", gender_pref: "", location: ""})}> ◁ Log Out</Link> */}
-            <Link to='/edit' className="edit-link"> Edit ▷ </Link>
-          </div>
-          <div className="prof-card">
-            <h3 className="card-title" id="prof-name" data-name="name"
-              onClick={(event) => this.handleClick(event)}>
-              {this.props.currentUser.first_name}
-            </h3>
+        <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+          <Link to='/' className="prof-link col s6"> ◀︎ LogOut </Link>
+          <Link to='/edit' className="edit-link col s6"> Edit ▶︎ </Link>
+        </div>
+        <div className="prof-card">
+          <div className="user-card row">
+            <ProfileSun clicked={this.state.clicked}/>
+            <div className="col l4 m6 s12">
+              <h3 className="card-title" id="prof-name" data-name="name"
+                onClick={(event) => this.handleClick(event)}>
+                {this.props.currentUser.first_name}
+              </h3>
+              <span onClick={(event) => this.handleClick(event)}>
+                {profilePhoto ? <img src={profilePhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
+              </span>
+              <br/>
+              <h6 className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </h6>
+            </div>
             <ProfileDetail clicked={this.state.clicked}/>
-            <span onClick={(event) => this.handleClick(event)}>
-              {profilePhoto ? <img src={profilePhoto} alt="profile-img" className="prof-photo" data-name="photo"/> : null}
-            </span>
-            <br/>
-            <span className="prof-sun" data-name="sun" onClick={(event) => this.handleClick(event)}> {this.props.currentUser.sun.sign} </span>
-            <br/>
-            <h2 className="matches-header"> Matches </h2>
-            {/* {generateMatches()} */}
+          </div>
+          <br/>
+          <div className="row">
+            <h2 className="matches-header glow2"> Matches </h2>
             <Matches />
           </div>
         </div>
-        {/* <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Chat ☞ </Link> */}
         <br/><br/><br/>
       </div>
     )

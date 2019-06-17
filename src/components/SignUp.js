@@ -36,8 +36,8 @@ class SignUp extends React.Component {
     const signUpForm =
     // return (
     <div>
-      <div style={{"margin-top": "10px"}}>
-        <Link to='/' className="form-link"> ◁ Back  </Link>
+      <div style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+        <Link to='/' className="form-link"> ◀︎ Back </Link>
       </div>
       <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
         <h1 className="signupHeader">sign up</h1>
