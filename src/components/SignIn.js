@@ -2,9 +2,8 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ActionCableProvider } from 'react-actioncable-provider';
-import Routes from '../routes'
-import '../styling/Form.css'
-import '../styling/FormCustom.css'
+import Routes from '../routes';
+import '../styling/Form.css';
 import { setUsers, setCurrentUser, setUserId, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
@@ -59,15 +58,12 @@ class SignIn extends React.Component {
         </div>
         <br/><br/>
         <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
-          <h1 className="signupHeader">sign in</h1>
-          {/* <br/><br/> */}
+          <h1 className="loginHeader">sign in</h1>
           <div className="form" style={{"width": "85%"}}>
-            {/* <div className="custom-form"> */}
             <form className="col s12" onSubmit={this.handleSubmit}>
               <br/>
-              {/* <label className="loginLabel">Email:</label> */}
               <span className="form-label">
-                <label>Email</label>
+                <label> Email </label>
                 <div className="input-field col s6">
                   <input
                     type="email"
@@ -79,7 +75,6 @@ class SignIn extends React.Component {
                   />
                 </div>
               </span>
-              {/* <label className="loginLabel">Password:</label> */}
               <span className="form-label">
                 <label>Password</label>
                 <div className="input-field col s6">
@@ -103,7 +98,8 @@ class SignIn extends React.Component {
         </div>
       </div>
       // )
-      return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
+      // return this.state.loggedIn === true ? <Redirect to="/profile" /> : signInForm
+      return this.state.loggedIn === true ? <Redirect to="/matches" /> : signInForm
         // {/* <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
         //   <Redirect to="/profile" />
         //   </ActionCableProvider>

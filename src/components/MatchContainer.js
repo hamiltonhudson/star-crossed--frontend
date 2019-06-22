@@ -27,6 +27,12 @@ class MatchContainer extends React.Component {
     }
   }
 
+  matchesReturn = () => {
+    if (this.state.acceptedOrDenied) {
+      return <Redirect to="/matches" />
+    }
+  }
+
   handleAccept = (acceptedUserId) => {
     const acceptedMatch = this.props.matchObjs.find(matchObj => matchObj.matched_user.id === acceptedUserId)
     const acceptedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === acceptedUserId)
@@ -93,8 +99,14 @@ class MatchContainer extends React.Component {
     console.log("MatchContainer THIS.PROPS", this.props)
     return (
         <div className="prof-container">
-          <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+          {/* <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
             <Link to='/profile' className="prof-link col s6"> ◀︎ Back</Link>
+          </div> */}
+          <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+            <Link to='/' className="left-link col s4"> ◀︎ Logout</Link>
+            {/* <Link to='/matches' className="center-link col s4"> ❖ Matches ❖ </Link> */}
+            <Link to='/matches' className="center-link col s4"> ✺ Matches ✺  </Link>
+            <Link to='/profile' className="right-link col s4"> Profile ▶︎ </Link>
           </div>
           <div className="prof-card">
             <div className="user-card row">
@@ -120,12 +132,17 @@ class MatchContainer extends React.Component {
               </div>
             </div>
             <div className="row">
-              <h6 className="match-sign-detail glow2"> this sign's: </h6>
-              <br/><br/><span> ——— </span><br/><br/>
-              <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">{this.props.viewedMatch.sun.vibe}</span><br></br>
-              <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">"{this.props.viewedMatch.sun.motto}"</span><br/><br/>
-              <span id="detail-name"> qualities </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "2vw"}}> | </span> <span id="sign-info">{this.props.viewedMatch.sun.keywords}.</span><br></br>
-              {this.profileReturn()}
+              {/* <h2 className="match-sign-header glow2"> this sign's: </h2><br/> */}
+              <h2 className="match-sign-header glow2"> their sign's: </h2><br/>
+              <hr id="match-profile-hr"/>
+              {/* <p style={{fontSize: "1.25vw", opacity: 0.5, "margin": "0 auto"}}> ———— </p> */}
+              <div className="match-sign-details">
+                <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.vibe}</span><br></br>
+                <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.viewedMatch.sun.motto}"</span><br/><br/>
+                <span id="detail-name"> qualities </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.keywords}.</span><br></br>
+                {/* {this.profileReturn()} */}
+                {this.matchesReturn()}
+              </div>
             </div>
           </div>
           <br/><br/><br/>

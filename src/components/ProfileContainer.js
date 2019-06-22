@@ -43,9 +43,17 @@ class ProfileContainer extends React.Component {
 
     return (
       <div className="prof-container">
-        <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+        {/* <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
           <Link to='/' className="prof-link col s6"> ◀︎ LogOut </Link>
           <Link to='/edit' className="edit-link col s6"> Edit ▶︎ </Link>
+        </div> */}
+        <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+          <Link to='/' className="left-link col s4"> ◀︎ LogOut </Link>
+          <Link to='/matches' className="center-link col s4"> ♀︎ Matches ♂︎ </Link>
+          {/* <Link to='/matches' className="match-link col s4"> ❖ Matches ❖ </Link>
+            <Link to='/matches' className="center-link col s4"> △ Matches △ </Link>
+          <Link to='/matches' className="center-link col s4"> ▲ Matches ▲ </Link> */}
+          <Link to='/edit' className="right-link col s4"> Edit ▶︎ </Link>
         </div>
         <div className="prof-card">
           <div className="user-card row">
@@ -64,9 +72,19 @@ class ProfileContainer extends React.Component {
             <ProfileDetail clicked={this.state.clicked}/>
           </div>
           <br/>
-          <div className="row">
+          {/* <div className="row">
             <h2 className="matches-header glow2"> Matches </h2>
             <Matches />
+          </div> */}
+          <div className="row">
+            <h2 className="match-sign-header glow2"> your sign's: </h2><br/>
+            <hr id="match-profile-hr"/>
+            {/* <p style={{fontSize: "1.25vw", opacity: 0.5, "margin": "0 auto"}}> ———— </p> */}
+            <div className="match-sign-details">
+              <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.currentUser.sun.vibe}</span><br></br>
+              <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.currentUser.sun.motto}"</span><br/><br/>
+              <span id="detail-name"> qualities </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.currentUser.sun.keywords}.</span><br></br>
+            </div>
           </div>
         </div>
         <br/><br/><br/>

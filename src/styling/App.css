@@ -72,7 +72,8 @@
   font-family: 'Codystar Reg', cursive;
   color: white;
   /* font-size: 8.5vw; */
-  font-size: 9vw;
+  /* font-size: 9vw; */
+  font-size: calc(1em + 7.5vw);
   /* height: 15vh; */
   /* background-color: transparent; */
   /* text-shadow: 4px 4px 6px #95b6bb; */
@@ -91,7 +92,8 @@
 .App-link {
   font-family: 'Adam';
   font-weight: bolder;
-  font-size: 2.5vw;
+  /* font-size: 2.5vw; */
+  font-size: calc(.75em + 1vw);
   color: #ffffff;
   opacity: 0.65;
   /* line-height: 15px;  */

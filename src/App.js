@@ -9,6 +9,8 @@ import Landing from './components/Landing';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import NewUser from './components/NewUser';
+import MatchesContainer from './components/MatchesContainer';
+import Matches from './components/Matches';
 import ProfileContainer from './components/ProfileContainer';
 import EditUser from './components/EditUser';
 import MatchContainer from './components/MatchContainer'
@@ -33,7 +35,9 @@ class App extends Component {
             <Route path='/signup' component={SignUp} />
             <Route path='/newuser' component={NewUser} />
             <Route path='/signin' component={SignIn} />
-            <Route path='/profile' component={ProfileContainer} spotify={Spotify}/>
+            <Route path='/matches' component={MatchesContainer} />
+            <Route path='/profile' component={ProfileContainer} />
+            {/* <Route path='/profile' component={ProfileContainer} spotify={Spotify}/> */}
             <Route path='/edit' component={EditUser} />
             <Route path='/matchprofile' component={MatchContainer} />
             <Route path='/chat' component={ChatsBase} />

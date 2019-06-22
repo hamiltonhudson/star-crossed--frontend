@@ -10,13 +10,15 @@ class ProfileSun extends React.Component {
       return (
         <div className="prof-sun-detail" >
           <h5>{this.props.currentUser.sun.sign}</h5>
-          <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/>
-          <p> Dates<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.currentUser.sun.start_date} - {this.props.currentUser.sun.end_date} </p>
-          <p> Symbol<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.currentUser.sun.symbol} </p>
-          <p> Element<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.currentUser.sun.element} </p>
-          <p style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </p>
-          <p> Compatible With<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.currentUser.sun.compat_signs} </p>
+          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
+          <br/> */}
+          <hr id="profile-details-hr"/>
+          <p> Dates<span className="visible-span"> | </span> {this.props.currentUser.sun.start_date} - {this.props.currentUser.sun.end_date} </p>
+          <p> Symbol<span className="visible-span"> | </span> {this.props.currentUser.sun.symbol} </p>
+          <p> Element<span className="visible-span"> | </span> {this.props.currentUser.sun.element} </p>
+          {/* <p style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </p> */}
+          <hr id="profile-details-hr"/>
+          <p> Compatible With<span className="visible-span"> | </span> {this.props.currentUser.sun.compat_signs} </p>
           {/* <p>Qualities  |  {this.props.currentUser.sun.keywords}</p> */}
         </div>
       )

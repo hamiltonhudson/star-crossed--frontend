@@ -18,14 +18,22 @@ body {
   overflow: scroll;
 }
 
-.prof-link {
+/* .prof-link {
+  font-family: "LemonMilklight"; */
+  /* font-size: 1vw; */
+  /* min-width: 75%; */
+  /* font-size: calc(.4em + .7vw); */
+  /* color: hsla(278, 62%, 82%, 0.91);
+  text-align: left;
+} */
+
+.left-link {
   font-family: "LemonMilklight";
-  font-size: 1vw;
   color: hsla(278, 62%, 82%, 0.91);
   text-align: left;
 }
 
-.prof-link:hover {
+.left-link:hover {
   color: #36e3ee;
   /* box-shadow: inset 0 0 100px 100px; */
 }
@@ -53,15 +61,30 @@ body {
   /* box-shadow: inset 0 0 100px 100px; */
 }
 
-.edit-link {
+.center-link {
   font-family: "LemonMilklight";
-  font-size: 1vw;
+  /* font-size: calc(1vw; */
+  letter-spacing: 1.5px;
+  text-align: center;
   color: hsla(278, 62%, 82%, 0.91);
-  text-align: right;
-  letter-spacing: 1px;
+  /* font-family: 'Loves';
+  font-size: 3vh;
+  font-weight: bold; */
 }
 
-.edit-link:hover {
+.center-link:hover {
+  color: #36e3ee;
+}
+
+.right-link {
+  font-family: "LemonMilklight";
+  /* font-size: calc(1vw; */
+  color: hsla(278, 62%, 82%, 0.91);
+  text-align: right;
+  letter-spacing: 1.5px;
+}
+
+.right-link:hover {
   color: #36e3ee;
   /* box-shadow: inset 0 0 100px 100px; */
 }
@@ -150,6 +173,12 @@ h5 {
   font-weight: bold;
 }
 
+.visible-span {
+  fontFamily: "Datalegreya-Thin";
+  fontWeight: bolder;
+  fontSize: 1.5vw
+}
+
 .prof-info-deets {
   background-color: transparent;
   font-size: 1.65vh;
@@ -157,6 +186,25 @@ h5 {
   font-weight: bold;
 }
 
+.invisible-span {
+  fontFamily: "Datalegreya-Thin";
+  fontWeight: bolder;
+  fontSize: 1.5vw;
+  color: transparent;
+}
+
+#profile-details-hr {
+  display: block;
+  text-align: center;
+  height: 1px;
+  border: 0;
+  border-top: .5px solid hsla(170, 37%, 96%, 0.8);
+  max-width: 10%;
+  margin-bottom: -1vh;
+  /* margin-bottom: calc(1em + 1.5vw) auto; */
+  /* margin-top: calc(1em + 1.5vw) auto; */
+  padding: 1vh;
+}
 .matches-header {
   font-family: 'WhiteAngelicaRegular';
   font-style: bold;
@@ -170,7 +218,7 @@ h5 {
   justify-content: center;
   align-items: center;
   align-content: center;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   overflow-y: scroll;
   /* height: 20vh; */
 }
@@ -202,8 +250,11 @@ h5 {
   /* font-family: 'GeosansLight'; */
   font-weight: bold;
   font-color: #f4faf9;
-  font-size: 2.25vh;
+  /* font-size: 2.25vh; */
+  /* font-size: 1.25vw; */
+  font-size: calc(1.25vh + .75vw);
   width: 100%;
+  /* height: 90% */
 }
 
 #matched-text {
@@ -229,8 +280,28 @@ h5 {
 .match-photo {
   max-height: 15vh;
   max-width: 10vw;
+  height: auto;
+  width: auto;
+  min-height: 50px;
+  min-width: 100px;
   padding: 10px;
   vertical-align: middle;
+
+  /* max-width: 21vw;
+  max-height: 29vh;
+  width: auto;
+  height: auto; */
+  /* min-width: 192px;
+  min-height: 128px; */
+
+/* match-photo dimensions */
+  /* max-width: 21vw;
+  max-height: 29vh;
+  width: auto;
+  height: auto;
+  min-width: 192px;
+  min-height: 128px
+  vertical-align: middle; */
 }
 
 #sunpic {
@@ -239,9 +310,11 @@ h5 {
 
 .buttonDiv {
   vertical-align: middle;
+  margin-top: -1.5vh;
 }
 
 .matchBtn {
+  /* min-width: 5%; */
   font-size: 2vh;
   background: transparent;
   border: none;
@@ -306,7 +379,7 @@ h5 {
 #pending-list {
   font-family: 'Loves';
   font-size: 2.5vh;
-  padding-top: 8px;
+  padding-top: 2vh;
   margin-bottom: 2px;
   font-style: bold;
 }
@@ -331,13 +404,44 @@ h5 {
   text-align:center;
 } */
 
-match-sign-detail {
+.match-sign-header {
   font-family: 'WhiteAngelicaRegular';
   font-style: bold;
-  font-size: 3.5vh;
-  height: 4vh;
-  margin-top: 1.5vh;
-  padding-bottom: .5vh;
+  font-size: 3.75vh;
+  letter-spacing: 1.5px;
+  /* margin: 4%; */
+  margin: calc(.5em + 1vw);
+  /* height: 4vh; */
+  /* margin-top: 1.5vh; */
+  /* margin: auto; */
+  /* padding-top: 2vh; */
+  /* padding-bottom: 1vh; */
+}
+
+#match-profile-hr {
+    display: block;
+    text-align: center;
+    height: 1px;
+    border: 0;
+    border-top: .5px solid hsla(170, 37%, 96%, 0.8);
+    /* border-top: .65px solid hsla(278, 62%, 82%, 0.71); */
+    /* max-width: 5%; */
+    /* max-width: 10%; */
+    max-width: 15%;
+    margin-bottom: calc(1em + 1.5vw) auto;
+    padding: 1vh;
+}
+
+.match-sign-details {
+  display: inline-block;
+  /* display: inline-flex;
+  justify-content: space-between; */
+  /* max-height: 2vh; */
+  width: auto;
+  /* height: 4em; */
+  max-width: 75vw;
+  min-width: 30vw;
+  vertical-align: middle;
 }
 
 #detail-name  {
@@ -346,15 +450,19 @@ match-sign-detail {
   text-align: center;
   /* font-size: 1.15vw;
   font-family: "Prequel Regular"; */
-  font-size: 1.65vw;
+  /* font-size: 1.65vw; */
+  /* font-size: calc(7.5px + 1.15vw); */
+  font-size: calc(.75em + 1vw);
   font-family: 'LOVES';
   transition: all 0.3s ease-in;
-  text-decoration:none;
+  text-decoration: none;
   margin-bottom: -2px;
 }
 
-#sign-info {
+#detail-info {
   text-align: center;
   font-family: 'Adam';
-  font-size: 1.5vw;
+  /* font-size: 1.5vw; */
+  /* font-size: calc(8px + 1.15vw); */
+  font-size: calc(.75em + 1vw);
 }

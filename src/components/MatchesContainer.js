@@ -2,15 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import ProfileContainer from './ProfileContainer';
-import '../styling/Profile.css';
-import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions'
+// import '../styling/Profile.css';
+import '../styling/Matches.css';
+import '../styling/App.css';
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, findMatches, declineMatchedUser, setCurrentUser } from '../actions'
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
+import App from '../App';
+// import { ActionCableProvider } from 'actioncable';
+// import { API_WS_ROOT } from '../constants/ActionTypes';
+// import Chat from './Chat'
+// import ProfileDetail from './ProfileDetail'
+// import ProfileSun from './ProfileSun'
+// import Matches from './Matches';
+// import Tooltip from '@material-ui/core/Tooltip';
 
-class Matches extends React.Component {
+class MatchesContainer extends React.Component {
   state = {
-    clicked: false
+    clicked: false,
+    // acceptedOrDenied: false
   }
+
+  // profileReturn = () => {
+  //   if (this.state.acceptedOrDenied) {
+  //     return <Redirect to="/profile" />
+  //   }
+  // }
 
   handleViewMatch = (clickedMatchId) => {
     this.props.viewMatch(this.props.matchedUsers.find(matchedUser => matchedUser.id === clickedMatchId))
@@ -18,6 +35,7 @@ class Matches extends React.Component {
       clicked: true
     })
   }
+
 
   handleViewPending = (pendingId) => {
     const pending = this.props.currentUser.matches.filter(match => match.status === "pending")
@@ -82,16 +100,20 @@ class Matches extends React.Component {
       return this.props.matchedUsers.map(matchedUser => {
         const matchPhoto = matchedUser.photo
         return (
-          <div key={matchedUser.id} className="matched-users">
-            <div onClick={() => this.handleViewMatch(matchedUser.id)}>
-              {matchedUser.first_name}  ☽  {matchPhoto ? <img src={matchPhoto} className="match-photo" alt="match-img" /> : null}  ☆  {matchedUser.sun.sign}
-            </div>
-            {/* <div className="row" onClick={() => this.handleViewMatch(matchedUser.id)}>
-              <div className="col l2 m3 s12">{matchedUser.first_name}  ☽ </div> {matchPhoto ? <img src={matchPhoto} className="match-photo col l8 m6 s12" alt="match-img" /> : null} <div className="col l2 m3 s12"> ☆  {matchedUser.sun.sign}</div>
-            </div> */}
-            <div className="buttonDiv">
-              <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
-              <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
+          <div>
+            <div key={matchedUser.id} className="match-card">
+              <div className="row" onClick={() => this.handleViewMatch(matchedUser.id)}>
+                <span> {matchedUser.first_name} ☽ </span>
+                {matchPhoto ? <img src={matchPhoto} className="matches-container-photo" alt="match-img" /> : null}
+                <span> ☆ {matchedUser.sun.sign} </span>
+              </div>
+                <div clasName="row">
+                  <div className="buttonDiv col s12">
+                    <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+                    <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
+                  </div>
+                </div>
+                {/* </div> */}
             </div>
           </div>
         )
@@ -107,16 +129,23 @@ class Matches extends React.Component {
       })
     }
     return (
-      <div>
-        <div className="match-div">
-          <div className="matched-user-box">
-            {generateMatches()}
-          </div><br/>
+      <div className="matches-container">
+        <div className="row" style={{"marginTop": "1vh", "marginBottom": "1vh"}}>
+          <Link to='/' className="left-link col s4"> ◀︎ LogOut </Link>
+          {/* <div> */}
+          {/* <Link style={{"textAlign": "center"}} className="accepted-link col s4" to='/chat'> ▲ Accepted ▲ </Link> */}
+          <Link className="center-link col s4" to='/chat'> ▲ Accepted ▲ </Link>
+          {/* </div> */}
+          <Link to='/profile' className="right-link col s4"> Profile ▶︎ </Link>
+        </div><br/>
+        <div className="row">
+          <h2 className="matches-container-header glow2"> Matches </h2>
         </div>
-        <div style={{"marginTop": "5px", "marginBottom": "5px"}}>
-          <Link style={{"textAlign": "center"}} id="accepted-link" to='/chat'> Accepted ☞ </Link>
+        <div className="matches-scroll-box">
+          {generateMatches()}
         </div>
-        <div id="pending-list">Pending</div>
+        <hr id="matches-hr"/>
+        <h4 id="pending-list"> Pending </h4>
         <div style={{"marginBottom": "10px"}}>
           {generatePending()}
         </div>
@@ -147,4 +176,4 @@ class Matches extends React.Component {
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Matches);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchesContainer);

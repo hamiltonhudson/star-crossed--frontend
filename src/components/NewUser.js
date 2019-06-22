@@ -1,8 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../styling/Form.css'
-import '../styling/FormCustom.css'
+import '../styling/Form.css';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers } from '../actions'
@@ -33,17 +32,11 @@ class NewUser extends React.Component {
     // console.log(this.state)
   }
 
-
-
   onImageDrop(files) {
     this.setState({
       uploadedFile: files[0]
     });
     this.handleImageUpload(files[0]);
-    // return (
-    //   setTimeout(() => {this.setState({delay: true})}, 3000)
-    // )
-    // return this.state.delay ? <p>Photo added!</p> : <p>Hang tight</p>
   }
 
   handleImageUpload(file) {
@@ -111,9 +104,15 @@ class NewUser extends React.Component {
     })
   }
 
-  profileRedirect = () => {
+  // profileRedirect = () => {
+  //   if (this.state.loggedIn) {
+  //     return <Redirect to="/profile" />
+  //   }
+  // }
+
+  matchesRedirect = () => {
     if (this.state.loggedIn) {
-      return <Redirect to="/profile" />
+      return <Redirect to="/matches" />
     }
   }
 
@@ -275,12 +274,13 @@ class NewUser extends React.Component {
               <input className="submit-button"
                 type="submit"
                 placeholder="Submit"
-            />
-          </form>
-          <br/>
+              />
+            </form>
+            <br/>
             {/* </div> */}
-          {this.profileRedirect()}
-        </div>
+            {/* {this.profileRedirect()} */}
+            {this.matchesRedirect()}
+          </div>
       </div>
     )
   }

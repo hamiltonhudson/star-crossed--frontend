@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { reduxForm, Field } from 'redux-form';
-import '../styling/Form.css'
-import { getEmailAndPW } from '../actions'
+import { ActionCableProvider } from 'react-actioncable-provider';
+import Routes from '../routes';
+import '../styling/Form.css';
+import { getEmailAndPW } from '../actions';
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
@@ -40,14 +41,13 @@ class SignUp extends React.Component {
         <Link to='/' className="form-link"> ◀︎ Back </Link>
       </div>
       <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
-        <h1 className="signupHeader">sign up</h1>
-        <br/><br/>
+        <h1 className="loginHeader">sign up</h1>
         <div className="form" style={{"width": "85%"}}>
-          <form onSubmit={this.handleSubmit}>
+          <form className="col s12" onSubmit={this.handleSubmit}>
             <br/>
-            <label className="loginLabel">Email:</label>
-            <div className="form-label">
-              <div className="input-field">
+            <span className="form-label">
+              <label> Email </label>
+              <div className="input-field s6">
                 <input
                   type="email"
                   placeholder="Enter Email Address"
@@ -57,10 +57,10 @@ class SignUp extends React.Component {
                   className="input"
                 />
               </div>
-            </div>
-            <label className="loginLabel">Password:</label>
-            <div className="form-label">
-              <div className="input-field">
+            </span>
+            <span className="form-label">
+              <label> Password </label>
+              <div className="input-field col s6">
                 <input
                   type="password"
                   placeholder="Enter Password"
@@ -70,14 +70,12 @@ class SignUp extends React.Component {
                   className="input"
                 />
               </div>
-            </div>
+            </span>
             <br/><br/>
-            <input className="submit-button"
-              // className="form-button"
+            <input
               type="submit"
-              placeholder="Submit"
+              className="submit-button"
             />
-            <br/><br/>
           </form>
         </div>
       </div>

@@ -12,14 +12,16 @@ class MatchDetail extends React.Component {
       return (
         <div className="prof-info-deets">
           <h5> About </h5>
-          <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/>
-          <p>{ntdmn.toMonth(this.props.viewedMatch.birth_month)} {ntdmn.toDate(parseInt(this.props.viewedMatch.birth_day))}</p>
-          <p>{this.props.viewedMatch.gender}<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.viewedMatch.age}</p>
-          <p>{this.props.viewedMatch.location}</p>
-          <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/>
-          <p>{this.props.viewedMatch.bio}</p>
+          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
+          <br/> */}
+          <hr id="profile-details-hr"/>
+          <p>{ntdmn.toMonth(this.props.viewedMatch.birth_month)} {ntdmn.toDate(parseInt(this.props.viewedMatch.birth_day))}<span className="invisible-span"> | </span></p>
+          <p>{this.props.viewedMatch.gender}<span className="visible-span"> | </span> {this.props.viewedMatch.age}</p>
+          <p>{this.props.viewedMatch.location}<span className="invisible-span">|</span></p>
+          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
+          <br/> */}
+          <hr id="profile-details-hr"/>
+          <p>{this.props.viewedMatch.bio}<span className="invisible-span">|</span></p>
         </div>
       )
     }

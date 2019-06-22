@@ -40,7 +40,7 @@ body {
   display: flex;
 }
 
-.signupHeader {
+.loginHeader {
   /* height: 10vh; */
 }
 
@@ -61,31 +61,103 @@ body {
   margin: auto;
 }
 
+.input-field {
+  font-family: "Roboto 2.0", sans-serif !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  width: 70%;
+}
+
 .form .input {
   background-color: white !important;
   /* font-family: "Roboto 2.0", sans-serif; */
   border-style: solid;
-  border-color: #27116B;
   color: #27116B;
-  /* width: 80%; */
   padding: 12px 20px;
   margin: 8px 0;
   width: auto;
   height: auto;
-  /* text-align: center; */
-  /* box-sizing: border-box; */
-  /* border-width: 5px; */
-  /* margin-left: 5em; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* margins: 10px; */
 }
 
 .input {
   width: 10%;
-  height: 2%
+  height: 2%;
+  border-bottom: 1px solid;
+  /* border-color: #27116B !important; */
+  color: #27116B !important;
 }
+
+input .input:active {
+  border-bottom: 12px solid;
+  color: #27116B !important;
+}
+
+input .input:enabled {
+  border-bottom: 12px solid;
+  color: #27116B !important;
+}
+
+input .input:focus {
+  border-bottom: 12px solid;
+  color: #27116B !important;
+}
+
+input-field .col.s6 input .selected:enabled {
+  border-bottom: 12px solid;
+  color: #27116B !important;
+}
+
+input .selected:enabled {
+  border-bottom: 1px solid;
+  color: #27116B !important;
+}
+
+input .selected:focus {
+  border-bottom: 1px solid;
+  color: #27116B !important;
+}
+
+.form .input-field input .input:focus {
+  border-bottom: 12px solid #27116B;
+}
+
+.form .input-field input .input:active {
+  border-bottom: 12px solid #27116B;
+}
+
+.form-container .form .form-label .input-field .col .s6 input .input:enabled {
+  border-bottom: 12px solid #27116B;
+}
+/*
+.form input:active {
+  border-bottom: 12px solid #27116B;
+} */
+
+/* input:enabled {
+  border-bottom: 12px solid #27116B;
+} */
+
+
+/* .input:focus {
+  border-bottom: 1px solid #27116B;
+  box-shadow: 0 1px 0 0 #27116B;
+  color: #27116B;
+}
+
+.input:active {
+  border-bottom: 1px solid #27116B;
+  box-shadow: 0 1px 0 0 #27116B;
+  color: #27116B;
+} */
+
+/* .input-field .col .s6 input[type=text]:active {
+  border-bottom: 12px solid #27116B;
+  box-shadow: 0 1px 0 0 #27116B;
+}
+.input-field .col .s6 input[type=email]:active {
+  border-bottom: 12px solid #27116B;
+  box-shadow: 0 1px 0 0 #27116B;
+} */
+
 
 .selected {
   border-style: solid;
@@ -94,11 +166,21 @@ body {
   /* color: #27116B; */
 }
 
-.input-field {
-  font-family: "Roboto 2.0", sans-serif !important;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  width: 70%;
+/* input.input:enabled {
+  border-bottom: 12px solid #27116B !important;
 }
+
+input.input:focus {
+  border-bottom: 12px solid green !important;
+}
+
+input.input:active {
+  border-bottom: 12px solid black !important;
+}
+
+.form .input-field input.input:active {
+  border-bottom: 12px solid blue !important;
+} */
 
 .submit-button {
   background-color: #E0E0E0;
@@ -129,3 +211,31 @@ body {
   justify-content: center;
   margin-left: 30em;
 }
+
+
+/**FROM FORMCUSTOM.CSS **
+.custom-form {
+  background-color: #EAEBF9;
+  display: flex;
+  color: #27116B;
+}
+
+.form-label .input-field input:focus {
+  background-color: white !important;
+  color: #27116B;
+  width: 100%;
+  /* width: 120%; */
+/* }
+
+.form-label .input-field input:focus {
+  border-bottom: 1px solid #27116B !important;
+  box-shadow: 0 1px 0 0 #27116B !important
+}
+
+.input-field input:focus + label {
+  color: #27116B !important;
+}
+
+.input {
+  background-color: white !important;
+} */

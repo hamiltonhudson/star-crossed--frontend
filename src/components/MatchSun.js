@@ -11,13 +11,15 @@ class MatchSun extends React.Component {
       return (
         <div className="prof-sun-detail">
           <h5>{this.props.viewedMatch.sun.sign}</h5>
-          <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/>
-          <p>Dates<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.viewedMatch.sun.start_date} - {this.props.viewedMatch.sun.end_date}</p>
-          <p>Symbol<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.viewedMatch.sun.symbol}</p>
-          <p>Element<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.viewedMatch.sun.element}</p>
-          <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <p> Compatible With<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "1.5vw"}}> | </span> {this.props.viewedMatch.sun.compat_signs} </p>
+          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
+          <br/> */}
+          <hr id="profile-details-hr"/>
+          <p>Dates<span className="visible-span"> | </span> {this.props.viewedMatch.sun.start_date} - {this.props.viewedMatch.sun.end_date}</p>
+          <p>Symbol<span className="visible-span"> | </span> {this.props.viewedMatch.sun.symbol}</p>
+          <p>Element<span className="visible-span"> | </span> {this.props.viewedMatch.sun.element}</p>
+          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span> */}
+          <hr id="profile-details-hr"/>
+          <p> Compatible With<span className="visible-span"> | </span> {this.props.viewedMatch.sun.compat_signs} </p>
           {/* <p>Qualities  |  {this.props.viewedMatch.sun.keywords}</p> */}
         </div>
       )
