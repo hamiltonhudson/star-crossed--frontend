@@ -61,7 +61,9 @@ class ChatsBase extends React.Component {
       <ActionCableProvider url={`${API_WS_ROOT}+?user=${this.props.userId}`}>
         <div className="accepted">
           <div className="Accepted-header row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-            <Link to='/profile' className="back-link col s6"> ◀︎ Back</Link>
+            <Link to='/' className="left-link col l4 m4 s3"> ◀︎ Logout</Link>
+            <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
+            <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
             <div className="accepted-container">
               {/* Accepted */}
               <div className="users-card">

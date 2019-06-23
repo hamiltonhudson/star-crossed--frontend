@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import '../styling/Profile.css'
-import MatchDetail from './MatchDetail';
-import MatchSun from './MatchSun';
+import MatchProfDetail from './MatchProfDetail';
+import MatchProfSun from './MatchProfSun';
 import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser } from '../actions';
 import acceptBtn from '../images/check_mark_white.png'
 import declineBtn from '../images/x_mark_white.png'
 
-class MatchContainer extends React.Component {
+class MatchProfContainer extends React.Component {
   state = {
     clicked: '',
     acceptedOrDenied: false
@@ -52,9 +52,6 @@ class MatchContainer extends React.Component {
     }
     fetch(`http://localhost:3000/api/v1/matches/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
-    // .then(results => {
-    //   console.log(results)
-    // })
     .then(result => {
       console.log(result)
       this.props.setCurrentUser(result)
@@ -96,23 +93,19 @@ class MatchContainer extends React.Component {
 
   render() {
     const matchPhoto = this.props.viewedMatch.photo
-    console.log("MatchContainer THIS.PROPS", this.props)
+    console.log("MatchProfContainer THIS.PROPS", this.props)
     return (
         <div className="prof-container">
-          {/* <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-            <Link to='/profile' className="prof-link col s6"> ◀︎ Back</Link>
-          </div> */}
           <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-            <Link to='/' className="left-link col s4"> ◀︎ Logout</Link>
-            {/* <Link to='/matches' className="center-link col s4"> ❖ Matches ❖ </Link> */}
-            <Link to='/matches' className="center-link col s4"> ✺ Matches ✺  </Link>
-            <Link to='/profile' className="right-link col s4"> Profile ▶︎ </Link>
-          </div>
+            <Link to='/' className="left-link col l4 m4 s3"> ◀︎ Logout</Link>
+            <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
+            <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
+          </div><br/>
           <div className="prof-card">
             <div className="user-card row">
-              <MatchSun clicked={this.state.clicked}/>
+              <MatchProfDetail clicked={this.state.clicked}/>
               <div className="col l4 m6 s12">
-                <h3 className="card-title" id="prof-name" data-name="name"
+                <h3 className="card-title prof-name" data-name="name"
                   onClick={(event) => this.handleDetailClick(event)}>
                   {this.props.viewedMatch.first_name}
                 </h3>
@@ -122,25 +115,38 @@ class MatchContainer extends React.Component {
                 <br/>
                 <h6 className="prof-sun" data-name="sun" onClick={(event) => this.handleDetailClick(event)}> {this.props.viewedMatch.sun.sign} </h6>
               </div>
-              <MatchDetail clicked={this.state.clicked}/>
+              <MatchProfSun clicked={this.state.clicked}/>
             </div>
             <br/>
             <div className="row">
               <div className="buttonDiv">
-                <button className="matchBtn" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <img id="acceptBtn" src={require('../images/check_mark_white.png')} alt='accept' /> </button>
-                <button className="matchBtn" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <img id="declineBtn" src={require('../images/x_mark_white.png')} alt='decline' /> </button>
+                <button className="matchBtn" onClick={() => this.handleAccept(this.props.viewedMatch.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+                <button className="matchBtn" onClick={() => this.handleDecline(this.props.viewedMatch.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
               </div>
             </div>
             <div className="row">
-              {/* <h2 className="match-sign-header glow2"> this sign's: </h2><br/> */}
               <h2 className="match-sign-header glow2"> their sign's: </h2><br/>
               <hr id="match-profile-hr"/>
-              {/* <p style={{fontSize: "1.25vw", opacity: 0.5, "margin": "0 auto"}}> ———— </p> */}
               <div className="match-sign-details">
-                <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.vibe}</span><br></br>
-                <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.viewedMatch.sun.motto}"</span><br/><br/>
-                <span id="detail-name"> qualities </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.keywords}.</span><br></br>
-                {/* {this.profileReturn()} */}
+                <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.vibe}</span><br/>
+                <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.viewedMatch.sun.motto}"</span><br/>
+                <span id="detail-name"> compatible with </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info"> {this.props.viewedMatch.sun.compat_signs} </span><br/><br/>
+                <div className="row">
+                  <div className="col s1 traits">
+                    <span>
+                      <span className="row">T</span>
+                      <span className="row">R</span>
+                      <span className="row">A</span>
+                      <span className="row">I</span>
+                      <span className="row">T</span>
+                      <span className="row">S</span>
+                    </span>
+                  </div>
+                  <div className="col s11" style={{"verticalAlign": "middle"}}>
+                    <span id="detail-name"> good </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.good_traits}.</span><br/>
+                    <span id="detail-name"> bad </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.bad_traits}.</span><br/>
+                  </div>
+                </div>
                 {this.matchesReturn()}
               </div>
             </div>
@@ -178,4 +184,4 @@ class MatchContainer extends React.Component {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchProfContainer);

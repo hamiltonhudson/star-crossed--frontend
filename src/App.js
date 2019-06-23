@@ -13,7 +13,7 @@ import MatchesContainer from './components/MatchesContainer';
 import Matches from './components/Matches';
 import ProfileContainer from './components/ProfileContainer';
 import EditUser from './components/EditUser';
-import MatchContainer from './components/MatchContainer'
+import MatchProfContainer from './components/MatchProfContainer'
 import ChatsBase from './components/ChatsBase';
 import Spotify from './components/Spotify'
 // import { setUserId } from '../actions'
@@ -38,8 +38,8 @@ class App extends Component {
             <Route path='/matches' component={MatchesContainer} />
             <Route path='/profile' component={ProfileContainer} />
             {/* <Route path='/profile' component={ProfileContainer} spotify={Spotify}/> */}
+            <Route path='/matchprofile' component={MatchProfContainer} />
             <Route path='/edit' component={EditUser} />
-            <Route path='/matchprofile' component={MatchContainer} />
             <Route path='/chat' component={ChatsBase} />
           </Switch>
         </Router>

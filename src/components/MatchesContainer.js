@@ -1,21 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import ProfileContainer from './ProfileContainer';
-// import '../styling/Profile.css';
-import '../styling/Matches.css';
 import '../styling/App.css';
-import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, findMatches, declineMatchedUser, setCurrentUser } from '../actions'
+import '../styling/Matches.css';
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, findMatches, declineMatchedUser, setCurrentUser } from '../actions';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
-import App from '../App';
 // import { ActionCableProvider } from 'actioncable';
 // import { API_WS_ROOT } from '../constants/ActionTypes';
 // import Chat from './Chat'
-// import ProfileDetail from './ProfileDetail'
-// import ProfileSun from './ProfileSun'
-// import Matches from './Matches';
-// import Tooltip from '@material-ui/core/Tooltip';
 
 class MatchesContainer extends React.Component {
   state = {
@@ -107,13 +100,12 @@ class MatchesContainer extends React.Component {
                 {matchPhoto ? <img src={matchPhoto} className="matches-container-photo" alt="match-img" /> : null}
                 <span> ☆ {matchedUser.sun.sign} </span>
               </div>
-                <div clasName="row">
-                  <div className="buttonDiv col s12">
-                    <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
-                    <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
-                  </div>
+              <div className="row">
+                <div className="buttonDiv col s12">
+                  <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+                  <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
                 </div>
-                {/* </div> */}
+              </div>
             </div>
           </div>
         )
@@ -131,12 +123,9 @@ class MatchesContainer extends React.Component {
     return (
       <div className="matches-container">
         <div className="row" style={{"marginTop": "1vh", "marginBottom": "1vh"}}>
-          <Link to='/' className="left-link col s4"> ◀︎ LogOut </Link>
-          {/* <div> */}
-          {/* <Link style={{"textAlign": "center"}} className="accepted-link col s4" to='/chat'> ▲ Accepted ▲ </Link> */}
-          <Link className="center-link col s4" to='/chat'> ▲ Accepted ▲ </Link>
-          {/* </div> */}
-          <Link to='/profile' className="right-link col s4"> Profile ▶︎ </Link>
+          <Link to='/' className="left-link col l4 m4 s3"> ◀︎ LogOut </Link>
+          <Link className="center-link col l4 m4 s6" to='/chat'> ▲ Accepted ▲ </Link>
+          <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
         </div><br/>
         <div className="row">
           <h2 className="matches-container-header glow2"> Matches </h2>

@@ -10,16 +10,12 @@ class ProfileDetail extends React.Component {
       return (
         <div className="prof-info-deets">
           <h5> About </h5>
-          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/> */}
-          <hr id="profile-details-hr"/>
-          <p>{ntdmn.toMonth(this.props.currentUser.birth_month)} {ntdmn.toDate(parseInt(this.props.currentUser.birth_day))}<span className="invisible-span">|</span></p>
-          <p>{this.props.currentUser.gender}<span className="visible-span"> | </span> {this.props.currentUser.age}</p>
-          <p>{this.props.currentUser.location}<span className="invisible-span">|</span></p>
-          {/* <span style={{"fontFamily": "Segoe UI", "letterSpacing": "-3.25px"}}> ——— </span>
-          <br/> */}
-          <hr id="profile-details-hr"/>
-          <p>{this.props.currentUser.bio}<span className="invisible-span">|</span></p>
+          <hr className="profile-details-hr"/>
+          <p>{ntdmn.toMonth(this.props.currentUser.birth_month)} {ntdmn.toDate(parseInt(this.props.currentUser.birth_day))}<span style={{"fontFamily": "Datalegreya-Thin", "color": "transparent", "fontSize": "calc(.65em + .65vw"}}>|</span></p>
+          <p>{this.props.currentUser.gender}<span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(.65em + .65vw"}}> | </span> {this.props.currentUser.age}</p>
+          <p>{this.props.currentUser.location}<span style={{"fontFamily": "Datalegreya-Thin", "color": "transparent", "fontSize": "calc(.65em + .65vw"}}>|</span></p>
+          <hr className="profile-details-hr"/>
+          <p>{this.props.currentUser.bio}<span style={{"fontFamily": "Datalegreya-Thin", "color": "transparent", "fontSize": "calc(.65em + .65vw"}}>|</span></p>
         </div>
       )
     }
