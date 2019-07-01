@@ -89,37 +89,37 @@ class MatchesContainer extends React.Component {
     if (this.state.clicked) {
       return <Redirect to="/matchprofile" />
     }
-    const generateMatches = () => {
-      return this.props.matchedUsers.map(matchedUser => {
-        const matchPhoto = matchedUser.photo
-        return (
-          <div>
-            <div key={matchedUser.id} className="match-card">
-              <div className="row" onClick={() => this.handleViewMatch(matchedUser.id)}>
-                <span> {matchedUser.first_name} ☽ </span>
-                {matchPhoto ? <img src={matchPhoto} className="matches-container-photo" alt="match-img" /> : null}
-                <span> ☆ {matchedUser.sun.sign} </span>
-              </div>
-              <div className="row">
-                <div className="buttonDiv col s12">
-                  <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
-                  <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      })
-    }
-    const generatePending = () => {
-      const pending = this.props.currentUser.matches.filter(match => match.status === "pending")
-      const pendingUsers = pending.map(p => p.matched_user)
-      return pendingUsers.map(p => {
-        return (
-          <span key={p.id} className="pending" onClick={() => this.handleViewPending(p.id)}>| {p.first_name} |</span>
-        )
-      })
-    }
+    // const generateMatches = () => {
+    //   return this.props.matchedUsers.map(matchedUser => {
+    //     const matchPhoto = matchedUser.photo
+    //     return (
+    //       <div>
+    //         <div key={matchedUser.id} className="match-card">
+    //           <div className="row" onClick={() => this.handleViewMatch(matchedUser.id)}>
+    //             <span> {matchedUser.first_name} ☽ </span>
+    //             {matchPhoto ? <img src={matchPhoto} className="matches-container-photo" alt="match-img" /> : null}
+    //             <span> ☆ {matchedUser.sun.sign} </span>
+    //           </div>
+    //           <div className="row">
+    //             <div className="buttonDiv col s12">
+    //               <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+    //               <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     )
+    //   })
+    // }
+    // const generatePending = () => {
+    //   const pending = this.props.currentUser.matches.filter(match => match.status === "pending")
+    //   const pendingUsers = pending.map(p => p.matched_user)
+    //   return pendingUsers.map(p => {
+    //     return (
+    //       <span key={p.id} className="pending" onClick={() => this.handleViewPending(p.id)}>| {p.first_name} |</span>
+    //     )
+    //   })
+    // }
     return (
       <div className="matches-container">
         <div className="row" style={{"marginTop": "1vh", "marginBottom": "1vh"}}>
@@ -131,12 +131,12 @@ class MatchesContainer extends React.Component {
           <h2 className="matches-container-header glow2"> Matches </h2>
         </div>
         <div className="matches-scroll-box">
-          {generateMatches()}
+          {/* {generateMatches()} */}
         </div>
         <hr id="matches-hr"/>
         <h4 id="pending-list"> Pending </h4>
         <div style={{"marginBottom": "10px"}}>
-          {generatePending()}
+          {/* {generatePending()} */}
         </div>
       </div>
     )

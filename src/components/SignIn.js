@@ -6,7 +6,15 @@ import Routes from '../routes';
 import '../styling/Form.css';
 import { setUsers, setCurrentUser, setUserId, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers} from '../actions'
 
+const authAPI = 'http://localhost:3000/api/v1/auth'
 const usersAPI = 'http://localhost:3000/api/v1/users/'
+let headers = {}
+let body = ""
+let method = ""
+let init = { method: method, headers: headers, body: body }
+// method = "POST"
+// headers = {"Content-Type": "application/json"}
+// body = JSON.stringify({ email: this.state.email, password: this.state.password })
 
 class SignIn extends React.Component {
   state = {
@@ -22,31 +30,62 @@ class SignIn extends React.Component {
     })
   }
 
+  method = "POST"
+  headers = {"Content-Type": "application/json"}
+  body = JSON.stringify({ email: this.state.email, password: this.state.password })
+
   handleSubmit = (event) => {
     event.preventDefault()
-      fetch(usersAPI)
+      fetch(`${authAPI}/`, {init})
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
-        const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
-        // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase() && d.password === this.state.password)
-        this.props.setUsers(data)
+        this.jwt = data.token;
+        let userDetails = data
+        console.log(userDetails)
         this.props.setCurrentUser(userDetails)
-        const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
-        const pending = userDetails.matches.filter(match => match.status === "pending")
-        const awaiting = userDetails.matches.filter(match => match.status === "awaiting")
-        const accepted = userDetails.matches.filter(match => match.status === "accepted")
-        const declined = userDetails.matches.filter(match => match.status === "declined")
-        this.props.findMatches(matchedOrAwaiting)
-        matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
-        this.props.findAccepted(accepted)
-        accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
+        let user_id = data.user_id
+        // const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
+        // const pending = userDetails.matches.filter(match => match.status === "pending")
+        // const awaiting = userDetails.matches.filter(match => match.status === "awaiting")
+        // const accepted = userDetails.matches.filter(match => match.status === "accepted")
+        // const declined = userDetails.matches.filter(match => match.status === "declined")
+        // this.props.findMatches(matchedOrAwaiting)
+        // matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
+        // this.props.findAccepted(accepted)
+        // accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
+        // method = "GET"
         this.setState({
           loggedIn: true
         })
       })
     }
+
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  //     fetch(usersAPI)
+  //     .then(r => r.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase())
+  //       const userDetails = data.find(d => d.email === this.state.email && d.password === this.state.password)
+  //       // const userDetails = data.find(d => d.first_name.toLowerCase() === this.state.first_name.toLowerCase() && d.password === this.state.password)
+  //       this.props.setUsers(data)
+  //       this.props.setCurrentUser(userDetails)
+  //       const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
+  //       const pending = userDetails.matches.filter(match => match.status === "pending")
+  //       const awaiting = userDetails.matches.filter(match => match.status === "awaiting")
+  //       const accepted = userDetails.matches.filter(match => match.status === "accepted")
+  //       const declined = userDetails.matches.filter(match => match.status === "declined")
+  //       this.props.findMatches(matchedOrAwaiting)
+  //       matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
+  //       this.props.findAccepted(accepted)
+  //       accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
+  //       this.setState({
+  //         loggedIn: true
+  //       })
+  //     })
+  //   }
 
   render() {
     // return(
