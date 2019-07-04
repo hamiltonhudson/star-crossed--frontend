@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import '../styling/Form.css'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { setUsers, setCurrentUser, findMatchedUsers, findMatches, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
-import ProfileContainer from './ProfileContainer'
+import { setUsers, setCurrentUser, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
+import Adapter from './Adapter'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload';
+
 
 class EditUser extends React.Component {
 
@@ -18,11 +19,11 @@ class EditUser extends React.Component {
     last_name: this.props.currentUser.last_name,
     gender: this.props.currentUser.gender,
     gender_pref: this.props.currentUser.gender_pref,
-    // birth_date: this.props.currentUser.birth_date,
     city: this.props.city,
     usstate: this.props.usstate,
     bio: this.props.currentUser.bio,
     uploadedFileCloudinaryUrl: this.props.currentUser.photo,
+    displayPhoto: '',
     updated: false,
     deleted: false,
   }
@@ -57,6 +58,23 @@ class EditUser extends React.Component {
         })
       }
     })
+  }
+
+  displayDiffPhotos = () => {
+    if (this.state.uploadedFileCloudinaryUrl === this.props.userPhoto) {
+      return (
+        <div style={{"overflowY": "scroll"}}>
+          <img src={this.props.userPhoto} className="form-photo-display" alt={'profile pic'} /><br/><br/>
+        </div>
+      )
+    } else if (this.state.uploadedFileCloudinaryUrl !== this.props.userPhoto) {
+      return (
+        <div style={{"overflowY": "scroll"}}>
+          <img src={this.state.uploadedFileCloudinaryUrl} className="form-photo-display" alt={'profile pic'} />
+          <p style={{"margin": "2px 0px 2px 0px"}}> Photo Added! </p>
+        </div>
+      )
+    }
   }
 
   displayGender = (gender) => {
@@ -119,14 +137,14 @@ class EditUser extends React.Component {
     const userConfig = {
       method: "PATCH",
       headers: {
-        "Content-type": "application/json",
-        "Accept": "application/json"
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({
         user: {
           first_name: this.state.first_name,
           last_name: this.state.last_name,
-          // birth_date: this.state.birth_date,
           gender: this.state.gender,
           gender_pref: this.state.gender_pref,
           location: `${this.state.city}, ${this.state.usstate}`,
@@ -135,14 +153,16 @@ class EditUser extends React.Component {
         }
       })
     }
-    fetch(`http://localhost:3000/api/v1/users/${this.props.currentUser.id}`, userConfig)
+    fetch(`${usersAPI}/${this.props.currentUser.id}`, userConfig)
     .then(r => r.json())
     .then(result => {
-      if (result.errors){
-        alert('Please enter details correctly')
+      if (result.errors) {
+        console.log(result.errors)
+        alert('Please check your details')
         return <Redirect to="/edit" />
       } else {
-        let updatedUser = result
+        localStorage.setItem('token', result.token)
+        let updatedUser = result.user
         this.props.setCurrentUser(updatedUser)
         let matchedOrAwaiting = updatedUser.matches.filter(match => match.status === "matched" || match.status === "awaiting")
         let declined = updatedUser.matches.filter(match => match.status === "declined")
@@ -171,21 +191,25 @@ class EditUser extends React.Component {
   }
 
 
-  deleteUser = (userId) => {
-    fetch(`${usersAPI}${userId}`, {
+  deleteUser = (currentUser) => {
+    fetch(`${usersAPI}${currentUser.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({
-          id: `${userId}`
+          // id: `${userId}`
+          user: this.props.currentUser
       })
     })
     .then(r => r.json())
     .then(response => {
-      let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
-      this.props.deleteUser(nonExistentUser)
+      Adapter.signOut();
+      this.props.history.push("/")
+      // let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
+      // this.props.deleteUser(nonExistentUser)
       this.props.setUsers(response)
       this.setState({
         deleted: true
@@ -205,12 +229,12 @@ class EditUser extends React.Component {
     return (
       <Fragment>
         <div style={{"marginTop": "10px"}}>
-          <Link to='/profile' className="form-link"> ◁ Back</Link>
+          {/* <Link to='/profile' className="form-link"> ◁ Back</Link> */}
+          <Link to='/profile' className="form-link"> ◀︎ Back</Link>
         </div>
         <div className="form-container">
-          <h1 className="signupHeader">edit profile</h1>
+          <h1 className="signupHeader" style={{"fontSize": "5vw"}}>edit profile</h1>
           <div className="form" onSubmit={event => this.handleSubmit(event)}>
-            {/* <form onSubmit={event => this.handleSubmit(event)}> */}
             <form className="col s12">
               <div className="row">
                 <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
@@ -242,20 +266,6 @@ class EditUser extends React.Component {
                   </span>
                 </div>
               </div>
-              {/* <label>Birth Date</label>
-                <span className="form-label">
-                <span className="input-field">
-                  <input
-                type='date'
-                select-years="15"
-                placeholder="Enter correctly."
-                name='birth_date'
-                value={this.state.birth_date}
-                onChange={event => this.handleChange(event)}
-                className="input"
-                  />
-                </span>
-              </span> */}
               <div className="row">
                 <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
                   <span className="form-label">
@@ -337,42 +347,40 @@ class EditUser extends React.Component {
                 multiple={false}>
                 {({getRootProps, getInputProps}) => {
                   return (
-                    <div
-                      {...getRootProps()}
-                    >
+                    <div {...getRootProps()}>
                       <input {...getInputProps()} />
-                      {
-                        // <p>Click to select photo or drag and drop.</p>
-                        <p>Click to select photo.</p>
-                      }
+                      { <p style={{"fontSize": "calc(1em + .5vw", "margin": "8px 0px 8px 0px"}}>Click to select photo or drag and drop.</p> }
                     </div>
                   )
                 }}
               </Dropzone>
+              {this.displayDiffPhotos()}
               <input className="submit-button"
                 type="submit"
                 placeholder="Submit"
               />
             </form>
-            {/* <span style={{"lineHeight": "0px"}}><button className="delete-button" onClick={() => this.deleteUser(this.props.currentUser.id)}>Delete</button></span> */}
+            {/* <span style={{"lineHeight": "0px"}}><button className="delete-button" onClick={() => this.deleteUser(this.props.currentUser)}>Delete</button></span> */}
           </div>
           {this.userRedirect()}
         </div>
       </Fragment>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
+    // userId: state.users.userId
     city: state.users.currentUser.location.split(", ")[0],
     usstate: state.users.currentUser.location.split(", ")[1],
     matchedUsers: state.matches.matchedUsers,
     matches: state.matches.matches,
     gender: state.users.currentUser.gender,
     genderPref: state.users.currentUser.gender_pref,
-    // userId: state.users.userId
+    userPhoto: state.users.currentUser.photo
   }
 }
 const mapDispatchToProps = (dispatch) => {

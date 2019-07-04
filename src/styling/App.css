@@ -1,7 +1,3 @@
-/* html {
-  background: #231F4D
-} */
-
 @font-face {
   font-family: 'Adam';
   src: local('Adam'), url(../fonts/Adam.otf) format('woff');
@@ -53,8 +49,6 @@
   border-style: invisible;
   backgroun-color: transparent;
   position: absolute;
-  /* animation-duration: 3s;
-  animation-name: slidein; */
 }
 
 .App-header {
@@ -71,13 +65,7 @@
 #App-title {
   font-family: 'Codystar Reg', cursive;
   color: white;
-  /* font-size: 8.5vw; */
-  /* font-size: 9vw; */
   font-size: calc(1em + 7.5vw);
-  /* height: 15vh; */
-  /* background-color: transparent; */
-  /* text-shadow: 4px 4px 6px #95b6bb; */
-  /* min-height: 100vh; */
   transition: all 0.3s ease-in;
   text-decoration:none;
 }
@@ -92,12 +80,9 @@
 .App-link {
   font-family: 'Adam';
   font-weight: bolder;
-  /* font-size: 2.5vw; */
   font-size: calc(.75em + 1vw);
   color: #ffffff;
   opacity: 0.65;
-  /* line-height: 15px;  */
-  /* line-height: 4px +12px + 4px; */
   transition: all 0.3s ease-in;
   text-decoration: none;
 }

@@ -26,24 +26,22 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload
       }
-      case types.CURRENT_USER_ID:
-        return {
-          ...state,
-          userId: action.payload
-        }
-      case types.SET_USER_ID:
-        return {
-          ...state,
-          userId: action.payload
-        }
+    case types.CURRENT_USER_ID:
+      return {
+        ...state,
+        userId: action.payload
+      }
+    case types.SET_USER_ID:
+      return {
+        ...state,
+        userId: action.payload
+      }
     case types.EDIT_USER_DETAILS:
-      console.log(action.payload)
       return {
         ...state,
         currentUser: action.payload
       }
     case types.DELETE_USER:
-      console.log(action.payload)
       return {
         ...state,
         currentUser: action.payload
@@ -52,7 +50,6 @@ export default (state = initialState, action) => {
       return {...state,
         chatEnabled: action.payload.chatEnabled
       }
-
     default:
       return state;
   }

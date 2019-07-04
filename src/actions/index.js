@@ -58,7 +58,6 @@ export const deleteUser = (currentUser) => {
 }
 
 export const findMatches = (matches) => {
-  console.log("findMatches action.payload: 'matches' ", matches)
   return {
     type: types.FIND_MATCHES,
     payload: matches
@@ -66,15 +65,27 @@ export const findMatches = (matches) => {
 }
 
 export const findMatchedUsers = (matchedUsers) => {
-  console.log("findMatchedUsers action.payload: 'matchedUsers' ", matchedUsers)
   return {
     type: types.FIND_MATCHED_USERS,
     payload: matchedUsers
   }
 }
 
+export const allUndeclinedMatches = (undeclinedMatches) => {
+  return {
+    type: types.ALL_UNDECLINED_MATCHES,
+    payload: undeclinedMatches
+  }
+}
+
+export const allUndeclinedMatchedUsers = (undeclinedMatchedUsers) => {
+  return {
+    type: types.ALL_UNDECLINED_MATCHED_USERS,
+    payload: undeclinedMatchedUsers
+  }
+}
+
 export const findAccepted = (accepted) => {
-  console.log("findAccepted action.payload: 'accepted' ", accepted)
   return {
     type: types.FIND_ACCEPTED,
     payload: accepted
@@ -82,7 +93,6 @@ export const findAccepted = (accepted) => {
 }
 
 export const findAcceptedUsers = (acceptedUsers) => {
-  console.log("findAcceptedUsers action.payload: 'acceptedUsers' ", acceptedUsers)
   return {
     type: types.FIND_ACCEPTED_USERS,
     payload: acceptedUsers
@@ -118,8 +128,6 @@ export const declineMatch = (declinedMatch) => {
   return {
     type: types.DECLINE_MATCH,
     payload: declinedMatch
-    // payload: pending, matches
-    // (remove from pending, should not go back to matches [hit crud D for pending])
   }
 }
 
@@ -127,8 +135,20 @@ export const declineMatchedUser = (declinedUser) => {
   return {
     type: types.DECLINE_MATCHED_USER,
     payload: declinedUser
-    // payload: pending, matches
-    // (remove from pending, should not go back to matches [hit crud D for pending])
+  }
+}
+
+export const declinePendingMatch = (declinedMatch) => {
+  return {
+    type: types.DECLINE_PENDING_MATCH,
+    payload: declinedMatch
+  }
+}
+
+export const declinePendingMatchedUser = (declinedUser) => {
+  return {
+    type: types.DECLINE_PENDING_MATCHED_USER,
+    payload: declinedUser
   }
 }
 
@@ -140,7 +160,6 @@ export const updateMatchedUsers = (updatedMatchedUsers) => {
 }
 
 export const updateMatches = (updatedMatches) => {
-  console.log("updatedMatches in index", updatedMatches)
   return {
     type: types.UPDATE_MATCHES,
     payload: updatedMatches

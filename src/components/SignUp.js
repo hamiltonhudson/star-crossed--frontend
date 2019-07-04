@@ -6,9 +6,12 @@ import Routes from '../routes';
 import '../styling/Form.css';
 import { getEmailAndPW } from '../actions';
 
+const authAPI = 'http://localhost:3000/api/v1/auth'
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 
+
 class SignUp extends React.Component {
+
   state = {
     email: '',
     password: '',
@@ -16,16 +19,14 @@ class SignUp extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.getEmailAndPW(this.state)
+    this.props.getEmailAndPW({email: this.state.email, password: this.state.password})
       this.setState({
         validated: true
       })
@@ -33,9 +34,7 @@ class SignUp extends React.Component {
 
 
   render () {
-    console.log(this.props.email, this.props.password)
     const signUpForm =
-    // return (
     <div>
       <div style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
         <Link to='/' className="form-link"> ◀︎ Back </Link>
@@ -80,9 +79,9 @@ class SignUp extends React.Component {
         </div>
       </div>
     </div>
-    // )
     return this.state.validated === true ? <Redirect to='/newuser'/> : signUpForm
   }
+
 }
 
 // const mapStateToProps = (state) => {
@@ -91,7 +90,7 @@ class SignUp extends React.Component {
 //     password: state.password.password,
 //   }
 // }
-//
+
 const mapDispatchToProps = (dispatch) => {
   return {
     getEmailAndPW: (email, password) => dispatch(getEmailAndPW(email, password)),

@@ -1,23 +1,25 @@
 import React from 'react';
 import Particles from 'react-particles-js';
-import '../styling/Landing.css';
+// import '../styling/Landing.css';
+import '../styling/App.css';
+import '../styling/Accepted.css';
 
-class Particle extends React.Component {
+class ChatParticle extends React.Component {
   render() {
     return (
-      <Particles className="particle"
+      <Particles className="snow"
         params={
           {
             "particles": {
               "number": {
-                "value": 432,
+                "value": 700,
                 "density": {
                   "enable": true,
-                  "value_area":5854.732123833044
+                  "value_area": 700
                 }
               },
               "color": {
-                "value": "#ffffff"
+                "value": "#fff"
               },
               "shape": {
                 "type": "circle",
@@ -26,57 +28,58 @@ class Particle extends React.Component {
                   "color": "#000000"
                 },
                 "polygon": {
-                  "nb_sides": 8
+                  "nb_sides": 5
                 },
                 "image": {
-                  // "src": "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                  // "width": 100,
-                  // "height": 100
+                  "src": "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                  "width": 100,
+                  "height": 100
                 }
               },
               "opacity": {
-                "value": 0.8759538822118227,
+                "value": 0.5,
                 "random": true,
                 "anim": {
-                  "enable": true,
-                  "speed": 3.329516570435515,
-                  "opacity_min": 0,
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
                   "sync": false
                 }
               },
               "size": {
-                "value": 1.9,
-                "random": false,
+                "value": 4,
+                "random": true,
                 "anim": {
                   "enable": false,
-                  "speed": 3.9,
-                  "size_min": 0.31,
+                  "speed": 40,
+                  "size_min": 0.7,
                   "sync": false
                 }
               },
               "line_linked": {
                 "enable": false,
-                "distance": 0,
+                "distance": 500,
                 "color": "#ffffff",
                 "opacity": 0.4,
-                "width": 1.4430708547789706
+                "width": 3
               },
               "move": {
                 "enable": true,
-                "speed": 1.4,
+                "speed": 0.9,
                 "direction": "none",
                 "random": true,
                 "straight": false,
-                "out_mode": "out",
+                "out_mode": "bounce",
                 "bounce": false,
                 "attract": {
                   "enable": false,
-                  "rotateX": 803.7060304327614,
-                  "rotateY": 884.8766334760375
+                  "rotateX": 600,
+                  "rotateY": 721.5354273894845
                 }
               }
             },
             "interactivity": {
+              // "detect_on": "canvas",
               "detect_on": "window",
               "events": {
                 "onhover": {
@@ -85,26 +88,26 @@ class Particle extends React.Component {
                 },
                 "onclick": {
                   "enable": true,
-                  "mode": "push"
+                  "mode": "repulse"
                 },
                 "resize": true
               },
               "modes": {
                 "grab": {
-                  "distance": 72.08694910712106,
+                  "distance": 400,
                   "line_linked": {
-                    "opacity": 0.7568154521972333
+                    "opacity": 0.5
                   }
                 },
                 "bubble": {
-                  "distance": 120.81158184520176,
-                  "size": 6,
-                  "duration": 2.8,
-                  "opacity": 0.008120772123013452,
-                  "speed": 5
+                  "distance": 400,
+                  "size": 4,
+                  "duration": 0.3,
+                  "opacity": 1,
+                  "speed": 3
                 },
                 "repulse": {
-                  "distance": 284.2270243054708,
+                  "distance": 200,
                   "duration": 0.4
                 },
                 "push": {
@@ -123,4 +126,4 @@ class Particle extends React.Component {
   }
 }
 
-export default Particle
+export default ChatParticle

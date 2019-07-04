@@ -9,6 +9,7 @@ import ProfileSun from './ProfileSun';
 // import App from '../App';
 import '../styling/Profile.css';
 import '../styling/App.css';
+import Adapter from './Adapter';
 
 
 class ProfileContainer extends React.Component {
@@ -33,17 +34,14 @@ class ProfileContainer extends React.Component {
   // }
 
   render () {
-    console.log("THIS.PROPS PROFILE CONTAINER", this.props)
-    console.log("THIS.STATE PROFILE CONTAINER", this.state)
     const profilePhoto = this.props.currentUser.photo
-
     return (
       <div className="prof-container">
         <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-          <Link to='/' className="left-link col l3 m3 s6"> ◀︎ LogOut </Link>
+          <Link to='/' onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}} className="left-link col l3 m3 s6"> ◀︎ LogOut </Link>
           <Link to='/matches' className="center-link col l3 m3 s6"> △ Matches △ </Link>
           <Link to='/chat' className="center-link col l3 m3 s6"> ▲ Accepted ▲ </Link>
-          <Link to='/edit' className="right-link col l3 m3 s6"> Edit ▶︎ </Link>
+          <Link to='/edit' className="right-link col l3 m3 s6"> Edit ▷ </Link>
         </div><br/>
         <div className="prof-card">
           <div className="user-card row">
@@ -92,24 +90,24 @@ class ProfileContainer extends React.Component {
       </div>
     )
   }
+  
 }
 
   const mapStateToProps = (state) => {
     return {
       currentUser: state.users.currentUser,
-      matchObjs: state.matches.matches,
-      // matchObjs: state.users.currentUser.matches,
+      userId: state.users.userId,
+      // matches: state.matches.matches,
       // matchedUsers: state.matchedUsers.matchedUsers,
-      // matchedUsers: state.matchedUsers.matchedUsers,
-      userId: state.users.userId
     }
   }
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches)),
-      // setCurrentUser: (userObj) => dispatch(setCurrentUser(userObj))
-    }
-  }
+  // const mapDispatchToProps = (dispatch) => {
+  //   return {
+  //     // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches)),
+  //     // setCurrentUser: (userObj) => dispatch(setCurrentUser(userObj))
+  //   }
+  // }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+// export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+export default connect(mapStateToProps)(ProfileContainer);

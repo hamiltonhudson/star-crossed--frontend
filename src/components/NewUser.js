@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import '../styling/Form.css';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers } from '../actions'
+import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers} from '../actions'
 
 const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload';
 
+
 class NewUser extends React.Component {
+
   state = {
     first_name: '',
     last_name: '',
@@ -29,7 +31,6 @@ class NewUser extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    // console.log(this.state)
   }
 
   onImageDrop(files) {
@@ -58,16 +59,16 @@ class NewUser extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state)
-    console.log(this.props)
     const newUserConfig = {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
-        "Accept": "application/json"
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         user: {
+          email: this.props.email,
+          password: this.props.password,
           first_name: this.state.first_name,
           last_name: this.state.last_name,
           birth_date: this.state.birth_date,
@@ -82,17 +83,24 @@ class NewUser extends React.Component {
     fetch(usersAPI, newUserConfig)
     .then(r => r.json())
     .then(result => {
-      console.log("result in NewUser", result)
-      if (result.errors){
-        alert('Please check your details')
-        return <Redirect to="/newuser" />
+      if (result.errors) {
+        alert('Please fill out all information')
+        return <Redirect to="/new" />
       } else {
-        this.props.setCurrentUser(result)
-        this.props.setUserId(result.id)
-        const newUserMatches = result.matches
+        localStorage.setItem('token', result.token)
+        let newUser = result.user
+        this.props.setCurrentUser(newUser)
+        this.props.setUserId(newUser.id)
+        const newUserMatches = newUser.matches
         this.props.findMatches(newUserMatches)
         newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
-        fetch(usersAPI)
+        fetch(usersAPI, {
+          headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          }
+        })
         .then(r => r.json())
         .then(results => {
           this.props.setUsers(results)
@@ -104,12 +112,6 @@ class NewUser extends React.Component {
     })
   }
 
-  // profileRedirect = () => {
-  //   if (this.state.loggedIn) {
-  //     return <Redirect to="/profile" />
-  //   }
-  // }
-
   matchesRedirect = () => {
     if (this.state.loggedIn) {
       return <Redirect to="/matches" />
@@ -118,193 +120,183 @@ class NewUser extends React.Component {
 
   render() {
     return(
-        <div className="form-container">
-          <h1 className="signupHeader" style={{"fontSize": "5vw"}}>create new</h1>
-          <div className="form">
-            {/* <div> */}
-            {/* <form onSubmit={event => this.handleSubmit(event)}> */}
-            <form className="col s12" onSubmit={event => this.handleSubmit(event)}>
-              <div className="row">
-                <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
-                  <span className="form-label">
-                    <label>First Name</label>
-                    <span className="input-field">
-                      <input
-                        type='text'
-                        name='first_name'
-                        value={this.state.first_name}
-                        onChange={event => this.handleChange(event)}
-                        className="input"
-                      />
-                    </span>
+      <div className="form-container">
+        <h1 className="signupHeader" style={{"fontSize": "5vw"}}>create new</h1>
+        <div className="form">
+          <form className="col s12" onSubmit={event => this.handleSubmit(event)}>
+            <div className="row">
+              <div className="input-field col s6" style={{"marginBottom": "-20px", "color": "pink !important"}}>
+                <span className="form-label">
+                  <label>First Name</label>
+                  <span className="input-field">
+                    <input
+                      type='text'
+                      name='first_name'
+                      value={this.state.first_name}
+                      onChange={event => this.handleChange(event)}
+                      className="input"
+                    />
                   </span>
-                </div>
-                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                  <span className="form-label">
-                    <label>Last Name</label>
-                    <span className="input-field">
-                      <input
-                        type='text'
-                        name='last_name'
-                        value={this.state.last_name}
-                        onChange={event => this.handleChange(event)}
-                        className="input"
-                      />
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <label>Birth Date</label>
-              <span className="form-label">
-                <span className="input-field">
-                  <input
-                    type='date'
-                    select-years="15"
-                    placeholder="Enter correctly."
-                    name='birth_date'
-                    value={this.state.birth_date}
-                    onChange={event => this.handleChange(event)}
-                    className="input"
-                  />
                 </span>
-              </span>
-              <div className="row">
-                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                  <span className="form-label">
-                    <label>Gender</label>
-                    <span className="input-field">
-                      <select className="browser-default" name="gender" onChange={event => this.handleChange(event)} style={{"borderStyle": "solid", "borderColor": "#27116B !important", "fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                        <option value="" className="selected" id="select" type="input" style={{"borderColor": "#27116B !important"}}/>
-                        <option value="F" className="input" id="select" type="input" >Female</option>
-                        <option value="M" className="input" id="select" type="input">Male</option>
-                      </select>
-                    </span>
-                  </span>
-                </div>
-                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                  <span className="form-label">
-                    <label>Gender Preference</label>
-                    <span className="input-field">
-                      <select className="browser-default" name="gender_pref" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                        <option value="" className="input-area" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}></option>
-                        <option value="F" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Women</option>
-                        <option value="M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men</option>
-                        <option value="F,M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men & Women</option>
-                        className="input"
-                      </select>
-                    </span>
-                  </span>
-                </div>
               </div>
-              <div className="row">
-                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                  <span className="form-label">
-                    <label>City</label>
-                    <span className="input-field">
-                      <input
-                        type='text'
-                        name='city'
-                        value={this.state.city}
-                        onChange={event => this.handleChange(event)}
-                        className="input"
-                      />
-                    </span>
+              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                <span className="form-label">
+                  <label>Last Name</label>
+                  <span className="input-field">
+                    <input
+                      type='text'
+                      name='last_name'
+                      value={this.state.last_name}
+                      onChange={event => this.handleChange(event)}
+                      className="input"
+                    />
                   </span>
-                </div>
-                <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
-                  <span className="form-label">
-                    <label>State</label>
-                    <span className="input-field">
-                      <select className="browser-default" id="state" name="usstate" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
-                        <option value="">---</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
-                        <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="Cuba">Cuba</option><option value="DE">DE</option>
-                        <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GE</option><option value="Guam">Guam</option><option value="HI">HI</option>
-                        <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option>
-                        <option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
-                        <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
-                        <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
-                        <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
-                        <option value="OR">OR</option><option value="PA">PA</option><option value="Puerto Rico">Puerto Rico</option><option value="RI">RI</option>
-                        <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
-                        <option value="VT">VT</option><option value="VA">VA</option><option value="Virgin Islands">Virgin Islands</option><option value="WA">WA</option>
-                        <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
-                      </select>
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <label>Bio</label>
-              <span className="form-label">
-                <span className="input-field">
-                  <input
-                    type='text'
-                    name='bio'
-                    value={this.state.bio}
-                    onChange={event => this.handleChange(event)}
-                    className="input"
-                  />
                 </span>
-              </span>
-              <Dropzone
-                onDrop={this.onImageDrop.bind(this)}
-                accept="image/*"
-                multiple={false}>
-                {({getRootProps, getInputProps}) => {
-                  return (
-                    <div
-                      {...getRootProps()}
-                    >
-                      <input {...getInputProps()} />
-                      {
-                        <p style={{"fontSize": "2vw"}}>Click to select photo or drag and drop.</p>
-                      }
-                    </div>
-                  )
-                }}
-              </Dropzone>
-              <div>
-                {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                <span>
-                  {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
-                  <img src={this.state.uploadedFileCloudinaryUrl} style={{"maxHeight": "20vh", "maxWidth": "10vw"}} alt={'profile pic'}/>
-                  <p> Photo added! </p>
-                </span>}
-                {/* {this.state.delay ? <p>Photo added!</p> : <p>Hang tight</p>} */}
               </div>
-              <input className="submit-button"
-                type="submit"
-                placeholder="Submit"
-              />
-            </form>
-            <br/>
-            {/* </div> */}
-            {/* {this.profileRedirect()} */}
-            {this.matchesRedirect()}
-          </div>
+            </div>
+            <label>Birth Date</label>
+            <span className="form-label">
+              <span className="input-field">
+                <input
+                  type='date'
+                  name='birth_date'
+                  value={this.state.birth_date}
+                  onChange={event => this.handleChange(event)}
+                  className="input"
+                  // format="yyyy-dd-mm"
+                  min="1919-01-01"
+                  max="2001-01-01"
+                />
+              </span>
+            </span>
+            <div className="row">
+              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                <span className="form-label">
+                  <label>Gender</label>
+                  <span className="input-field">
+                    <select className="browser-default" name="gender" onChange={event => this.handleChange(event)} style={{"borderStyle": "solid", "borderColor": "#27116B !important", "fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                      <option value="" className="selected" id="select" type="input" style={{"borderColor": "#27116B !important"}}/>
+                      <option value="F" className="input" id="select" type="input" >Female</option>
+                      <option value="M" className="input" id="select" type="input">Male</option>
+                    </select>
+                  </span>
+                </span>
+              </div>
+              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                <span className="form-label">
+                  <label>Gender Preference</label>
+                  <span className="input-field">
+                    <select className="browser-default" name="gender_pref" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                      <option value="" className="input-area" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}></option>
+                      <option value="F" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Women</option>
+                      <option value="M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men</option>
+                      <option value="F,M" className="selected" type="input" style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}} onChange={event => this.handleChange(event)}>Men & Women</option>
+                    </select>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                <span className="form-label">
+                  <label>City</label>
+                  <span className="input-field">
+                    <input
+                      type='text'
+                      name='city'
+                      value={this.state.city}
+                      onChange={event => this.handleChange(event)}
+                      className="input"
+                    />
+                  </span>
+                </span>
+              </div>
+              <div className="input-field col s6" style={{"marginBottom": "-20px"}}>
+                <span className="form-label">
+                  <label>State</label>
+                  <span className="input-field">
+                    <select className="browser-default" id="state" name="usstate" onChange={event => this.handleChange(event)} style={{"fontSize": "16px", "fontFamily": "'Roboto', sans-serif", "color": "#27116B"}}>
+                      <option value="">---</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
+                      <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="Cuba">Cuba</option><option value="DE">DE</option>
+                      <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GE</option><option value="Guam">Guam</option><option value="HI">HI</option>
+                      <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option>
+                      <option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
+                      <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
+                      <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
+                      <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
+                      <option value="OR">OR</option><option value="PA">PA</option><option value="Puerto Rico">Puerto Rico</option><option value="RI">RI</option>
+                      <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                      <option value="VT">VT</option><option value="VA">VA</option><option value="Virgin Islands">Virgin Islands</option><option value="WA">WA</option>
+                      <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                    </select>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <label>Bio</label>
+            <span className="form-label">
+              <span className="input-field">
+                <input
+                  type='text'
+                  name='bio'
+                  value={this.state.bio}
+                  onChange={event => this.handleChange(event)}
+                  className="input"
+                />
+              </span>
+            </span>
+            <Dropzone
+              onDrop={this.onImageDrop.bind(this)}
+              accept="image/*"
+              multiple={false}>
+              {({getRootProps, getInputProps}) => {
+                return (
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    { <p style={{"fontSize": "calc(1em + .5vw", "margin": "8px 0px 8px 0px"}}>Click to select photo or drag and drop.</p> }
+                  </div>
+                )
+              }}
+            </Dropzone>
+            { this.state.uploadedFileCloudinaryUrl === '' ? null :
+            <div style={{"overflowY": "scroll"}}>
+              {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
+              <img src={this.state.uploadedFileCloudinaryUrl} className="form-photo-display" alt={'profile pic'}/>
+              <p  style={{"margin": "2px 0px 2px 0px"}}> Photo added! </p>
+            </div> }
+            <input className="submit-button"
+              type="submit"
+              placeholder="Submit"
+            />
+          </form>
+          {this.matchesRedirect()}
+        </div>
       </div>
     )
   }
+
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     // email: state.email.email,
-//     // password: state.password.password,
-//     // currentUser: state.users.userDetails,
-//     // users: state.users.users,
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    email: state.email.email,
+    password: state.password.password,
+    // currentUser: state.users.userDetails,
+    // allUsers: state.users.users,
+    // matches: state.matches.matches,
+    // matchedUsers: state.matches.matchedUsers
+  }
+}
 
   const mapDispatchToProps = (dispatch) => {
     return {
       setUsers: (users) => dispatch(setUsers(users)),
       setCurrentUser: (userDetails) => dispatch(setCurrentUser(userDetails)),
+      setUserId: (userId) => dispatch(setUserId(userId)),
       findMatches: (matches) => dispatch(findMatches(matches)),
       findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
-      findAccepted: (accepted) => dispatch(findAccepted(accepted)),
-      findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
-      setUserId: (userId) => dispatch(setUserId(userId))
     }
   }
 
-export default connect(null, mapDispatchToProps)(NewUser);
+  export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
+// export default connect(null, mapDispatchToProps)(NewUser);
