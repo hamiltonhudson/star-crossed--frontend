@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
-// import { ActionCableConsumer } from 'actioncable';
-// import { ActionCableProvider} from 'react-actioncable-provider';
-// import { API_ROOT, HEADERS } from '../constants/ActionTypes';
+import { ActionCableConsumer } from 'actioncable';
+import { API_ROOT } from '../constants/ActionTypes';
 // import '../styling/Accepted.css';
 // import '../styling/App.css';
 import NewConversationForm from './NewConversationForm';
@@ -13,7 +12,6 @@ const ConversationsArea = (props) => {
   console.log("ConversationsArea PROPS", props)
 
   const checkConvoUser = (userId) => {
-  // checkConvoUser = (userId) => {
     if (userId === props.userId) {
       return currentUserStyle
     } else {
@@ -31,17 +29,14 @@ const ConversationsArea = (props) => {
    }
 
   const acceptedMatchUser = () => {
-  // function acceptedMatchUser () {
     return props.currentChat.conversations.users.find(user => user.id !== props.userId)
   }
 
   const orderedChats = () => {
-  // function orderedChats () {
     return props.currentChat.conversations.sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
   }
 
   const displayConvos = () => {
-  // function displayConvos () {
     return orderedChats().map(conversation => {
       return (
         <div key={conversation.id} className="convo-box"
@@ -58,35 +53,27 @@ const ConversationsArea = (props) => {
     })
   }
 
-  const getReadableDistance = (dist) => {
-  // function getReadableDistance(dist) {
-    if (dist !== undefined) {
-      return dist < 1 ? `${(dist * 5280).toFixed(1)} ft` : `${(dist).toFixed(1)} mi`
-    } else {
-      return null
-    }
-  }
-
   console.log(props.currentChat, props.userId)
   return (
-    <div className="convo-box animated slideInUp delay-5s">
-      <div className="conversation-header">
-        {/* <div className="message-title-header">
-        </div> */}
-      </div>
-      <div className="sidebar"
-        distance={getReadableDistance().distance}
-        acceptedMatchUser={acceptedMatchUser().id}
-        name={acceptedMatchUser().first_name}
-        sun={acceptedMatchUser().sun.sign}
-      >
-        <button onClick={props.eraseCurrentChat}>Clear</button>
-      </div>
-      <div className="convosList">
-        {displayConvos()}
-      </div>
-      <NewConversationForm chat_id={props.selectedChat.id} />
-    </div>
+    // <div className="convo-box animated slideInUp delay-5s">
+    // <div className="ConversationsArea">
+    //   <div className="conversation-header">
+    //     {/* <div className="message-title-header">
+    //     </div> */}
+    //   </div>
+    //   <div className="sidebar"
+    //     acceptedMatchUser={acceptedMatchUser().id}
+    //     name={acceptedMatchUser().first_name}
+    //     sun={acceptedMatchUser().sun.sign}
+    //   >
+    //     <button onClick={props.eraseCurrentChat}>Clear</button>
+    //   </div>
+    //   <div className="convosList">
+    //     {displayConvos()}
+    //   </div>
+    //   <NewConversationForm chat_id={props.selectedChat.id} />
+    // </div>
+    <h5>Conversations Area</h5>
   )
 }
 
@@ -106,29 +93,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConversationsArea);
-
-
-// const ConversationsArea = ({
-//   // chat: { id, title, conversations },
-//   chat: { id, conversations },
-//
-// }) => {
-//   return(
-//     <div className="conversationsArea">
-//       <h2>Chat Id: {id}</h2>
-//       <ul>{orderedConversations(conversations)}</ul>
-//       <NewConversationForm chat_id={id} />
-//     </div>
-//   )
-// }
-// export default ConversationsArea;
-
-
-// const orderedConversations = conversations => {
-//   const sortedConversations = conversations.sort(
-//     (a, b) => new Date(a.created_at) - new Date(b.created_at)
-//   )
-//   return sortedConversations.map(conversation => {
-//     return <li key={conversation.id}>{conversation.message}</li>
-//   })
-// }

@@ -7,7 +7,6 @@ import '../styling/Form.css';
 import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers} from '../actions'
 
 const API = 'http://localhost:3000/api/v1'
-const authAPI = 'http://localhost:3000/api/v1/auth'
 const usersAPI = 'http://localhost:3000/api/v1/users'
 
 
@@ -25,13 +24,20 @@ class SignIn extends React.Component {
     })
   }
 
+  saveTokenAsCookie() {
+     // document.cookie = 'X-Authorization=' + this.getToken() + '; path=/';
+     document.cookie = 'X-Authorization=' + localStorage.getItem('token') + '; path=/';
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
-      fetch(`${authAPI}/`, {
+      fetch(`${API}/auth`, {
         method: "POST",
+        // credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Credentials': 'include'
         },
         body: JSON.stringify({
           email: this.state.email,
@@ -44,9 +50,13 @@ class SignIn extends React.Component {
           alert('Please check that your email and password are entered correctly')
           return <Redirect to="/signin" />
         } else {
+          console.log(result.token)
           localStorage.setItem('token', result.token)
+          console.log(localStorage.getItem('token'))
+          this.saveTokenAsCookie()
           const userDetails = result.user
           this.props.setCurrentUser(userDetails)
+          this.props.setUserId(userDetails.id)
           const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
           const accepted = userDetails.matches.filter(match => match.status === "accepted")
           // const pending = userDetails.matches.filter(match => match.status === "pending")
@@ -60,21 +70,41 @@ class SignIn extends React.Component {
           this.props.allUndeclinedMatchedUsers(undeclinedMatchedUsers)
           this.props.findAccepted(accepted)
           accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
-          fetch(usersAPI, {
-            headers: {
-              'Content-type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': localStorage.getItem('token')
-            }
-          })
-          .then(r => r.json())
-          .then(results => {
-            this.props.setUsers(results)
-            this.setState({
-              loggedIn: true
-            })
-          })
+          this.fetchUsers()
+          // fetch(usersAPI, {
+          //   headers: {
+          //     'Content-type': 'application/json',
+          //     'Accept': 'application/json',
+          //     'Credentials': 'include',
+          //     'Authorization': localStorage.getItem('token')
+          //   }
+          // })
+          // .then(r => r.json())
+          // .then(results => {
+          //   this.props.setUsers(results)
+          //   this.setState({
+          //     loggedIn: true
+          //   })
+          // })
         }
+      })
+    }
+
+    fetchUsers = () => {
+      fetch(usersAPI, {
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Credentials': 'include',
+          'Authorization': localStorage.getItem('token')
+        }
+      })
+      .then(r => r.json())
+      .then(results => {
+        this.props.setUsers(results)
+        this.setState({
+          loggedIn: true
+        })
       })
     }
 
@@ -152,7 +182,7 @@ const mapDispatchToProps = (dispatch) => {
     allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers)),
     findAccepted: (accepted) => dispatch(findAccepted(accepted)),
     findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
-    // setUserId: (userId) => dispatch(setUserId(userId))
+    setUserId: (userId) => dispatch(setUserId(userId))
   }
 }
 

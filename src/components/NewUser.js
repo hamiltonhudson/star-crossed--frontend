@@ -98,7 +98,8 @@ class NewUser extends React.Component {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': localStorage.getItem('token')
+            'Authorization': localStorage.getItem('token'),
+            'Credentials': 'include'
           }
         })
         .then(r => r.json())

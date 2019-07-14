@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 const Chat = (props) => {
-  console.log("Chat PROPS", props)
+  console.log("Chat.js PROPS", props)
 
   const findChatUser = () => {
     return props.chat.users.find(user => user.id !== props.userId)
@@ -20,14 +20,15 @@ const Chat = (props) => {
     }
 
   return (
-    <Fragment>
-      <div className="chats-textBox">
+    // <Fragment>
+      // <div className="chats-textBox">
+      <div className="Chat">
         <div className="chats-title">
           {findChatUser().first_name}
         </div>
         {initalizeChat()}
       </div>
-    </Fragment>
+    // </Fragment>
   )
 }
 

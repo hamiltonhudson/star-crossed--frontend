@@ -3,6 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   chats: [],
   currentChat: undefined,
+  receiverId: '',
   conversations: [],
   messagedUsers: [],
   appendedChat: {},
@@ -24,6 +25,12 @@ export default (state = initialState, action) => {
         // chats: action.payload
         chats: action.payload.chats
     }
+    case types.SET_RECEIVER_ID:
+    console.log("setReceiverId action.payload", action.payload)
+      return {
+        ...state,
+        receiverId: action.payload
+      }
     case types.ADD_NEW_CHAT:
     console.log("addnewchat action.payload", action.payload)
       return {

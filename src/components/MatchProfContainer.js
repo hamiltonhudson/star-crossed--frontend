@@ -69,7 +69,8 @@ class MatchProfContainer extends React.Component {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': localStorage.getItem('token')
+        // 'Authorization': localStorage.getItem('token'),
+        'Credentials': 'include'
       },
       body: JSON.stringify({
         status: "accepted"
@@ -103,7 +104,8 @@ class MatchProfContainer extends React.Component {
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': localStorage.getItem('token')
+          // 'Authorization': localStorage.getItem('token'),
+          'Credentials': 'include'
         },
         body: JSON.stringify({
           status: "declined"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
+
 // import '../styling/Chats.css'
 import { addNewChat } from '../actions';
 
@@ -16,9 +17,11 @@ class ChatsCable extends React.Component {
 
   render() {
     console.log("ChatsCable PROPS", this.props)
+    console.log("ChatsCable this.props.chat", this.props.chat)
     return(
       this.props.userId
-      ? <ActionCable
+      ? <ActionCableConsumer
+        className="ChatsCable"
         channel={{channel: "ChatsChannel"}}
         onReceived={(response) => this.handleReceivedChat(response)}
         />
@@ -30,7 +33,8 @@ class ChatsCable extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
-    userId: state.users.currentUser.id
+    userId: state.users.currentUser.id,
+    chats: state.chats.chats
   }
 }
 

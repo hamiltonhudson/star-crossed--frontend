@@ -138,3 +138,64 @@
   color: #ffffff;
   font-size: 24px;
 }
+
+.AcceptedList {
+  border-color: #0b3409;
+}
+
+.AcceptedMatchesList {
+  border-color: #7b279d
+}
+
+.Cable {
+  border: 4px dotted;
+}
+
+.Chat {
+  border-color: #62cdd7
+}
+
+.ChatOpenBtn {
+  border-color: #e8e225
+}
+
+/* .ChatParticle {
+
+} */
+
+.ChatsBase {
+  border-color: #6e0511
+}
+
+.ChatsCable {
+  border: 2px double
+}
+
+.ChatsContainer {
+  border-color: #9ea0ff
+}
+
+.ChatWindow {
+  border-color: #d08227
+}
+
+.ConversationsArea {
+  border-color: #ec11d5
+}
+
+.ConversationsCable {
+  border: 1px groove
+}
+
+.Display {
+  border-color: #13326e
+
+}
+
+.NewChatForm {
+  border-color: #57edb2
+}
+
+.NewConversationForm {
+  border-color: #5c6211
+}

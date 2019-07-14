@@ -8,8 +8,8 @@ import '../styling/App.css';
 import NewChatForm from './NewChatForm';
 import Chat from './Chat'
 import ConversationsArea from './ConversationsArea';
-import ConversationsCable from './Cable';
-import ChatsCable from './Cable';
+import ConversationsCable from './ConversationsCable';
+import ChatsCable from './ChatsCable';
 import { thunkSaveChats, saveCurrentChat } from '../actions'
 // import App from '../App';
 
@@ -33,7 +33,8 @@ class ChatsContainer extends React.Component {
   render() {
     console.log("ChatsContainer PROPS", this.props)
     return (
-      <div className="chatsBox">
+      // <div className="chatsBox">
+      <div className="ChatsContainer">
         { this.props.chats.length ? <ConversationsCable /> : null }
         {/* <h2 className="users-header" style={{paddingLeft: 40, paddingTop: 10, paddingBottom: 10}}> Accepted </h2> */}
         <div className="chats-container">

@@ -25,6 +25,7 @@ export const FIND_ACCEPTED = 'FIND_ACCEPTED'
 export const FIND_ACCEPTED_USERS = 'FIND_ACCEPTED_USERS'
 export const GET_CHATS = 'GET_CHATS'
 export const SAVE_CHATS = 'SAVE_CHATS'
+export const SET_RECEIVER_ID = 'SET_RECEIVER_ID'
 export const ADD_NEW_CHAT = 'ADD_NEW_CHAT'
 export const SAVE_CURRENT_CHAT = 'SAVE_CURRENT_CHAT'
 export const ERASE_CURRENT_CHAT = 'ERASE_CURRENT_CHAT'
@@ -32,5 +33,6 @@ export const API_ROOT = 'http://localhost:3000/api/v1'
 export const API_WS_ROOT = 'ws://localhost:3000/api/v1/cable'
 export const HEADERS = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
+  'Accept': 'application/json',
+  'Authorization': localStorage.getItem('token')
 }

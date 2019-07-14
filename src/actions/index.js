@@ -176,7 +176,7 @@ export const enableChat = (chat) => {
 }
 
 export const getChats = (chats) => {
-  console.log("getChats in matchReducer 'chats' ", chats)
+  console.log("getChats in actions/index 'chats' ", chats)
   return {
     type: types.GET_CHATS,
     payload: chats
@@ -184,7 +184,8 @@ export const getChats = (chats) => {
   }
 }
 
-export const thunkSaveChats = () => {
+// export const thunkSaveChats = () => {
+export const saveChats = () => {
   // console.log("saveConvos in matchReducer 'chats' ", chats)
     return (dispatch) => {
       fetch(`${types.API_ROOT}/chats`, {
@@ -215,8 +216,16 @@ export const thunkSaveChats = () => {
   }
 }
 
+export const setReceiverId = (receiverId) => {
+  console.log("setReceiverId in actions/index 'receiverId'", receiverId)
+  return {
+    type: types.SET_RECEIVER_ID,
+    payload: receiverId
+  }
+}
+
 export const addNewChat = (appendedChat) => {
-  console.log("getConvos in matchReducer 'newChat' ", appendedChat)
+  console.log("getConvos in actions/index 'appendedChat' ", appendedChat)
   return {
     type: types.ADD_NEW_CHAT,
     // payload: newChat
@@ -228,7 +237,7 @@ export const addNewChat = (appendedChat) => {
 }
 
 export const saveCurrentChat = (currentChat) => {
-  console.log("saveCurrentChat in matchReducer 'currentChat' ", currentChat)
+  console.log("saveCurrentChat in actions/index 'currentChat' ", currentChat)
   return {
     type: types.SAVE_CURRENT_CHAT,
     // payload: currentChat
@@ -240,7 +249,7 @@ export const saveCurrentChat = (currentChat) => {
 }
 
 export const eraseCurrentChat = () => {
-  console.log("eraseCurrentChat in matchReducer 'currentChat' ")
+  console.log("eraseCurrentChat in actions/index 'currentChat' ")
   return {
     type: types.ERASE_CURRENT_CHAT,
     // payload: currentChat

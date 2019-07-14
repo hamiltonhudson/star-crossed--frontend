@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableProvider } from 'react-actioncable-provider';
 import { saveChats } from '../actions'
 
 class ConversationsCable extends React.Component {
@@ -16,17 +16,19 @@ class ConversationsCable extends React.Component {
   render() {
     console.log("ConversationsCable PROPS", this.props)
     return (
-      <Fragment>
+      // <Fragment>
+      <div className="ConversationsCable">
         {/*ConversationsCable */}
         {this.props.chats.map(chat => {
           return (
-            <ActionCable key={chat.id}
+            <ActionCableProvider key={chat.id}
               channel={{channel: "ConversationsChannel", chat: chat.id}}
               onReceived={this.handleReceivedConversation}
             />
           )
         })}
-      </Fragment>
+      </div>
+      // </Fragment>
     )
   }
 }
