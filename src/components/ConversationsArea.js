@@ -73,7 +73,7 @@ const ConversationsArea = (props) => {
     //   </div>
     //   <NewConversationForm chat_id={props.selectedChat.id} />
     // </div>
-    <h5>Conversations Area</h5>
+    <h5> style={{'color':'white'}} Conversations Area</h5>
   )
 }
 

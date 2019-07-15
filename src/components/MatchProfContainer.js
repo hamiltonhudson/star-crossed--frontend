@@ -55,7 +55,8 @@ class MatchProfContainer extends React.Component {
     } else if (thisViewedMatch.status === "pending") {
       return (
         <div className="pending-load">
-          ♾ PENDING
+          {/* ♾ PENDING */}
+          ∞ PENDING
         </div>
       )
     }

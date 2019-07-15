@@ -20,6 +20,7 @@ class NewChatForm extends React.Component {
   static getChats
 
   chatExists = (userReceiverId) => {
+    console.log("this.props.chats in chatExists function newchatform", this.props.chats)
       let chatFound = this.props.chats.filter((chat) => chat.users.map((i)=> i.id).includes(userReceiverId));
 
       if (chatFound.length > 0) {
@@ -60,9 +61,10 @@ class NewChatForm extends React.Component {
    }
 
   render = () => {
-    console.log("props.currentUser", this.props.currentUser)
-    console.log("props.acceptedUsers", this.props.acceptedUsers)
-    console.log("props.match", this.props.match)
+    console.log("this.props in NewChatForm render!", this.props)
+    // console.log("props.currentUser in NewChatForm render!", this.props.currentUser)
+    // console.log("props.acceptedUsers in NewChatForm render!", this.props.acceptedUsers)
+    // console.log("props.match in NewChatForm render!", this.props.match)
     const generateAccepted = () => {
       return this.props.acceptedUsers.map(acceptedUser => {
         return (

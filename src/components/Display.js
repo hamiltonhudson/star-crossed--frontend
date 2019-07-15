@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { API_ROOT, HEADERS, GET_CHATS } from '../constants/ActionTypes'
 import { getChats, chatEnabled } from '../actions'
 import AcceptedList from './AcceptedList'
-import AcceptedMatchesList from './AcceptedMatchesList'
+// import AcceptedMatchesList from './AcceptedMatchesList'
 import ChatsCable from './ChatsCable'
 import ChatWindow from './ChatWindow';
 import '../styling/Accepted.css'

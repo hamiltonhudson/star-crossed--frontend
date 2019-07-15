@@ -3,6 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   chats: [],
   currentChat: undefined,
+  chatId: '',
   receiverId: '',
   conversations: [],
   messagedUsers: [],
@@ -44,7 +45,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         // currentChat: [...state.chats, action.payload]
-        currentChat: action.payload.currentChat
+        currentChat: action.payload.currentChat,
+        chatId: action.payload.currentChat.id
         // chats: [...state.chats, action.payload.currentChat]
       }
     case types.ERASE_CURRENT_CHAT:

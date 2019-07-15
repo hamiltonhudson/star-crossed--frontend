@@ -16,11 +16,23 @@ import EditUser from './components/EditUser';
 import MatchProfContainer from './components/MatchProfContainer'
 import ChatsBase from './components/ChatsBase';
 // import ChatsList from './components/ChatsList'
-import Spotify from './components/Spotify'
+// import Spotify from './components/Spotify'
 
 const TOKEN = localStorage.getItem('token')
 
 class App extends Component {
+
+  pageReload = () => {
+    const delete_cookie = (name) => {
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT'
+    }
+      delete_cookie('X-Authorization');
+      localStorage.removeItem('token')
+  }
+
+  componentDidMount() {
+    this.pageReload()
+  }
 
   render() {
     console.log("TOKEN IN APP", TOKEN)
@@ -38,6 +50,7 @@ class App extends Component {
                  <Route path='/signin' component={SignIn} />
                  <Route path='/matches' component={MatchesContainer} />
                  <Route path='/profile' component={ProfileContainer} />
+                 {/* {this.pageReload()} */}
                  {/* <Route path='/profile' component={ProfileContainer} spotify={Spotify}/> */}
                  <Route path='/matchprofile' component={MatchProfContainer} />
                  <Route path='/edit' component={EditUser} />

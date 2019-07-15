@@ -52,36 +52,36 @@ class ChatsBase extends React.Component {
   //   </div>
   //   }
 
-  componentDidMount = () => {
-    // const fetchToWebSocket = (route, bodyData) => {
-      console.log("document cookie", document.cookie)
-      console.log(`Bearer ${localStorage.getItem('token')}`)
-      console.log("this.props.userId in ChatsBase", this.props.userId)
-      fetch(`${API_ROOT}/chats`, {
-    // fetch(`${API_ROOT}/chats/?user_id=${this.props.userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": localStorage.getItem("token"),
-        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        "X-Authorization": document.cookie,
-        "Credentials": "include"
-      }
-    })
-      .then(r => r.json())
-      .then(chats => {
-        console.log(chats)
-        this.setState({ chats })
-      })
-    }
+  // componentDidMount = () => {
+  //   // const fetchToWebSocket = (route, bodyData) => {
+  //     console.log("document cookie", document.cookie)
+  //     console.log(`Bearer ${localStorage.getItem('token')}`)
+  //     console.log("this.props.userId in ChatsBase", this.props.userId)
+  //     fetch(`${API_ROOT}/chats`, {
+  //   // fetch(`${API_ROOT}/chats/?user_id=${this.props.userId}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accept": "application/json",
+  //       "Authorization": localStorage.getItem("token"),
+  //       // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+  //       "X-Authorization": document.cookie,
+  //       "Credentials": "include"
+  //     }
+  //   })
+  //     .then(r => r.json())
+  //     .then(chats => {
+  //       console.log(chats)
+  //       this.setState({ chats })
+  //     })
+  //   }
   // }
 
-  handleClick = id => {
+  handleClick = (id) => {
     this.setState({ activeChat: id })
   }
 
-  handleReceivedChat = response => {
+  handleReceivedChat = (response) => {
     const { chat } = response
     this.setState({
       chats: [...this.state.chats, chat]
@@ -118,12 +118,13 @@ class ChatsBase extends React.Component {
               {/* {this.state.chats.length ? ( */}
               {/* <Cable */}
               <ChatsCable
-                // chats={this.state.chats} currentUser={this.props.currentUser}
-                handleReceivedUserChat={this.handleReceivedUserChat}
+                chats={this.state.chats} currentUser={this.props.currentUser}
+                // handleReceivedUserChat={this.handleReceivedUserChat}
+                handleReceivedChat={this.handleReceivedChat}
               />
               {/* ) : null } */}
               <ChatDisplayContainer />
-              <ConversationsArea />
+              {/* <ConversationsArea /> */}
             </div>
           </div>
           <ChatParticle className="snow" />

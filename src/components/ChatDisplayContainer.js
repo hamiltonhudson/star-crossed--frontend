@@ -23,21 +23,13 @@ class ChatDisplayContainer extends React.Component {
       console.log(response)
       this.props.getChats(response)
     })
-    // .then(response => dispatch(
-    //   {
-    //     type: GET_CHATS,
-    //     payload: {
-    //       chats: response,
-    //     }
-    //   }
-    // ))
   }
 
   render() {
+    console.log("ChatDisplayContainer props", this.props)
     return (
       <div style={{"borderColor": "green"}} className="Display">
-        <h2>Chat Display Container</h2>
-        {/* <AcceptedMatchesList /> */}
+        <h2 style={{"color": "#ffffff"}}>Chat Display Container</h2>
         {this.retrieveChats()}
         <AcceptedList />
       </div>
@@ -47,7 +39,7 @@ class ChatDisplayContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.users.user
+    currentUser: state.users.currentUser
   }
 }
 

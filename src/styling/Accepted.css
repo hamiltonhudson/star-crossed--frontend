@@ -197,5 +197,19 @@
 }
 
 .NewConversationForm {
-  border-color: #5c6211
+  /* border-color: #5c6211 */
+  border-color: transparent;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  margin: auto;
+  max-width: 95vw;
+  min-width: 65vw;
+  max-height: 75%;
+  min-height: 25%;
+  color: #ffffff;
+}
+
+.new-convo-form {
+  border-color: transparent;
+  font-color: white
 }

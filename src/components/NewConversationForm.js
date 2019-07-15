@@ -43,7 +43,12 @@ class NewConversationForm extends React.Component {
 // export default NewConversationForm;
   state = {
     message: '',
+    // chat_id: this.props.chat_id
   }
+
+  // componentWillReceiveProps = nextProps => {
+  //   this.setState({ chat_id: nextProps.chat_id })
+  // }
 
   fetchToWebSocket = (route, bodyData) => {
     console.log(document.cookie)
@@ -68,13 +73,15 @@ class NewConversationForm extends React.Component {
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault()
     let body = {
       message: this.state.message,
-      chat: this.props.currentChat,
+      // chat: this.props.currentChat,
+      user_id: this.props.currentUser.id,
       chat_id: this.props.currentChat.id
     }
-    this.fetchToWebSocket("messages", body)
+    this.fetchToWebSocket("conversations", body)
     this.setState({ message: '' })
   }
 
@@ -87,44 +94,31 @@ class NewConversationForm extends React.Component {
   render() {
     console.log("NewConversationForm PROPS", this.props)
     console.log("this.props.currentChat", this.props.currentChat)
+    console.log("this.props.thisChat", this.props.thisChat)
+    console.log("this.state.message", this.state.message)
     return (
       <div className="NewConversationForm">
-        {/* <textarea
-          className="newConvo"
-          type="text"
-          value={this.state.message}
-          // onKeyDown={this.responseiveEnterKey}
-          placeholder="....type something"
+        {/* <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}> */}
+        <h1 style={{"color": "white"}}>NEW CONVERSATION FORM</h1>
+        <form onSubmit={this.handleSubmit} className=" col s12 new-convo-form">
+          <textarea
+            type="text"
+            placeholder="....type something"
+            name="message"
+            value={this.state.message}
+            onChange={this.handleChange}
+            onKeyDown={this.responseiveEnterKey}
+            className="newConvo"
           />
-          <div className="sendButton">
-          onClick={this.handleSubmit}
-          <p className="send">Submit</p>
-        </div> */}
-        <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
-          <h1 style={{"color": "white"}}>NEW CONVERSATOIN FORM</h1>
-          <div className="form" style={{"width": "85%"}}>
-            <form className="col s12" onSubmit={this.handleSubmit}>
-              {/* <form> */}
-              <textarea
-                type="text"
-                placeholder="....type something"
-                name="message"
-                value={this.state.message}
-                onChange={this.handleChange}
-                onKeyDown={this.responseiveEnterKey}
-                className="newConvo"
-              />
-              {/* <input
-                type="submit"
-                className="submit-button"
-              /> */}
-              <button className="sendButton"
-                onClick={this.handleSubmit}>
-                ⌲ ➤ ➢ ➣
-            </button>
-          </form>
-        </div>
-      </div>
+          <input
+            type="submit"
+            className="submit-buttom"
+          />
+          {/* <button className="sendButton"
+            onClick={this.handleSubmit}>
+            ⌲ ➤ ➢ ➣
+          </button> */}
+        </form>
       </div>
     )
   }
@@ -134,6 +128,7 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
     currentChat: state.chats.currentChat,
+    chatId: state.chats.chatId
   }
 }
 
