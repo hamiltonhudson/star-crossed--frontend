@@ -5,11 +5,12 @@ class Adapter {
   }
 
   static signOut() {
-    // localStorage.removeItem('token')
-    (document.cookie).exists ?
-    document.cookies.remove('X-Authorization=' + localStorage.getItem('token') + '; path=/') && localStorage.removeItem('token')
-    :
+    const delete_cookie = (name) => {
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT'
+    }
+    delete_cookie('X-Authorization');
     localStorage.removeItem('token')
+    // localStorage.removeItem('token')
     // fetch('http://localhost:3000/api/v1/auth', {
     //   method: 'DELETE',
     //   credentials: 'include'

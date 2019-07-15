@@ -23,7 +23,8 @@ const TOKEN = localStorage.getItem('token')
 class App extends Component {
 
   render() {
-    console.log(TOKEN)
+    console.log("TOKEN IN APP", TOKEN)
+    console.log("document.cookie", document.cookie)
     console.log("this.props.userId", this.props.userId)
     return (
       // <ActionCableProvider url={API_WS_ROOT+`?user=${this.props.userId}`}>
