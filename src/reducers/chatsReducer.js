@@ -13,41 +13,49 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.ENABLE_CHAT:
+      return {
+        ...state,
+        chatEnabled: action.payload.chatEnabled
+      }
     case types.GET_CHATS:
-    console.log("getChats action.payload", action.payload)
+      console.log("getChats action.payload", action.payload)
       return {
         ...state,
         chats: action.payload
       }
     case types.SAVE_CHATS:
-    console.log("getConvos action.payload", action.payload)
+      console.log("getConvos action.payload", action.payload)
       return {
         ...state,
-        // chats: action.payload
-        chats: action.payload.chats
-    }
+        chats: action.payload,
+        // conversations: action.payload.conversations
+      }
     case types.SET_RECEIVER_ID:
-    console.log("setReceiverId action.payload", action.payload)
+      console.log("setReceiverId action.payload", action.payload)
       return {
         ...state,
         receiverId: action.payload
       }
     case types.ADD_NEW_CHAT:
-    console.log("addnewchat action.payload", action.payload)
+      console.log("addnewchat action.payload", action.payload)
       return {
         ...state,
-        // chats: [...state.chats, action.payload],
-        // appendedChat: [...state.chats, action.payload],
-        chats: [...state.chats, action.payload.appendedChat]
+        chats: [...state.chats, action.payload],
+        // appendedChat: action.payload,
       }
     case types.SAVE_CURRENT_CHAT:
     console.log("savecurrent action.payload", action.payload)
       return {
         ...state,
-        // currentChat: [...state.chats, action.payload]
         currentChat: action.payload.currentChat,
         chatId: action.payload.currentChat.id
         // chats: [...state.chats, action.payload.currentChat]
+      }
+    case types.SAVE_CONVO_MSGS:
+      return {
+        ...state,
+        conversations: [...state.conversations, action.payload]
       }
     case types.ERASE_CURRENT_CHAT:
     console.log("erasechat action.payload", action.payload)
@@ -55,11 +63,6 @@ export default (state = initialState, action) => {
         ...state,
         currentChat: undefined
       }
-    case types.ENABLE_CHAT:
-      return {...state,
-        chatEnabled: action.payload.chatEnabled
-      }
-
       default:
         return state
     }

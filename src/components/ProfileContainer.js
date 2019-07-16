@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { ActionCableProvider } from 'actioncable';
-// import { API_WS_ROOT } from '../constants/ActionTypes';
 import ProfileDetail from './ProfileDetail';
 import ProfileSun from './ProfileSun';
-// import Chat from './Chat';
-// import App from '../App';
+import Adapter from './Adapter';
 import '../styling/Profile.css';
 import '../styling/App.css';
-import Adapter from './Adapter';
 
 
 class ProfileContainer extends React.Component {
@@ -24,14 +20,6 @@ class ProfileContainer extends React.Component {
       clicked: event.target.dataset.name
     })
   }
-
-  // openChat = () => {
-  //   return (
-  //     <ActionCableProvider url={API_WS_ROOT+`?user=${this.props.currentUser.id}`}>
-  //       <Chats />
-  //     </ActionCableProvider>
-  //   )
-  // }
 
   render () {
     const profilePhoto = this.props.currentUser.photo
@@ -90,24 +78,15 @@ class ProfileContainer extends React.Component {
       </div>
     )
   }
-  
+
 }
 
-  const mapStateToProps = (state) => {
-    return {
-      currentUser: state.users.currentUser,
-      userId: state.users.userId,
-      // matches: state.matches.matches,
-      // matchedUsers: state.matchedUsers.matchedUsers,
-    }
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.users.currentUser,
+    userId: state.users.userId,
   }
+}
 
-  // const mapDispatchToProps = (dispatch) => {
-  //   return {
-  //     // findMatchedUsers: (matches) => dispatch(findMatchedUsers(matches)),
-  //     // setCurrentUser: (userObj) => dispatch(setCurrentUser(userObj))
-  //   }
-  // }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
 export default connect(mapStateToProps)(ProfileContainer);

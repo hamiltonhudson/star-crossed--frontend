@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../styling/Form.css';
+import { API_ROOT } from '../constants/ActionTypes';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers} from '../actions'
+import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers } from '../actions'
+import '../styling/Form.css';
 
-const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload';
 
@@ -80,7 +80,7 @@ class NewUser extends React.Component {
         }
       })
     }
-    fetch(usersAPI, newUserConfig)
+    fetch(`${API_ROOT}/users`, newUserConfig)
     .then(r => r.json())
     .then(result => {
       if (result.errors) {
@@ -94,7 +94,7 @@ class NewUser extends React.Component {
         const newUserMatches = newUser.matches
         this.props.findMatches(newUserMatches)
         newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
-        fetch(usersAPI, {
+        fetch(`${API_ROOT}/users`, {
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
@@ -282,22 +282,17 @@ const mapStateToProps = (state) => {
   return {
     email: state.email.email,
     password: state.password.password,
-    // currentUser: state.users.userDetails,
-    // allUsers: state.users.users,
-    // matches: state.matches.matches,
-    // matchedUsers: state.matches.matchedUsers
   }
 }
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      setUsers: (users) => dispatch(setUsers(users)),
-      setCurrentUser: (userDetails) => dispatch(setCurrentUser(userDetails)),
-      setUserId: (userId) => dispatch(setUserId(userId)),
-      findMatches: (matches) => dispatch(findMatches(matches)),
-      findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsers: (users) => dispatch(setUsers(users)),
+    setCurrentUser: (userDetails) => dispatch(setCurrentUser(userDetails)),
+    setUserId: (userId) => dispatch(setUserId(userId)),
+    findMatches: (matches) => dispatch(findMatches(matches)),
+    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
   }
+}
 
   export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
-// export default connect(null, mapDispatchToProps)(NewUser);

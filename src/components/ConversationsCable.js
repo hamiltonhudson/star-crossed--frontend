@@ -1,16 +1,18 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ActionCableProvider } from 'react-actioncable-provider';
-import { saveChats } from '../actions'
+import { ActionCableConsumer } from 'react-actioncable-provider';
+import { saveChats, saveConvoMsgs } from '../actions'
 
 class ConversationsCable extends React.Component {
 
   handleReceivedConversation = (response) => {
+    console.log(response)
     const { conversation } = response
     const chats = [...this.props.chats]
     const chat = chats.find(chat => chat.id === conversation.chat_id)
     chat.converstaions = [...chat.conversations, conversation]
     this.props.saveChats(chats)
+    this.props.saveConvoMsgs(chat.conversations)
   }
 
   render() {
@@ -21,9 +23,9 @@ class ConversationsCable extends React.Component {
         {/*ConversationsCable */}
         {this.props.chats.map(chat => {
           return (
-            <ActionCableProvider key={chat.id}
+            <ActionCableConsumer key={chat.id}
               channel={{channel: "ConversationsChannel", chat: chat.id}}
-              onReceived={this.handleReceivedConversation}
+              onReceived={(response) => this.handleReceivedConversation(response)}
             />
           )
         })}
@@ -38,10 +40,14 @@ const mapStateToProps = (state) => {
     chats: state.chats.chats,
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
     saveChats: (chats) => dispatch(saveChats(chats)),
+    saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
   }
 }
+
+// export default connect(mapStateToProps)(ConversationsCable);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConversationsCable)

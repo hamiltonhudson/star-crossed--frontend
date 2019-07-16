@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ActionCableProvider } from 'react-actioncable-provider';
-import Routes from '../routes';
 import '../styling/Form.css';
 import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers} from '../actions'
 
@@ -25,7 +23,6 @@ class SignIn extends React.Component {
   }
 
   saveTokenAsCookie() {
-     // document.cookie = 'X-Authorization=' + this.getToken() + '; path=/';
      document.cookie = 'X-Authorization=' + localStorage.getItem('token') + '; path=/';
   }
 
@@ -33,7 +30,6 @@ class SignIn extends React.Component {
     event.preventDefault()
       fetch(`${API}/auth`, {
         method: "POST",
-        // credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -59,9 +55,6 @@ class SignIn extends React.Component {
           this.props.setUserId(userDetails.id)
           const matchedOrAwaiting = userDetails.matches.filter(match => match.status === "matched" || match.status === "awaiting")
           const accepted = userDetails.matches.filter(match => match.status === "accepted")
-          // const pending = userDetails.matches.filter(match => match.status === "pending")
-          // const awaiting = userDetails.matches.filter(match => match.status === "awaiting")
-          // const declined = userDetails.matches.filter(match => match.status === "declined")
           this.props.findMatches(matchedOrAwaiting)
           matchedOrAwaiting.map(m => this.props.findMatchedUsers(m.matched_user))
           const undeclinedMatches = userDetails.matches.filter(match => match.status !== "declined")
@@ -71,21 +64,6 @@ class SignIn extends React.Component {
           this.props.findAccepted(accepted)
           accepted.map(a => this.props.findAcceptedUsers(a.matched_user))
           this.fetchUsers()
-          // fetch(usersAPI, {
-          //   headers: {
-          //     'Content-type': 'application/json',
-          //     'Accept': 'application/json',
-          //     'Credentials': 'include',
-          //     'Authorization': localStorage.getItem('token')
-          //   }
-          // })
-          // .then(r => r.json())
-          // .then(results => {
-          //   this.props.setUsers(results)
-          //   this.setState({
-          //     loggedIn: true
-          //   })
-          // })
         }
       })
     }
@@ -155,22 +133,17 @@ class SignIn extends React.Component {
           </div>
         </div>
       </div>
-        // {/* <ActionCableProvider url={`ws://localhost:3000/api/v1/cable+?user=${this.props.userId}`}>
-        //   <Redirect to="/profile" />
-        //   </ActionCableProvider>
-        //   :
-        // signInForm */}
     return this.state.loggedIn === true ? <Redirect to="/matches" /> : signInForm
   }
 
 }
 
-  const mapStateToProps = (state) => {
-    return {
-      currentUser: state.users.currentUser,
-      userDetails: state.users.currentUser
-    }
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.users.currentUser,
+    userDetails: state.users.currentUser
   }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

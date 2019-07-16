@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../styling/Form.css'
+import { API_ROOT } from '../constants/ActionTypes';
+import { setUsers, setCurrentUser, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
+import Adapter from './Adapter'
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { setUsers, setCurrentUser, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
-import Adapter from './Adapter'
+import '../styling/Form.css'
 
-const usersAPI = 'http://localhost:3000/api/v1/users/'
 const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload';
 
@@ -153,7 +153,7 @@ class EditUser extends React.Component {
         }
       })
     }
-    fetch(`${usersAPI}/${this.props.currentUser.id}`, userConfig)
+    fetch(`${API_ROOT}/users/${this.props.currentUser.id}`, userConfig)
     .then(r => r.json())
     .then(result => {
       if (result.errors) {
@@ -192,7 +192,7 @@ class EditUser extends React.Component {
 
 
   deleteUser = (currentUser) => {
-    fetch(`${usersAPI}${currentUser.id}`, {
+    fetch(`${API_ROOT}/${currentUser.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -200,7 +200,6 @@ class EditUser extends React.Component {
         'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({
-          // id: `${userId}`
           user: this.props.currentUser
       })
     })
@@ -208,8 +207,6 @@ class EditUser extends React.Component {
     .then(response => {
       Adapter.signOut();
       this.props.history.push("/")
-      // let nonExistentUser = {first_name: "", last_name: "", birth_date: " - - ", location: " , "}
-      // this.props.deleteUser(nonExistentUser)
       this.props.setUsers(response)
       this.setState({
         deleted: true
@@ -229,7 +226,6 @@ class EditUser extends React.Component {
     return (
       <Fragment>
         <div style={{"marginTop": "10px"}}>
-          {/* <Link to='/profile' className="form-link"> ◁ Back</Link> */}
           <Link to='/profile' className="form-link"> ◀︎ Back</Link>
         </div>
         <div className="form-container">
@@ -360,7 +356,6 @@ class EditUser extends React.Component {
                 placeholder="Submit"
               />
             </form>
-            {/* <span style={{"lineHeight": "0px"}}><button className="delete-button" onClick={() => this.deleteUser(this.props.currentUser)}>Delete</button></span> */}
           </div>
           {this.userRedirect()}
         </div>
@@ -373,7 +368,6 @@ class EditUser extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
-    // userId: state.users.userId
     city: state.users.currentUser.location.split(", ")[0],
     usstate: state.users.currentUser.location.split(", ")[1],
     matchedUsers: state.matches.matchedUsers,

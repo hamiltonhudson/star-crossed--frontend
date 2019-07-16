@@ -1,13 +1,8 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ActionCableProvider } from 'react-actioncable-provider';
-import Routes from '../routes';
-import '../styling/Form.css';
 import { getEmailAndPW } from '../actions';
-
-const authAPI = 'http://localhost:3000/api/v1/auth'
-const usersAPI = 'http://localhost:3000/api/v1/users/'
+import '../styling/Form.css';
 
 
 class SignUp extends React.Component {
@@ -84,13 +79,6 @@ class SignUp extends React.Component {
 
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     email: state.email.email,
-//     password: state.password.password,
-//   }
-// }
-
 const mapDispatchToProps = (dispatch) => {
   return {
     getEmailAndPW: (email, password) => dispatch(getEmailAndPW(email, password)),
@@ -98,4 +86,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(SignUp);
-// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

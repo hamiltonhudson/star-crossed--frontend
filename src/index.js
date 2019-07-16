@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import './styling/index.css';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import App from './App';
+import { createStore } from 'redux';
 import { ActionCableProvider } from 'react-actioncable-provider';
-import { ActionCableConsumer } from 'actioncable';
-// import Chat from './components/Chat'
-import rootReducer from './reducers/rootReducer';
 import { API_WS_ROOT } from './constants/ActionTypes';
-// import Cable from 'actioncable'
+import rootReducer from './reducers/rootReducer';
+import App from './App';
+import './styling/index.css';
 import * as serviceWorker from './serviceWorker';
-import routes from './routes.js';
 
 const store = createStore(rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -24,9 +19,9 @@ const store = createStore(rootReducer,
 ReactDOM.render(
   <Provider store={store}>
     <ActionCableProvider url={API_WS_ROOT}>
-    <Router>
-      <App />
-    </Router>
+      <Router>
+        <App />
+      </Router>
     </ActionCableProvider>
   </Provider>,
   document.getElementById('root')

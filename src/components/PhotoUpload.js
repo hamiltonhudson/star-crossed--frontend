@@ -14,4 +14,5 @@ export default class PhotoUpload extends React.Component {
     </Dropzone>
     )
   }
+  
 }

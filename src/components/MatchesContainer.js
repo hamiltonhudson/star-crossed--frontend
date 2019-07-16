@@ -1,15 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import '../styling/App.css';
-import '../styling/Matches.css';
+import Adapter from './Adapter'
 import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatches, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
-import Adapter from './Adapter'
-// import { ActionCableProvider } from 'actioncable';
-// import { API_WS_ROOT } from '../constants/ActionTypes';
-// import Chat from './Chat'
+import '../styling/Matches.css';
+import '../styling/App.css';
 
 const matchesAPI = 'http://localhost:3000/api/v1/matches'
 

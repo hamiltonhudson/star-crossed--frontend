@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import '../styling/Profile.css'
 import MatchProfDetail from './MatchProfDetail';
 import MatchProfSun from './MatchProfSun';
+import Adapter from './Adapter';
 import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatchedUsers, declinePendingMatch, declinePendingMatchedUser, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
-import Adapter from './Adapter';
+import '../styling/Profile.css'
+
 
 const matchesAPI = 'http://localhost:3000/api/v1/matches'
 
@@ -55,7 +56,6 @@ class MatchProfContainer extends React.Component {
     } else if (thisViewedMatch.status === "pending") {
       return (
         <div className="pending-load">
-          {/* ♾ PENDING */}
           ∞ PENDING
         </div>
       )
@@ -70,7 +70,7 @@ class MatchProfContainer extends React.Component {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        // 'Authorization': localStorage.getItem('token'),
+        'Authorization': localStorage.getItem('token'),
         'Credentials': 'include'
       },
       body: JSON.stringify({
@@ -98,14 +98,12 @@ class MatchProfContainer extends React.Component {
   handleDecline = (declinedUserId) => {
     const declinedMatch = this.props.matches.find(match => match.matched_user.id === declinedUserId)
     const declinedUser = this.props.matchedUsers.find(matchedUser => matchedUser.id === declinedUserId)
-    // this.props.declineMatch(declinedMatch)
-    // this.props.declineMatchedUser(declinedUser)
     const declineConfig = {
         method: "PATCH",
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
-          // 'Authorization': localStorage.getItem('token'),
+          'Authorization': localStorage.getItem('token'),
           'Credentials': 'include'
         },
         body: JSON.stringify({
@@ -116,7 +114,6 @@ class MatchProfContainer extends React.Component {
     .then(r => r.json())
     .then(result => {
       this.props.setCurrentUser(result.user)
-      // const resultMatchStatus = result.match_status
       this.props.declineMatch(declinedMatch)
       this.props.declineMatchedUser(declinedUser)
       const undeclinedMatches = result.user.matches.filter(match => match.status !== "declined")
@@ -189,33 +186,33 @@ class MatchProfContainer extends React.Component {
 
 }
 
-  const mapStateToProps = (state) => {
-    return {
-      viewedMatch: state.matches.match,
-      matches: state.matches.matches,
-      matchedUsers: state.matches.matchedUsers,
-      undeclinedMatches: state.matches.undeclinedMatches,
-      undeclinedMatchedUsers: state.matches.undeclinedMatchedUsers,
-      accepted: state.matches.accepted,
-      acceptedUsers: state.matches.acceptedUsers,
-      currentUser: state.users.currentUser,
-    }
+const mapStateToProps = (state) => {
+  return {
+    viewedMatch: state.matches.match,
+    matches: state.matches.matches,
+    matchedUsers: state.matches.matchedUsers,
+    undeclinedMatches: state.matches.undeclinedMatches,
+    undeclinedMatchedUsers: state.matches.undeclinedMatchedUsers,
+    accepted: state.matches.accepted,
+    acceptedUsers: state.matches.acceptedUsers,
+    currentUser: state.users.currentUser,
   }
+}
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
-      acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
-      declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
-      declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
-      declinePendingMatch: (declinedMatch) => dispatch(declinePendingMatch(declinedMatch)),
-      declinePendingMatchedUser: (declinedUser) => dispatch(declinePendingMatchedUser(declinedUser)),
-      setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-      allUndeclinedMatches: (undeclinedMatches) => dispatch(allUndeclinedMatches(undeclinedMatches)),
-      allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers)),
-      findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers))
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+    acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
+    declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
+    declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
+    declinePendingMatch: (declinedMatch) => dispatch(declinePendingMatch(declinedMatch)),
+    declinePendingMatchedUser: (declinedUser) => dispatch(declinePendingMatchedUser(declinedUser)),
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    allUndeclinedMatches: (undeclinedMatches) => dispatch(allUndeclinedMatches(undeclinedMatches)),
+    allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers)),
+    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers))
   }
+}
 
 
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../styling/Profile.css'
-// import Matches from './Matches';
 
 class ProfileSun extends React.Component {
 

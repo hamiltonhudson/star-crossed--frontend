@@ -1,133 +1,106 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { API_ROOT, HEADERS } from '../constants/ActionTypes';
-import { saveCurrentChat } from '../actions';
-import App from '../App';
-import NewConversationForm from './NewConversationForm';
-import NewChatForm from './NewChatForm';
-import '../styling/Accepted.css'
+import { API_ROOT } from '../constants/ActionTypes';
+import { setReceiverId, saveCurrentChat } from '../actions';
+import ConversationForm from './ConversationForm';
+import ConversationsCable from './ConversationsCable';
+import ConvoDisplay from './ConvoDisplay';
+
 
 class AcceptedList extends React.Component {
 
   state = {
-    thisChat: '',
-    receiver: '',
-    convoOpened: false
+    convoOpened: false,
+    currentChat: '',
+    currentChatId: null,
   }
 
-  // fetchToWebSocket = (route, bodyData) => {
-  //   fetch(`${API_ROOT}/${route}`, {
-  //       method: 'POST',
-  //       headers: {
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json',
-  //           // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-  //           'Authorization': localStorage.getItem('token'),
-  //           'Credentials': 'include'
-  //         },
-  //       body: JSON.stringify(bodyData)
-  //   })
-  //   .then(response => response.json())
-  //   .then(result => {
-  //     console.log(result)
-  //   })
-  // }
-
-  // clickChatForm = (receiverId) => {
-  //   return (
-  //     <NewChatForm
-  //       receiverId={receiverId}
-  //     />
-  //   )
-  // }
-
-   handleClick = (receiver) => {
-    console.log("receiver", receiver)
-    let receiverId = receiver.id
-    console.log("receiverId", receiverId)
-    let bodyData = {
-      title: "PRIVATE",
-      receiver_id: receiver.id,
-      sender_id: this.props.currentUser.id
+  chatExists = (receiverId) => {
+    if (this.props.chats.map(chat => chat.users.includes(receiverId))) {
+      console.log("chat exists!")
+    } else {
+      console.log("start chatting")
     }
-    // if (chatExists(props.receiver_id)) {
-    //   console.log("exists")
-    //   props.onClickClose()
-    // } else {
-    // this.fetchToWebSocket("chats", body);
-    fetch(`${API_ROOT}/chats`, {
+  }
+
+  handleClick = (receiver) => {
+    // event.preventDefault()
+    console.log(`user ${receiver.first_name} clicked!`)
+    console.log(this.props.chats)
+    this.props.setReceiverId(receiver.id)
+    let existingChatUsers = this.props.chats.map(chat => chat.users)
+    console.log("existingchatUsers", existingChatUsers)
+    if (this.props.chats.map(chat => chat.users.includes(receiver))) {
+      console.log("yes")
+      let existingChat = this.props.chats.find(chat => chat.users.filter(user => user.id === receiver.id))
+      console.log(existingChat)
+      this.setState({
+        convoOpened: true,
+        currentChat: existingChat,
+        currentChatId: existingChat.id
+      })
+      this.props.saveCurrentChat(existingChat)
+    } else {
+      fetch(`${API_ROOT}/chats`, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Authorization': localStorage.getItem('token'),
-            'Credentials': 'include'
-          },
-        body: JSON.stringify(bodyData)
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log(result)
-      this.setState({
-        thisChat: result,
-        convoOpened: true,
-        receiver: receiver
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': localStorage.getItem('token'),
+          'Credentails': 'include'
+        },
+        body: JSON.stringify({
+          title: "PRIVATE",
+          receiver_id: receiver.id,
+          sender_id: this.props.currentUser.id
+        })
       })
-      this.props.saveCurrentChat(result)
-    })
-    // return (
-    //   <div>
-    //     {/* <NewConversationForm receiver={receiver}/> */}
-    //   </div>
-    // )
-
-    // this.fetchToWebSocket("conversations", body);
-    // props.onClickClose()
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+        this.setState({
+          convoOpened: true,
+          currentChat: result,
+          currentChatId: result.id
+        })
+        this.props.saveCurrentChat(result)
+      })
+    }
   }
 
   generateAccepted = () => {
-    const accepted = this.props.currentUser.matches.filter(match => match.status === "accepted")
-    const acceptedUsers = accepted.map(a => a.matched_user)
+    let accepted = this.props.currentUser.matches.filter(match => match.status === "accepted")
+    let acceptedUsers = accepted.map(a => a.matched_user)
     return acceptedUsers.map(acceptedUser => {
       return (
         <div className="AcceptedList" key={acceptedUser.id}>
-          {/* <button onClick={() => this.handleClick(acceptedUser.id)} key={acceptedUser.id}> */}
-            <button onClick={() => this.handleClick(acceptedUser)} key={acceptedUser.id}>
+          <button onClick={() => this.handleClick(acceptedUser)} key={acceptedUser.id}>
             <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
           </button>
-          {/* {this.state.convoOpened !== true ? null : <NewConversationForm receiver={this.state.receiver} currentChat={this.state.currentChat} /> } */}
-          {/* <NewConversationForm convoOpened={this.state.convoOpened} /> */}
         </div>
       )
     })
   }
 
-
   render() {
-    console.log("AcceptedList PROPS", this.props)
-    console.log("this.props.receiver_id", this.props.receiver_id)
-    // const generateAccepted = () => {
-    //   const accepted = this.props.currentUser.matches.filter(match => match.status === "accepted")
-    //   const acceptedUsers = accepted.map(a => a.matched_user)
-    //   return acceptedUsers.map(acceptedUser => {
-    //     return (
-    //       <div className="AcceptedList" key={acceptedUser.id}>
-    //         <button onClick={() => handleClick(acceptedUser.id)} key={acceptedUser.id}>
-    //           {/* receiverId={acceptedUser.id} */}
-    //           <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
-    //         </button>
-    //       </div>
-    //     )
-    //   })
-    // }
-
+    console.log("this.props in AcceptedList", this.props)
     return (
       <div>
-        {/* {generateAccepted()} */}
+        <h5 style={{"color":"#ffffff"}}> User Accepted List </h5>
         {this.generateAccepted()}
-        {this.state.convoOpened !== true ? null : <NewConversationForm receiver={this.state.receiver} thisChat={this.state.thisChat} /> }
-        {/* <NewConversationForm convoOpened={this.state.convoOpened} /> */}
+        {this.props.chats.length ?
+          <ConversationsCable
+            chats={this.state.chats} currentUser={this.props.currentUser}
+            // handleReceivedUserChat={this.handleReceivedUserChat}
+            handleReceivedChat={this.handleReceivedChat}/>
+        : null}
+        {this.state.currentChat ?
+          <ConvoDisplay
+            chat={this.state.currentChat}
+            currentUser={this.props.currentUser}
+          />
+        : null}
+        {/* {this.state.convoOpened !== true ? null : <ConversationForm />  */}
       </div>
     )
   }
@@ -137,16 +110,16 @@ class AcceptedList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.users.currentUser,
-    sender_id: state.users.currentUser.id,
-    acceptedUsers: state.matches.acceptedUsers,
     chats: state.chats.chats,
-    // receiver_id: this.props.receiver_id
+    receiverId: state.chats.receiverId
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveCurrentChat: (currentChat) => dispatch(saveCurrentChat(currentChat))
+    setReceiverId: (receiverId) => dispatch(setReceiverId(receiverId)),
+    saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AcceptedList);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AcceptedList)

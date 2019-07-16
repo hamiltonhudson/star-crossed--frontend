@@ -21,6 +21,7 @@ class MatchProfSun extends React.Component {
       )
     }
   }
+  
   render() {
     return (
       <div className="col l4 m3 s12 side-card">
@@ -28,11 +29,11 @@ class MatchProfSun extends React.Component {
       </div>
     )
   }
+
 }
 
   const mapStateToProps = (state) => {
     return {
-      // match: state.matches.match,
     viewedMatch: state.matches.match
     }
   }

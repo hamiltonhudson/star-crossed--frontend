@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import '../styling/Profile.css'
 
 
-
 class MatchProfDetail extends React.Component {
 
   renderDetail = () => {
@@ -29,12 +28,14 @@ class MatchProfDetail extends React.Component {
       </div>
     )
   }
+  
 }
 
-  const mapStateToProps = (state) => {
-    return {
-      // match: state.matches.match,
-    viewedMatch: state.matches.match
-    }
+const mapStateToProps = (state) => {
+  return {
+    // match: state.matches.match,
+  viewedMatch: state.matches.match
   }
+}
+
 export default connect(mapStateToProps)(MatchProfDetail);
