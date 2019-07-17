@@ -1,17 +1,16 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { API_WS_ROOT, API_ROOT } from '../constants/ActionTypes';
 import { ActionCableConsumer } from 'react-actioncable-provider';
-import '../styling/App.css';
-import '../styling/Accepted.css';
+import { viewMatch, enableChat, setChats, addNewChat, saveChats, saveCurrentChat, saveConvoMsgs } from '../actions';
+import Adapter from './Adapter';
 import ChatParticle from './ChatParticle';
 import AcceptedList from './AcceptedList';
-// import Chat from './Chat';
 import ChatsCable from './ChatsCable';
 import ConversationsCable from './ConversationsCable';
-import { API_WS_ROOT, API_ROOT } from '../constants/ActionTypes';
-import { viewMatch, enableChat, getChats, addNewChat, saveChats, saveConvoMsgs } from '../actions';
-import Adapter from './Adapter';
+import '../styling/Accepted.css';
+import '../styling/App.css';
 
 class ChatsBase extends React.Component {
 
@@ -36,44 +35,39 @@ class ChatsBase extends React.Component {
         "Credentials": "include"
       }
     })
-    .then(r => r.json())
-    .then(chats => {
-      console.log(chats)
-      this.props.getChats(chats)
+    .then(response => response.json())
+    .then(result => {
+      console.log("chats (response.json) in ChatBase componentDidMount", result)
+      let chats = result
+      this.props.setChats(chats)
       this.setState({ chats })
     })
   }
 
   handleReceivedChat = (response) => {
-    console.log(response)
+    console.log("response in handleReceivedChat", response)
     const { chat } = response
     // if (chat.users.map((user) => user.id).includes(this.props.userId)) {
     //   this.props.addNewChat(chat)
-    // }
+    // let activeChat = this.props.chats.find(chat => chat.users.map(user => user.id.includes(this.props.receiverId)))
       this.setState({
-        chats: [...this.state.chats, chat]
+        chats: [...this.state.chats, chat],
+        // activeChat: activeChat
       })
+      this.props.saveCurrentChat(chat)
   }
 
-  // handleReceivedChat = () => {
-  //   // const conversation
-  //   if (this.props.chats.users.map(user => user.id.includes(this.props.receiverId))) {
-  //     let activeChat = this.props.chats.find(chat => chat.users.map(user => user.id.includes(this.props.receiverId)))
-  //     this.setState({
-  //       activeChat: activeChat
-  //     })
-  //   }
-  // }
-
   handleReceivedConversation = (response) => {
-    const conversation = response.conversation
-    const chats = [...this.state.chats]
-    const chat = chats.find(chat => chat.id === conversation.chat_id)
+    console.log("resonse for receive convo in chatsbase", response)
+    const conversation = response
+    // const chats = [...this.state.chats]
+    // const chat = chats.find(chat => chat.id === conversation.chat_id)
+    const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
     this.setState({
         conversations: [...this.state.conversations, conversation]
     })
-    // this.props.saveConvoMsgs(chat.conversations)
+    this.props.saveConvoMsgs(chat.conversations)
   }
 
   initalizeConvo = () => {
@@ -87,8 +81,9 @@ class ChatsBase extends React.Component {
     }
 
   render() {
-    console.log("this.state in ChatsBase", this.state)
-    console.log("this.props.conversations in ChatsBase", this.state.props)
+    console.log("this.state.chats in ChatsBase", this.state.chats)
+    console.log("this.props.chats in ChatsBase", this.props.chats)
+    console.log("this.props.conversations in ChatsBase", this.props.conversations)
     return (
       <div className="accepted" style={{"borderColor": "#40b144"}}>
         <div className="Accepted-header row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
@@ -96,7 +91,7 @@ class ChatsBase extends React.Component {
           <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
           <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
           <div>
-            <h5 style={{"color":"#ffffff"}}>Chat file</h5>
+            <h5 style={{"color":"#ffffff"}}>ChatsBase</h5>
           </div>
           <div>
             {this.props.currentUser.id
@@ -112,11 +107,13 @@ class ChatsBase extends React.Component {
                 handleReceivedChat={this.handleReceivedChat}
               />)
             : null}
+            {this.state.chats.length ? (
+              <ConversationsCable
+                chats={this.state.chats} currentUser={this.props.currentUser}
+                handleReceivedConversation={this.handleReceivedConversation}
+              />)
+            : null}
             <AcceptedList />
-            <ConversationsCable
-              chats={this.state.chats} currentUser={this.props.currentUser}
-              handleReceivedConversation={this.handleReceivedConversation}
-            />
           </div>
         </div>
         <ChatParticle className="snow" />
@@ -139,8 +136,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getChats: (chats) => dispatch(getChats(chats)),
+    // getChats: (chats) => dispatch(getChats(chats)),
+    setChats: (chats) => dispatch(setChats(chats)),
     saveChats: (chats) => dispatch(saveChats(chats)),
+    saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
     saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
   }
 }

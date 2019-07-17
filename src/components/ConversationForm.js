@@ -10,7 +10,6 @@ class ConversationForm extends React.Component {
 
   handleChange = (event) => {
     event.preventDefault()
-    console.log(event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -37,25 +36,16 @@ class ConversationForm extends React.Component {
 
   responsiveEnterKey = (event) => {
     event.preventDefault()
-    if (event.key === "Enter") {
-      this.handleSubmit()
+    // if (event.key === "Enter") {
+    if (event.keyCode === 13) {
+      this.handleSubmit(event)
     }
   }
 
   render() {
-    console.log("this.props.currentChat in ConversationForm", this.props.currentChat)
-    console.log(this.props)
     return (
       <div>
-        <h5 style={{"color":"#fffff"}}>User New Convo Form</h5>
-        <div className="NewConversationForm">
-          <h1 style={{"color": "white"}}>User New convo display </h1>
-          <div>
-            {/* {this.props.currentChat.conversations.map(conversation => {
-              return <p>conversation.message</p>
-            })} */}
-          </div>
-          <h1 style={{"color": "white"}}>NEW CONVERSATION FORM</h1>
+        <div className="conversation-form">
           <form onSubmit={this.handleSubmit} className="col s12 new-convo-form">
             <textarea
               type="text"
@@ -75,6 +65,7 @@ class ConversationForm extends React.Component {
       </div>
     )
   }
+  
 }
 
 const mapStateToProps = (state) => {

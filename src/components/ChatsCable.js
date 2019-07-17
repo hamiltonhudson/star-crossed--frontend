@@ -17,7 +17,6 @@ class ChatsCable extends React.Component {
     return(
       this.props.userId
       ? <ActionCableConsumer
-        className="ChatsCable"
         channel={{channel: "ChatsChannel"}}
         onReceived={(response) => this.handleReceivedChat(response)}
         />

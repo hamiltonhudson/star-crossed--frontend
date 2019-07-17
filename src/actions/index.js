@@ -170,10 +170,10 @@ export const enableChat = (chat) => {
   }
 }
 
-export const getChats = (chats) => {
-  console.log("getChats in actions/index 'chats' ", chats)
+export const setChats = (chats) => {
+  console.log("setChats in actions/index 'chats' ", chats)
   return {
-    type: types.GET_CHATS,
+    type: types.SET_CHATS,
     payload: chats
     //get all current user's current convos
   }
@@ -213,11 +213,19 @@ export const saveCurrentChat = (currentChat) => {
   }
 }
 
-export const saveConvoMsgs = (conversations) => {
-  console.log("saveConvoMsgs in actions/index 'conversations' ")
+// export const saveConvoMsgs = (conversations) => {
+//   console.log("saveConvoMsgs in actions/index 'conversations' ")
+//   return {
+//     type: types.SAVE_CONVO_MSGS,
+//     payload: conversations
+//   }
+// }
+
+export const saveConvoMsgs = (conversation) => {
+  console.log("saveConvoMsgs in actions/index 'conversation' ")
   return {
     type: types.SAVE_CONVO_MSGS,
-    payload: conversations
+    payload: conversation
   }
 }
 

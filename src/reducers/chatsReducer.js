@@ -18,8 +18,8 @@ export default (state = initialState, action) => {
         ...state,
         chatEnabled: action.payload.chatEnabled
       }
-    case types.GET_CHATS:
-      console.log("getChats action.payload", action.payload)
+    case types.SET_CHATS:
+      console.log("setChats action.payload", action.payload)
       return {
         ...state,
         chats: action.payload
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
       console.log("getConvos action.payload", action.payload)
       return {
         ...state,
-        chats: action.payload,
+        chats: [...this.state.chats, action.payload]
         // conversations: action.payload.conversations
       }
     case types.SET_RECEIVER_ID:
@@ -49,10 +49,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentChat: action.payload.currentChat,
-        chatId: action.payload.currentChat.id
-        // chats: [...state.chats, action.payload.currentChat]
       }
     case types.SAVE_CONVO_MSGS:
+    console.log("saveConvoMsgs action.payload", action.payload)
       return {
         ...state,
         conversations: [...state.conversations, action.payload]
