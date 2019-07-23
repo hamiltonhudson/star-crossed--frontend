@@ -8,10 +8,9 @@ class ConversationsCable extends React.Component {
   handleReceivedConversation = (response) => {
     console.log("response in handleReceivedConversation convocable", response)
     const { conversation } = response
-    // const chats = [...this.props.chats]
-    // const chat = chats.find(chat => chat.id === conversation.chat_id)
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
+    console.log("chat.converstions", chat.conversations)
     // this.props.saveChats(chats)
     this.props.saveCurrentChat(chat)
     this.props.saveConvoMsgs(conversation)

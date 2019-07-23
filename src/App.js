@@ -12,6 +12,7 @@ import ProfileContainer from './components/ProfileContainer';
 import MatchProfContainer from './components/MatchProfContainer'
 import EditUser from './components/EditUser';
 import ChatsBase from './components/ChatsBase';
+import ChatTest from './components/ChatTest';
 import './styling/App.css';
 
 
@@ -43,6 +44,7 @@ class App extends Component {
           <Route path='/matchprofile' component={MatchProfContainer} />
           <Route path='/edit' component={EditUser} />
           <Route path='/chat' component={ChatsBase} />
+          {/* <Route path='/chat' component={ChatTest} /> */}
         </Switch>
       </Router>
       // </ActionCableProvider>

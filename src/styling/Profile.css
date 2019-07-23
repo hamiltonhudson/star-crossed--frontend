@@ -239,12 +239,12 @@ h5 {
   font-size: 22px;
 }
 
-.buttonDiv {
+.button-div {
   vertical-align: middle;
   margin-top: -1.5vh;
 }
 
-.matchBtn {
+.match-button {
   font-size: 2vh;
   background: transparent;
   border: none;
@@ -300,7 +300,7 @@ h5 {
   box-shadow: 1px 0px 20px 5px #8a7bb6;
 }
 
-#pending-list {
+.pending-header {
   font-family: 'Loves';
   font-size: 2.5vh;
   padding-top: 2vh;
@@ -308,15 +308,19 @@ h5 {
   font-style: bold;
 }
 
-.pending {
+.pending-list {
+  margin-bottom: 10px;
+}
+
+.pending-match {
   font-family: 'Adam';
   color: white;
   font-size: 16px;
 }
 
-.pending:hover {
-  color: hsla(278, 62%, 82%, 0.91);
-  opacity: 0.95;
+.pending-match:hover {
+  /* color: hsla(278, 62%, 82%, 0.91);
+  opacity: 0.95; */
 }
 
 .pending-load {
@@ -333,7 +337,7 @@ h5 {
   vertical-align: bottom;
   -webkit-animation: ellipsis steps(10, end) 1000ms infinite;
   animation: ellipsis steps(6, end) 2000ms infinite;
-  content: "\2026"; /* ascii code for the ellipsis character */
+  content: "\2026";
   width: 0px;
 }
 

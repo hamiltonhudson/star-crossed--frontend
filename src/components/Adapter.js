@@ -4,11 +4,12 @@ class Adapter {
     return !!localStorage.getItem('token')
   }
 
+  static delete_cookie = (name) => {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT'
+  }
+
   static signOut() {
-    const delete_cookie = (name) => {
-      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT'
-    }
-    delete_cookie('X-Authorization');
+    this.delete_cookie('X-Authorization');
     localStorage.removeItem('token')
     // localStorage.removeItem('token')
     // fetch('http://localhost:3000/api/v1/auth', {

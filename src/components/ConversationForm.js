@@ -35,37 +35,36 @@ class ConversationForm extends React.Component {
   }
 
   responsiveEnterKey = (event) => {
-    event.preventDefault()
-    // if (event.key === "Enter") {
-    if (event.keyCode === 13) {
+    if (event.key === "Enter") {
+    // if (event.keyCode === 13) {
       this.handleSubmit(event)
     }
   }
 
   render() {
     return (
-      <div>
-        <div className="conversation-form">
-          <form onSubmit={this.handleSubmit} className="col s12 new-convo-form">
-            <textarea
-              type="text"
-              placeholder="....type something"
-              name="message"
-              value={this.state.message}
-              onChange={this.handleChange}
-              onKeyDown={this.responseiveEnterKey}
-              className="newConvo"
-            />
-            <input
-              type="submit"
-              className="submit-buttom"
-            />
-          </form>
-        </div>
+      <div className="col s9conversation-form">
+        <form onSubmit={this.handleSubmit} className="new-convo-form">
+          <textarea
+            type="text"
+            placeholder="....type something"
+            name="message"
+            value={this.state.message}
+            onChange={this.handleChange}
+            onKeyDown={this.responsiveEnterKey}
+            className="new-convo"
+          />
+          <br/>
+          <input
+            type="submit"
+            value="⌲"
+            className="send-chat-button"
+          />
+        </form>
       </div>
     )
   }
-  
+
 }
 
 const mapStateToProps = (state) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { API_ROOT } from '../constants/ActionTypes';
 import { ActionCableConsumer } from 'react-actioncable-provider'
-import { setReceiverId, setChats, addNewChat, saveCurrentChat } from '../actions';
+import { setReceiver, setReceiverId, setChats, addNewChat, saveCurrentChat } from '../actions';
 import ConversationForm from './ConversationForm';
 import ConversationsCable from './ConversationsCable';
 import ConvoDisplay from './ConvoDisplay';
@@ -20,6 +20,7 @@ class AcceptedList extends React.Component {
   }
 
   findOrStartChat = (receiver) => {
+    this.props.setReceiver(receiver)
     this.props.setReceiverId(receiver.id)
     switch((this.props.chats.length === 0 || !(this.props.chats.map(chat => chat.user_ids.includes(receiver.id))).includes(true))) {
       case true:
@@ -46,7 +47,7 @@ class AcceptedList extends React.Component {
             currentChat: result,
             currentChatId: result.id
           })
-          // this.props.setChats(result)
+          this.props.setChats(result)
           this.props.addNewChat(result)
           this.props.saveCurrentChat(result)
         })
@@ -73,6 +74,7 @@ class AcceptedList extends React.Component {
   handleClick = (receiver) => {
     console.log(`user ${receiver.first_name} clicked!`)
     console.log(this.props.chats)
+    this.props.setReceiver(receiver)
     this.props.setReceiverId(receiver.id)
     if ((this.props.chats.length === 0 || !(this.props.chats.map(chat => chat.user_ids.includes(receiver.id))).includes(true))) {
       fetch(`${API_ROOT}/chats`, {
@@ -97,7 +99,7 @@ class AcceptedList extends React.Component {
           currentChat: result,
           currentChatId: result.id
         })
-        // this.props.setChats(result)
+        this.props.setChats(result)
         this.props.addNewChat(result)
         this.props.saveCurrentChat(result)
       })
@@ -124,14 +126,6 @@ class AcceptedList extends React.Component {
     this.setState({
         conversations: [...this.state.conversations, conversation]
     })
-    // const conversation = response.conversation
-    // const chats = [...this.state.chats]
-    // const chat = chats.find(chat => chat.id === conversation.chat_id)
-    // chat.conversations = [...chat.conversations, conversation]
-    // this.setState({
-    //     conversations: [...this.state.conversations, conversation]
-    // })
-    // this.props.saveConvoMsgs(chat.conversations)
     this.props.saveCurrentChat(chat)
     if (conversation.length > 0) {
       this.props.saveConvoMsgs(conversation)
@@ -143,7 +137,7 @@ class AcceptedList extends React.Component {
     let acceptedUsers = accepted.map(a => a.matched_user)
     return acceptedUsers.map(acceptedUser => {
       return (
-        <div className="AcceptedList" key={acceptedUser.id}>
+        <div className="accepted-list" key={acceptedUser.id}>
           <button onClick={() => this.handleClick(acceptedUser)} key={acceptedUser.id}>
             {/* <button onClick={() => this.findOrStartChat(acceptedUser)} key={acceptedUser.id}> */}
             <div>{acceptedUser.first_name} ☀︎ {acceptedUser.sun.sign}</div>
@@ -158,9 +152,10 @@ class AcceptedList extends React.Component {
     console.log("this.props.chats in acceptedlist", this.props.chats)
     console.log("this.props.currentChat", this.props.currentChat)
     return (
-      <div>
-        <h5 style={{"color":"#ffffff"}}> User Accepted List </h5>
-        {this.generateAccepted()}
+      <div className="row">
+        <div className="col s3">
+          {this.generateAccepted()}
+        </div>
         {this.props.currentUser.id ?
           <ActionCableConsumer
             channel={{channel: 'ChatsChannel'}}
@@ -177,14 +172,19 @@ class AcceptedList extends React.Component {
             // handleReceivedChat={this.handleReceivedChat}
           />
         :null} */}
-        {this.state.currentChat ?
+        {/* {this.state.currentChat ?
           <ConvoDisplay
             chat={this.state.currentChat}
-            // chat={this.props.currentChat}
+            currentChat={this.props.currentChat}
             currentUser={this.props.currentUser}
           />
-        : null}
-      </div>
+        : null} */}
+        {/* {this.state.currentChat ? */}
+        <div className="col s9">
+          <ConvoDisplay ref={this.props.chatRef}/>
+        </div>
+          {/* : null} */}
+        </div>
     )
   }
 
@@ -203,7 +203,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setReceiverId: (receiverId) => dispatch(setReceiverId(receiverId)),
-    // setChats: (chat) => dispatch(setChats(chat)),
+    setReceiver: (receiver) => dispatch(setReceiver(receiver)),
+    setChats: (chat) => dispatch(setChats(chat)),
     addNewChat: (chat) => dispatch(addNewChat(chat)),
     saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat))
   }

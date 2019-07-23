@@ -67,7 +67,10 @@ class ChatsBase extends React.Component {
     this.setState({
         conversations: [...this.state.conversations, conversation]
     })
+    this.props.saveCurrentChat(chat)
+    if (conversation.lenth > 0) {
     this.props.saveConvoMsgs(chat.conversations)
+    }
   }
 
   initalizeConvo = () => {
@@ -85,13 +88,13 @@ class ChatsBase extends React.Component {
     console.log("this.props.chats in ChatsBase", this.props.chats)
     console.log("this.props.conversations in ChatsBase", this.props.conversations)
     return (
-      <div className="accepted" style={{"borderColor": "#40b144"}}>
-        <div className="Accepted-header row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
+      <div className="Chats" style={{"borderColor": "#40b144"}}>
+        <div className="chats-base row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
           <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l4 m4 s3"> ◀︎ Logout</Link>
           <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
           <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
-          <div>
-            <h5 style={{"color":"#ffffff"}}>ChatsBase</h5>
+          <div className="row">
+            <h6 className="column s6 chat-header glow3">↡ · Chat · ↡ </h6>
           </div>
           <div>
             {this.props.currentUser.id
@@ -113,7 +116,9 @@ class ChatsBase extends React.Component {
                 handleReceivedConversation={this.handleReceivedConversation}
               />)
             : null}
+            {/* <div className="col s3"> */}
             <AcceptedList />
+            {/* </div> */}
           </div>
         </div>
         <ChatParticle className="snow" />

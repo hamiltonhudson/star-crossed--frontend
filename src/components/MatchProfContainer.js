@@ -47,9 +47,9 @@ class MatchProfContainer extends React.Component {
     } else if (thisViewedMatch.status === "matched" || thisViewedMatch.status === "awaiting") {
       return (
         <div className="row">
-          <div className="buttonDiv">
-            <button className="matchBtn" onClick={() => this.handleAccept(viewedMatchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
-            <button className="matchBtn" onClick={() => this.handleDecline(viewedMatchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
+          <div className="button-div">
+            <button className="match-button" onClick={() => this.handleAccept(viewedMatchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+            <button className="match-button" onClick={() => this.handleDecline(viewedMatchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
           </div>
         </div>
       )

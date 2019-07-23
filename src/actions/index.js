@@ -187,6 +187,14 @@ export const saveChats = (chats) => {
   }
 }
 
+export const setReceiver = (receiver) => {
+  console.log("setReceiver in actions/index 'receiver'", receiver)
+  return {
+    type: types.SET_RECEIVER,
+    payload: receiver
+  }
+}
+
 export const setReceiverId = (receiverId) => {
   console.log("setReceiverId in actions/index 'receiverId'", receiverId)
   return {

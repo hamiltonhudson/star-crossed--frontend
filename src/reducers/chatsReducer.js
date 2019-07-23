@@ -4,6 +4,7 @@ const initialState = {
   chats: [],
   currentChat: undefined,
   chatId: '',
+  receiver: {},
   receiverId: '',
   conversations: [],
   messagedUsers: [],
@@ -30,6 +31,12 @@ export default (state = initialState, action) => {
         ...state,
         chats: [...this.state.chats, action.payload]
         // conversations: action.payload.conversations
+      }
+    case types.SET_RECEIVER:
+      console.log("setReceiver action.payload", action.payload)
+      return {
+        ...state,
+        receiver: action.payload
       }
     case types.SET_RECEIVER_ID:
       console.log("setReceiverId action.payload", action.payload)

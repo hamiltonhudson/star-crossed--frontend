@@ -94,7 +94,7 @@ class SignIn extends React.Component {
         </div>
         <br/><br/>
         <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
-          <h1 className="loginHeader">sign in</h1>
+          <h1 className="login-header">sign in</h1>
           <div className="form" style={{"width": "85%"}}>
             <form className="col s12" onSubmit={this.handleSubmit}>
               <br/>

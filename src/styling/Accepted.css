@@ -13,15 +13,6 @@
   /* box-shadow: inset 0 0 100px 100px; */
 }
 
-.chat {
-  font-family: "WhiteAngelicaRegular";
-  color: white;
-  font-size: 38px;
-  opacity: 0.7;
-  transition: all 0.3s ease-in;
-  margin-left: 55px;
-}
-
 .chat:hover {
   /* color: hsla(278, 62%, 82%, 0.91); */
   color: #8a7bb6;
@@ -33,7 +24,6 @@
 }
 
 .glow3 {
-  text-align: center;
   -webkit-animation: glow3 5s ease-in-out infinite alternate;
   -moz-animation: glow3 5s ease-in-out infinite alternate;
   animation: glow3 5s ease-in-out infinite alternate;
@@ -48,17 +38,51 @@
   }
 }
 
-.accepted-container {
-  border-style: groove;
-  text-align: center;
-  font-color: #ffffff;
-  /* margin: auto; */
-  margin-top: 50px;
-  padding: 10px;
-  /* padding: 40px; */
+.Chats .snow canvas {
+  height: 100vh !important;
+  background-image: url('../images/MilkyWay.jpeg');
+  background-size: cover;
+}
+
+.Chats .chats-base {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  /* height: 50vh; */
+  background-color: transparent;
+  border-color: #40b144
+}
+
+/* .Accepted-div {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  background-color: transparent;
+} */
+
+.chat-header {
+  font-family: "WhiteAngelicaRegular";
+  color: white;
+  font-size: 38px;
+  opacity: 0.7;
+  transition: all 0.3s ease-in;
+  margin-left: 10vw;
+  margin-top: 4vh;
+  margin-bottom: .5vh
+  /* float: left; */
+}
+
+.ChatsCable {
+  border: 2px double #6e0511;
+}
+
+.ConversationsCable {
+  border: 1px groove #ec11d5
 }
 
 .list {
@@ -102,31 +126,6 @@
   opacity: .7;
 }
 
-.accepted .Accepted-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: transparent;
-}
-
-.accepted .snow canvas {
-  height: 100vh !important;
-  background-image: url('../images/MilkyWay.jpeg');
-  background-size: cover;
-}
-
-.Accepted-div {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  background-color: transparent;
-}
 
 .chat-container {
   dispay:flex;
@@ -139,35 +138,75 @@
   font-size: 24px;
 }
 
-.AcceptedList {
-  border-color: #0b3409;
+.accepted-list {
+  /* .accepted-container */
+  border-style: groove;
+  font-color: #ffffff;
+  /* margin: auto; */
+  margin-top: 50px;
+  padding: 10px;
+  /* padding: 40px; */
+  /* width: 100%;
+  height: 100vh; */
+  /* height: 50vh; */
 }
 
-/* .ChatParticle {
-
-} */
-
-.ChatsBase {
-}
-
-.ChatsCable {
-  border: 2px double #6e0511;
-}
-
-.ConversationsCable {
-  border: 1px groove #ec11d5
+.chat-with {
+  color: #fff;
+  font-family: "WhiteAngelicaRegular";
+  padding-left: 4vw;
 }
 
 .convo-display {
   overflow-y: scroll;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  margin: auto;
-  max-width: 95vw;
-  min-width: 65vw;
-  max-height: 75%;
-  min-height: 25%;
+  list-style: none;
+  max-height: 25vh;
+  max-width: 60vw;
+  height: auto;
+  width: auto;
+  /* min-height: 15vh;
+  min-width: 65vw; */
+  padding-left: 5vw;
+  padding-right: 5vw;
+  /* margin-top: 10vh; */
+  /* margin: auto; */
 }
+
+.convo-display::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+.convo-display::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(149, 152, 195, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(0,0,0,.5);
+}
+
+.convo-name {
+  /* color: #231F4D; */
+  /* color: #9030ac; */
+  color: hsla(278, 62%, 82%, 0.81);
+  font-family: "LOVES";
+  /* font-size: calc(.75em + .75vw); */
+  font-size: 22.5px;
+  font-weight: 900;
+  text-shadow: 2px 2px #8a7bb6;
+  letter-spacing: 3px;
+  border-bottom: 1px solid currentColor
+  /* text-decoration: underline; */
+}
+
+.convo-text {
+  color: #fff;
+  font-family: "Adam";
+  font-size: 25px;
+  /* font-size: calc(.75em + .75vw); */
+  font-weight: bolder;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px #231F4D;
+}
+
 
 .conversation-form {
   border-color: transparent;
@@ -181,14 +220,42 @@
   color: #ffffff;
 }
 
-.form .col .s12 .new-convo-form {
-  border-color: transparent;
+.new-convo-form {
   background: transparent;
   background-color: transparent;
-  /* overflow-y: scroll; */
+  /* border-color: transparent;
+  border-color: rgba(149, 152, 195, 0.5); */
   color: white;
+  height: 25vh;
+  width: 60vw;
+  padding-left: 7.5vw;
+  padding-right: 10vw;
+  margin-top: 2vh;
+  /* border-radius: 10px; */
 }
 
-.newConvo {
-  color: white;
+.new-convo {
+  border-radius: 10px;
+  color: #fff;
+  font-family: "Adam";
+  font-size: calc(1em + 1vh);
+  font-weight: 900;
+  text-shadow: 1px 1px red;
+}
+
+.send-chat-button {
+  border-radius: 15px;
+  background: transparent;
+  border-color: transparent;
+  color: #fff;
+  font-size: calc(.75em + 1vw);
+  float: right;
+  margin: 5px 10px 0px 0px;
+}
+
+
+.convo-response {
+  color: #fff;
+  font-size: 2vh;
+  font-weight: bolder;
 }

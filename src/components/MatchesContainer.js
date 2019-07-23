@@ -115,9 +115,9 @@ class MatchesContainer extends React.Component {
               <span> ☆ {matchedUser.sun.sign} </span>
             </div>
             <div className="row">
-              <div className="buttonDiv col s12">
-                <button className="matchBtn" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
-                <button className="matchBtn" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
+              <div className="button-div col s12">
+                <button className="match-button" onClick={() => this.handleAccept(matchedUser.id)}> <img id="acceptBtn" src={acceptBtn} alt='accept' /> </button>
+                <button className="match-button" onClick={() => this.handleDecline(matchedUser.id)}> <img id="declineBtn" src={declineBtn} alt='decline' /> </button>
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ class MatchesContainer extends React.Component {
       const pendingUsers = pending.map(p => p.matched_user)
       return pendingUsers.map(p => {
         return (
-          <span key={p.id} className="pending" onClick={() => this.handleViewPending(p.id)}>| {p.first_name} |</span>
+          <span key={p.id} className="pending-match" onClick={() => this.handleViewPending(p.id)}>| {p.first_name} |</span>
         )
       })
     }
@@ -148,9 +148,9 @@ class MatchesContainer extends React.Component {
         <div className="matches-scroll-box">
           {generateMatches()}
         </div>
-        <hr id="matches-hr"/>
-        <h4 id="pending-list"> Pending </h4>
-        <div style={{"marginBottom": "10px"}}>
+        <hr className="matches-hr"/>
+        <h4 className="pending-header"> Pending </h4>
+        <div className="pending-list">
           {generatePending()}
         </div>
       </div>

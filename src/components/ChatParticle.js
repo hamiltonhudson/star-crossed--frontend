@@ -1,7 +1,5 @@
 import React from 'react';
 import Particles from 'react-particles-js';
-import '../styling/App.css';
-import '../styling/Landing.css';
 import '../styling/Accepted.css';
 
 class ChatParticle extends React.Component {
