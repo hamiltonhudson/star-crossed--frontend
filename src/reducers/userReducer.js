@@ -46,10 +46,10 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload
       }
-    case types.ENABLE_CHAT:
-      return {...state,
-        chatEnabled: action.payload.chatEnabled
-      }
+    // case types.ENABLE_CHAT:
+    //   return {...state,
+    //     chatEnabled: action.payload.chatEnabled
+    //   }
     default:
       return state;
   }

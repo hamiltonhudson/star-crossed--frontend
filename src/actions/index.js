@@ -204,7 +204,7 @@ export const setReceiverId = (receiverId) => {
 }
 
 export const addNewChat = (appendedChat) => {
-  console.log("getConvos in actions/index 'appendedChat' ", appendedChat)
+  console.log("addNewChat in actions/index 'appendedChat' ", appendedChat)
   return {
     type: types.ADD_NEW_CHAT,
     payload: appendedChat

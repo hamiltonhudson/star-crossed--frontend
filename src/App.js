@@ -12,7 +12,6 @@ import ProfileContainer from './components/ProfileContainer';
 import MatchProfContainer from './components/MatchProfContainer'
 import EditUser from './components/EditUser';
 import ChatsBase from './components/ChatsBase';
-import ChatTest from './components/ChatTest';
 import './styling/App.css';
 
 

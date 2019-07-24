@@ -12,18 +12,18 @@ class ConvoDisplay extends React.Component {
      display = (id, conversations) => {
       console.log("id in ConvoDisplay:", id, "conversations in ConvoDisplay", conversations)
       return (
-        <Fragment>
-          <h6 className="chat-with"> Chat with: {this.props.receiver.first_name}</h6>
+        // <div className="convos-area">
+        <div className="col l9 m9 s12 convos-area">
           <div className="convo-display">
             {conversations.length > 0 ?
               <ul>{this.orderedConversations(conversations)}</ul>
             :
             null}
           </div>
-          <div className="row">
-            <ConversationForm chat_id={id} />
-          </div>
-        </Fragment>
+          {/* <div className="row"> */}
+          <ConversationForm chat_id={id} />
+          {/* </div> */}
+        </div>
       )
     }
 
@@ -31,34 +31,32 @@ class ConvoDisplay extends React.Component {
       const sortedConversations = conversations.sort(
         (a, b) => new Date(a.created_at) - new Date(b.created_at)
       )
+      // return sortedConversations.map(conversation => {
+      //   console.log(conversation.user_name === this.props.currentUser.first_name)
+      //   return <li className="convo-response" key={conversation.id}><span className="convo-name">{conversation.user_name}</span> : <span className="convo-text">{conversation.message}</span></li>;
+      // })
       return sortedConversations.map(conversation => {
-        return <li className="convo-response" key={conversation.id}><span className="convo-name">{conversation.user_name}</span> : <span className="convo-text">{conversation.message}</span></li>;
+        if (conversation.user_name === this.props.currentUser.first_name) {
+          return <li className="current-user-response" key={conversation.id}><span className="current-user-color">{conversation.message}</span></li>
+        } else {
+        return <li className="receiver-response" key={conversation.id}><span className="receiver-color">{conversation.message}</span></li>
+        }
       })
     }
+
 
     render() {
     let chat = this.props.currentChat
      return (
-       <Fragment>
+       <div className="convooo">
          {chat? (
            this.display(chat.id, chat.conversations)
          ) : null}
-       </Fragment>
+       </div>
      )
     }
 
 }
-
-// const orderedConversations = (conversations) => {
-//   const sortedConversations = conversations.sort(
-//     (a, b) => new Date(a.created_at) - new Date(b.created_at)
-//   )
-//   return sortedConversations.map(conversation => {
-//     console.log("conversation in orderedconvos", conversation)
-//     // return <li className="convo-response" key={conversation.id}>{conversation.user_name} : {conversation.message}</li>;
-//     return <li className="convo-response" key={conversation.id}><span className="convo-name">{conversation.user_name}</span> : <span className="convo-text">{conversation.message}</span></li>;
-//   })
-// }
 
 const mapStateToProps = (state) => {
   return {
@@ -69,38 +67,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-// export default ConvoDisplay
 export default connect(mapStateToProps)(ConvoDisplay);
-
-//
-// const checkConvoUser = (userId) => {
-//   if (userId === props.userId) {
-//     return currentUserStyle
-//   } else {
-//     return acceptedMatchStyle
-//   }
-// }
-//
-// const currentUserStyle = {
-//    background: 'rgba(148, 176, 224, 0.51)',
-//    textAlign: 'right',
-//    color: "#ffffff",
-//  }
-// const acceptedMatchStyle = {
-//    background: 'rgba(121, 246, 193, 0.33)'
-//  }
-//
-// const acceptedMatchUser = () => {
-//   return props.currentChat.conversations.users.find(user => user.id !== props.userId)
-// }
-
-// const orderedConversations = (conversations) => {
-//   const sortedConversations = conversations.sort(
-//     (a, b) => new Date(a.created_at) - new Date(b.created_at)
-//   )
-//   return sortedConversations.map(conversation => {
-//     console.log("conversation in orderedconvos", conversation)
-//     // return <li className="convo-response" key={conversation.id}>{conversation.user_name} : {conversation.message}</li>;
-//     return <li className="convo-response" key={conversation.id}><span className="convo-name">{conversation.user_name}</span> : <span className="convo-text">{conversation.message}</span></li>;
-//   })
-// }

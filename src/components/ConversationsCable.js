@@ -8,6 +8,7 @@ class ConversationsCable extends React.Component {
   handleReceivedConversation = (response) => {
     console.log("response in handleReceivedConversation convocable", response)
     const { conversation } = response
+    console.log("response.user", response.user)
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
     console.log("chat.converstions", chat.conversations)
@@ -28,10 +29,9 @@ class ConversationsCable extends React.Component {
                 channel={{channel: "ConversationsChannel", chat: chat.id}}
                 onReceived={(response) => this.handleReceivedConversation(response)}
               />
-              // )
-            )})
-          }
-          {/* : null} */}
+            )
+          })}
+            {/* : null} */}
         </Fragment>
       )
     // }
@@ -54,7 +54,5 @@ const mapDispatchToProps = (dispatch) => {
     saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat))
   }
 }
-
-// export default connect(mapStateToProps)(ConversationsCable);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConversationsCable)

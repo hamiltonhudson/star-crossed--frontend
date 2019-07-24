@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { API_WS_ROOT, API_ROOT } from '../constants/ActionTypes';
+import { API_ROOT } from '../constants/ActionTypes';
 import { ActionCableConsumer } from 'react-actioncable-provider';
-import { viewMatch, enableChat, setChats, addNewChat, saveChats, saveCurrentChat, saveConvoMsgs } from '../actions';
+import { setChats, addNewChat, saveChats, saveCurrentChat, saveConvoMsgs } from '../actions';
 import Adapter from './Adapter';
 import ChatParticle from './ChatParticle';
 import AcceptedList from './AcceptedList';
@@ -47,14 +47,14 @@ class ChatsBase extends React.Component {
   handleReceivedChat = (response) => {
     console.log("response in handleReceivedChat", response)
     const { chat } = response
-    // if (chat.users.map((user) => user.id).includes(this.props.userId)) {
+    // if (chat.users.map((user) => user.id).includes(this.props.currentUser.id)) {
     //   this.props.addNewChat(chat)
     // let activeChat = this.props.chats.find(chat => chat.users.map(user => user.id.includes(this.props.receiverId)))
       this.setState({
         chats: [...this.state.chats, chat],
         // activeChat: activeChat
       })
-      this.props.saveCurrentChat(chat)
+      // this.props.saveCurrentChat(chat)
   }
 
   handleReceivedConversation = (response) => {
@@ -63,11 +63,11 @@ class ChatsBase extends React.Component {
     // const chats = [...this.state.chats]
     // const chat = chats.find(chat => chat.id === conversation.chat_id)
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
-    chat.conversations = [...chat.conversations, conversation]
+    // chat.conversations = [...chat.conversations, conversation]
     this.setState({
         conversations: [...this.state.conversations, conversation]
     })
-    this.props.saveCurrentChat(chat)
+    // this.props.saveCurrentChat(chat)
     if (conversation.lenth > 0) {
     this.props.saveConvoMsgs(chat.conversations)
     }
@@ -93,8 +93,9 @@ class ChatsBase extends React.Component {
           <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l4 m4 s3"> ◀︎ Logout</Link>
           <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
           <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
+          <br/>
           <div className="row">
-            <h6 className="column s6 chat-header glow3">↡ · Chat · ↡ </h6>
+            <h5 className="col s10 offset-s2 chat-header glow3"> Chat With {this.props.receiver? (<span className="chat-with">{this.props.receiver.first_name}</span>) : null} </h5>
           </div>
           <div>
             {this.props.currentUser.id
@@ -110,15 +111,13 @@ class ChatsBase extends React.Component {
                 handleReceivedChat={this.handleReceivedChat}
               />)
             : null}
-            {this.state.chats.length ? (
+            {/* {this.state.chats.length ? (
               <ConversationsCable
                 chats={this.state.chats} currentUser={this.props.currentUser}
                 handleReceivedConversation={this.handleReceivedConversation}
               />)
-            : null}
-            {/* <div className="col s3"> */}
+            : null} */}
             <AcceptedList />
-            {/* </div> */}
           </div>
         </div>
         <ChatParticle className="snow" />
@@ -133,7 +132,8 @@ const mapStateToProps = (state) => {
     userId: state.users.currentUser.id,
     acceptedUsers: state.matches.acceptedUsers,
     chats: state.chats.chats,
-    chatEnabled: state.chats.chatEnabled,
+    // chatEnabled: state.chats.chatEnabled,
+    receiver: state.chats.receiver,
     receiverId: state.chats.receiverId,
     conversations: state.chats.conversations
   }
@@ -141,11 +141,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getChats: (chats) => dispatch(getChats(chats)),
     setChats: (chats) => dispatch(setChats(chats)),
     saveChats: (chats) => dispatch(saveChats(chats)),
     saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
-    saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
+    // saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
   }
 }
 

@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ActionCableConsumer } from 'react-actioncable-provider';
-import { addNewChat } from '../actions';
+import { addNewChat, saveCurrentChat, saveChats } from '../actions';
 
 class ChatsCable extends React.Component {
 
   handleReceivedChat = (response) => {
+    console.log("response in chatscable handlereceivedchat", response)
     const { chat } = response
     if (chat.users.map((user) => user.id).includes(this.props.userId)) {
-      this.props.addNewChat(chat)
+      // this.props.addNewChat(chat)
+      this.props.saveCurrentChat(chat)
+      // this.props.saveChats(chat)
+
     }
   }
 
@@ -36,7 +40,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNewChat: (appendedChat) => dispatch(addNewChat(appendedChat))
+    addNewChat: (appendedChat) => dispatch(addNewChat(appendedChat)),
+    saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
+    saveChats: (chat) => dispatch(saveChats(chat))
   }
 }
 

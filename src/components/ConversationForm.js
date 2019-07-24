@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { API_ROOT } from '../constants/ActionTypes'
 
@@ -43,7 +43,7 @@ class ConversationForm extends React.Component {
 
   render() {
     return (
-      <div className="col s9conversation-form">
+      <Fragment>
         <form onSubmit={this.handleSubmit} className="new-convo-form">
           <textarea
             type="text"
@@ -53,6 +53,7 @@ class ConversationForm extends React.Component {
             onChange={this.handleChange}
             onKeyDown={this.responsiveEnterKey}
             className="new-convo"
+            style={{"borderRadius": "15px"}}
           />
           <br/>
           <input
@@ -61,7 +62,7 @@ class ConversationForm extends React.Component {
             className="send-chat-button"
           />
         </form>
-      </div>
+      </Fragment>
     )
   }
 
