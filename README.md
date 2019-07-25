@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Star-Crossed is a zodiac dating app that matches users based on compatibility of their sun sign and gender preference. A user is required to include their DOB (to find their sun sign on the backend), as well as gender and gender preference for filtering results. Two algorithms on the backend to facilitate matches — one finds a sun sign’s compatible signs based on API data. The other creates matches with that compatibility, then cross-references against both matched users gender and gender preference. In their profile, a user can view all matches, click to view a match’s profile, and decline or accept a match. Declining will nix the match for both users obviously, but accepting will generate a status of either “pending” or “accepted”, contingent on whether or not the matched user has also accepted. If a user edits their details (gender preference, for example) matches will be regenerated, but declined matches will never be re-created or re-added. A user can of course view all of their accepted matches and soon (working stages), be able chat with them as well. 🔮💌
+Star-Crossed is a zodiac dating app matching users based on compatibility of their sun sign. Zodiac (sun) signs are computed from a user's DOB, with further info pulled from external API data. Based on sun signs, gender, and gender preference, two algorithms facilitate matches and filter results. Signing up and signing in uses secure auth and allows a user to view all matches, a specific match’s profile, and accept or decline a match. Declining will nix the match for both parties (obviously), but accepting will generate a status of either “pending” or “accepted”, contingent on whether or not the matched user has also accepted. If a user edits their details (gender preference, for example) matches will be regenerated, but declined matches will never be re-created or re-rendered. Matches confirmed by both users can be viewed on the "ACCEPTED" page, which also opens the chat portal where a user can direct message any of their star-crossed lovers. 😉🔮💌
 
 ## Technologies Used
 
@@ -13,11 +13,11 @@ React, Redux, Ruby on Rails, Zodiacal API, HTML, CSS, JSON, Materialize React CD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Prerequisites
-To use, clone down this repo and open with your preferred text editor. Before anything else, if you haven’t already, make sure to set up the project backend as well (link below), which will ensure you have the working usable version of Ruby/Rails installed on your machine. This project uses React/Redux and requires node package manager, so once you have it open in your local environment, run the following: 
+To use, clone down this repo and open with your preferred text editor. Before anything else, if you haven’t already, make sure to set up the project backend as well (link below), which will ensure you have the working usable version of Ruby/Rails installed on your machine. This project uses React/Redux and requires node package manager, so once you have it open in your local environment, run the following:
 
 `npm install`
 
-terminal command from the root of the project to install dependencies. 
+terminal command from the root of the project to install dependencies.
 
 ### Installing
 Once npm is finished installing and you’re back to a working terminal, jump over to the backend project root and run:
@@ -36,7 +36,7 @@ and type “yes” or “y” when asked if you’d like to run this server on a
 
 ## Demo Video
 
-[star-crossed.mov](https://drive.google.com/file/d/1s-mXsQ8bZujMtY53DviUvsxRgVIZOdFU/view)
+[star-crossed.mov](https://drive.google.com/file/d/1c5VZztRUjhC6q2-htKYpym5kWF0EjoaY/view?usp=sharing)
 
 ## Authors
 
