@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { API_ROOT } from '../constants/ActionTypes';
+import { API_ROOT } from '../constants/Roots';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import { setChats, addNewChat, saveChats, saveCurrentChat, saveConvoMsgs } from '../actions';
 import Adapter from './Adapter';
@@ -11,6 +11,7 @@ import ChatsCable from './ChatsCable';
 import ConversationsCable from './ConversationsCable';
 import '../styling/Accepted.css';
 import '../styling/App.css';
+
 
 class ChatsBase extends React.Component {
 
@@ -23,8 +24,6 @@ class ChatsBase extends React.Component {
 
 
   componentDidMount = () => {
-    console.log("document cookie", document.cookie)
-    console.log("this.props.userId in ChatsBase", this.props.userId)
     fetch(`${API_ROOT}/chats`, {
       method: "GET",
       headers: {
@@ -37,7 +36,6 @@ class ChatsBase extends React.Component {
     })
     .then(response => response.json())
     .then(result => {
-      console.log("chats (response.json) in ChatBase componentDidMount", result)
       let chats = result
       this.props.setChats(chats)
       this.setState({ chats })
@@ -45,48 +43,39 @@ class ChatsBase extends React.Component {
   }
 
   handleReceivedChat = (response) => {
-    console.log("response in handleReceivedChat", response)
     const { chat } = response
-    // if (chat.users.map((user) => user.id).includes(this.props.currentUser.id)) {
-    //   this.props.addNewChat(chat)
     // let activeChat = this.props.chats.find(chat => chat.users.map(user => user.id.includes(this.props.receiverId)))
-      this.setState({
-        chats: [...this.state.chats, chat],
-        // activeChat: activeChat
-      })
-      // this.props.saveCurrentChat(chat)
+    this.setState({
+      chats: [...this.state.chats, chat],
+      // activeChat: activeChat
+    })
+    // this.props.saveCurrentChat(chat)
   }
 
   handleReceivedConversation = (response) => {
-    console.log("resonse for receive convo in chatsbase", response)
     const conversation = response
-    // const chats = [...this.state.chats]
-    // const chat = chats.find(chat => chat.id === conversation.chat_id)
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
-    // chat.conversations = [...chat.conversations, conversation]
-    this.setState({
-        conversations: [...this.state.conversations, conversation]
-    })
+    chat.conversations = [...chat.conversations, conversation]
+    this.setState({ conversations: [...this.state.conversations, conversation] })
     // this.props.saveCurrentChat(chat)
     if (conversation.lenth > 0) {
-    this.props.saveConvoMsgs(chat.conversations)
+      this.props.saveConvoMsgs(chat.conversations)
     }
   }
 
   initalizeConvo = () => {
-    return this.props.chat.conversations.length === 0
-    ? <div className="initial-convo">
-      <p>Start chatting</p>
-    </div>
-    : <div className="initial-convo">
-      {(this.props.chat.conversations[(this.props.chat.conversations.length)-1].user.first_name)}: {`${this.props.chat.conversations[(this.props.chat.conversations.length)-1].message.substring(0, 15)}...`}
-    </div>
-    }
+    return this.props.chat.conversations.length === 0 ? (
+      <div className="initial-convo">
+        <p>Start chatting</p>
+      </div>
+    ) : (
+      <div className="initial-convo">
+        {(this.props.chat.conversations[(this.props.chat.conversations.length)-1].user.first_name)}: {`${this.props.chat.conversations[(this.props.chat.conversations.length)-1].message.substring(0, 15)}...`}
+      </div>
+    )
+  }
 
   render() {
-    console.log("this.state.chats in ChatsBase", this.state.chats)
-    console.log("this.props.chats in ChatsBase", this.props.chats)
-    console.log("this.props.conversations in ChatsBase", this.props.conversations)
     return (
       <div className="Chats" style={{"borderColor": "#40b144"}}>
         <div className="chats-base row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
@@ -105,18 +94,13 @@ class ChatsBase extends React.Component {
                 />
               : null
             }
-            {this.state.chats.length ? (
+            {this.props.chats.length ? (
               <ChatsCable
-                chats={this.state.chats} currentUser={this.props.currentUser}
+                chats={this.props.chats} currentUser={this.props.currentUser}
+                userId={this.props.currentUser.id} receiverId={this.props.receiverId}
                 handleReceivedChat={this.handleReceivedChat}
               />)
             : null}
-            {/* {this.state.chats.length ? (
-              <ConversationsCable
-                chats={this.state.chats} currentUser={this.props.currentUser}
-                handleReceivedConversation={this.handleReceivedConversation}
-              />)
-            : null} */}
             <AcceptedList />
           </div>
         </div>
@@ -124,28 +108,29 @@ class ChatsBase extends React.Component {
       </div>
     )
   }
+
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser,
-    userId: state.users.currentUser.id,
-    acceptedUsers: state.matches.acceptedUsers,
-    chats: state.chats.chats,
-    // chatEnabled: state.chats.chatEnabled,
-    receiver: state.chats.receiver,
-    receiverId: state.chats.receiverId,
-    conversations: state.chats.conversations
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      userId: state.users.currentUser.id,
+      acceptedUsers: state.matches.acceptedUsers,
+      chats: state.chats.chats,
+      chatEnabled: state.chats.chatEnabled,
+      receiver: state.chats.receiver,
+      receiverId: state.chats.receiverId,
+      conversations: state.chats.conversations
+    }
   }
-}
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setChats: (chats) => dispatch(setChats(chats)),
-    saveChats: (chats) => dispatch(saveChats(chats)),
-    saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
-    // saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      setChats: (chats) => dispatch(setChats(chats)),
+      saveChats: (chats) => dispatch(saveChats(chats)),
+      saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
+      // saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
+    }
   }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatsBase)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatsBase);

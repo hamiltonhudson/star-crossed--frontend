@@ -161,26 +161,23 @@ export const updateMatchedUsers = (updatedMatchedUsers) => {
   }
 }
 
-export const enableChat = (chat) => {
+export const enableChat = (status) => {
   return {
     type: types.ENABLE_CHAT,
     payload: {
-      chatEnabled: chat
+      chatEnabled: status
     }
   }
 }
 
 export const setChats = (chats) => {
-  console.log("setChats in actions/index 'chats' ", chats)
   return {
     type: types.SET_CHATS,
     payload: chats
-    //get all current user's current convos
   }
 }
 
 export const saveChats = (chats) => {
-  console.log("chats in action/index", chats)
   return {
     type: types.SAVE_CHATS,
     payload: chats
@@ -188,7 +185,6 @@ export const saveChats = (chats) => {
 }
 
 export const setReceiver = (receiver) => {
-  console.log("setReceiver in actions/index 'receiver'", receiver)
   return {
     type: types.SET_RECEIVER,
     payload: receiver
@@ -196,7 +192,6 @@ export const setReceiver = (receiver) => {
 }
 
 export const setReceiverId = (receiverId) => {
-  console.log("setReceiverId in actions/index 'receiverId'", receiverId)
   return {
     type: types.SET_RECEIVER_ID,
     payload: receiverId
@@ -215,22 +210,12 @@ export const saveCurrentChat = (currentChat) => {
   console.log("saveCurrentChat in actions/index 'currentChat' ", currentChat)
   return {
     type: types.SAVE_CURRENT_CHAT,
-    payload: {
-      currentChat: currentChat
-    }
+    payload: currentChat
   }
 }
 
-// export const saveConvoMsgs = (conversations) => {
-//   console.log("saveConvoMsgs in actions/index 'conversations' ")
-//   return {
-//     type: types.SAVE_CONVO_MSGS,
-//     payload: conversations
-//   }
-// }
-
 export const saveConvoMsgs = (conversation) => {
-  console.log("saveConvoMsgs in actions/index 'conversation' ")
+  console.log("saveConvoMsgs in actions/index 'conversation' ", conversation)
   return {
     type: types.SAVE_CONVO_MSGS,
     payload: conversation
@@ -238,7 +223,6 @@ export const saveConvoMsgs = (conversation) => {
 }
 
 export const eraseCurrentChat = (currentChat) => {
-  console.log("eraseCurrentChat in actions/index 'currentChat' ")
   return {
     type: types.ERASE_CURRENT_CHAT,
     payload: currentChat

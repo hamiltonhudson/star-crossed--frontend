@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import Adapter from './Adapter'
+import { MATCHES_API } from '../constants/Roots';
 import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatches, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
+import Adapter from './Adapter';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
 import '../styling/Matches.css';
 import '../styling/App.css';
-
-const matchesAPI = 'http://localhost:3000/api/v1/matches'
 
 
 class MatchesContainer extends React.Component {
@@ -60,14 +59,14 @@ class MatchesContainer extends React.Component {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        // 'Authorization': localStorage.getItem('token'),
+        'Authorization': localStorage.getItem('token'),
         'Credentials': 'include'
       },
       body: JSON.stringify({
         status: "accepted"
       })
     }
-    fetch(`${matchesAPI}/${acceptedMatch.id}/accept`, acceptConfig)
+    fetch(`${MATCHES_API}/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
     .then(result => {
       this.props.setCurrentUser(result.user)
@@ -96,7 +95,7 @@ class MatchesContainer extends React.Component {
         status: "declined"
       })
     }
-    fetch(`${matchesAPI}/${declinedMatch.id}/decline`, declineConfig)
+    fetch(`${MATCHES_API}/${declinedMatch.id}/decline`, declineConfig)
     .then(r => r.json())
     .then(result => {
       this.props.setCurrentUser(result.user)
@@ -136,7 +135,6 @@ class MatchesContainer extends React.Component {
     return (
       <div className="matches-container">
         {this.setStatusAndRedirect()}
-        {/* {(!this.state.acceptedStatus) ? null : <Redirect to="/chat" />} */}
         <div className="row" style={{"marginTop": "1vh", "marginBottom": "1vh"}}>
           <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l4 m4 s3"> ◀︎ LogOut </Link>
           <Link className="center-link col l4 m4 s6" to='/chat'> ▲ Accepted ▲ </Link>

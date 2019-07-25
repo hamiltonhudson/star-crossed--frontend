@@ -2,7 +2,9 @@ import React from 'react';
 import Particles from 'react-particles-js';
 import '../styling/Landing.css';
 
+
 class Particle extends React.Component {
+
   render() {
     return (
       <Particles className="particle"
@@ -10,7 +12,7 @@ class Particle extends React.Component {
           {
             "particles": {
               "number": {
-                "value": 432,
+                "value": 232,
                 "density": {
                   "enable": true,
                   "value_area":5854.732123833044
@@ -63,7 +65,7 @@ class Particle extends React.Component {
               },
               "move": {
                 "enable": true,
-                "speed": 1.4,
+                "speed": 4.4,
                 "direction": "none",
                 "random": true,
                 "straight": false,
@@ -121,6 +123,7 @@ class Particle extends React.Component {
       />
     )
   }
+
 }
 
-export default Particle
+export default Particle;

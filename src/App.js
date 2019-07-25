@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { ActionCableProvider } from 'react-actioncable-provider';
-import { API_WS_ROOT } from './constants/ActionTypes';
+import { API_WS_ROOT } from './constants/Roots';
 import Landing from './components/Landing';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import NewUser from './components/NewUser';
 import MatchesContainer from './components/MatchesContainer';
-import ProfileContainer from './components/ProfileContainer';
-import MatchProfContainer from './components/MatchProfContainer'
+import Profile from './components/Profile';
+import MatchProfile from './components/MatchProfile'
 import EditUser from './components/EditUser';
 import ChatsBase from './components/ChatsBase';
 import './styling/App.css';
@@ -39,8 +39,8 @@ class App extends Component {
           <Route path='/newuser' component={NewUser} />
           <Route path='/signin' component={SignIn} />
           <Route path='/matches' component={MatchesContainer} />
-          <Route path='/profile' component={ProfileContainer} />
-          <Route path='/matchprofile' component={MatchProfContainer} />
+          <Route path='/profile' component={Profile} />
+          <Route path='/matchprofile' component={MatchProfile} />
           <Route path='/edit' component={EditUser} />
           <Route path='/chat' component={ChatsBase} />
           {/* <Route path='/chat' component={ChatTest} /> */}
@@ -57,5 +57,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-// export default App;
 export default connect(mapStateToProps)(App);

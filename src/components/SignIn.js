@@ -1,11 +1,9 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
+import { API_ROOT, USERS_API } from '../constants/Roots';
+import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers} from '../actions';
 import '../styling/Form.css';
-import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers} from '../actions'
-
-const API = 'http://localhost:3000/api/v1'
-const usersAPI = 'http://localhost:3000/api/v1/users'
 
 
 class SignIn extends React.Component {
@@ -28,7 +26,7 @@ class SignIn extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-      fetch(`${API}/auth`, {
+      fetch(`${API_ROOT}/auth`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -46,9 +44,7 @@ class SignIn extends React.Component {
           alert('Please check that your email and password are entered correctly')
           return <Redirect to="/signin" />
         } else {
-          console.log(result.token)
           localStorage.setItem('token', result.token)
-          console.log(localStorage.getItem('token'))
           this.saveTokenAsCookie()
           const userDetails = result.user
           this.props.setCurrentUser(userDetails)
@@ -69,7 +65,7 @@ class SignIn extends React.Component {
     }
 
     fetchUsers = () => {
-      fetch(usersAPI, {
+      fetch(USERS_API, {
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',

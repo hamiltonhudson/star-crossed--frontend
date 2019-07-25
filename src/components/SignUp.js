@@ -1,6 +1,6 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
 import { getEmailAndPW } from '../actions';
 import '../styling/Form.css';
 
@@ -79,10 +79,10 @@ class SignUp extends React.Component {
 
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getEmailAndPW: (email, password) => dispatch(getEmailAndPW(email, password)),
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      getEmailAndPW: (email, password) => dispatch(getEmailAndPW(email, password)),
+    };
   };
-};
 
 export default connect(null, mapDispatchToProps)(SignUp);

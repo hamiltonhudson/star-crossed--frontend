@@ -17,29 +17,25 @@ export default (state = initialState, action) => {
     case types.ENABLE_CHAT:
       return {
         ...state,
-        chatEnabled: action.payload.chatEnabled
+        chatEnabled: action.payload
       }
     case types.SET_CHATS:
-      console.log("setChats action.payload chatsReducer", action.payload)
       return {
         ...state,
         chats: action.payload
       }
     case types.SAVE_CHATS:
-      console.log("getConvos action.payload chatsReducer", action.payload)
+      // let savedChat = this.state.chats.find(chat => chat.id === action.payload.id)
       return {
         ...state,
-        chats: [...this.state.chats, action.payload]
-        // conversations: action.payload.conversations
+        chats: [...state.chats, action.payload]
       }
     case types.SET_RECEIVER:
-      console.log("setReceiver action.payload chatsReducer", action.payload)
       return {
         ...state,
         receiver: action.payload
       }
     case types.SET_RECEIVER_ID:
-      console.log("setReceiverId action.payload chatsReducer", action.payload)
       return {
         ...state,
         receiverId: action.payload
@@ -49,13 +45,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         chats: [...state.chats, action.payload],
-        // appendedChat: action.payload,
       }
     case types.SAVE_CURRENT_CHAT:
-    console.log("savecurrent action.payload chatsReducer", action.payload)
+    console.log("saveCurrentChat action.payload chatsReducer", action.payload)
       return {
         ...state,
-        currentChat: action.payload.currentChat,
+        currentChat: action.payload,
       }
     case types.SAVE_CONVO_MSGS:
     console.log("saveConvoMsgs action.payload chatsReducer", action.payload)
@@ -64,7 +59,6 @@ export default (state = initialState, action) => {
         conversations: [...state.conversations, action.payload]
       }
     case types.ERASE_CURRENT_CHAT:
-    console.log("erasechat action.payload chatsReducer", action.payload)
       return {
         ...state,
         currentChat: undefined

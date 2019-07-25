@@ -1,19 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import MatchProfDetail from './MatchProfDetail';
-import MatchProfSun from './MatchProfSun';
-import Adapter from './Adapter';
+import { MATCHES_API } from '../constants/Roots';
 import { acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatchedUsers, declinePendingMatch, declinePendingMatchedUser, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
+import MatchProfileDetail from './MatchProfileDetail';
+import MatchProfileSun from './MatchProfileSun';
+import Adapter from './Adapter';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
-import '../styling/Profile.css'
+import '../styling/Profile.css';
 
 
-const matchesAPI = 'http://localhost:3000/api/v1/matches'
-
-
-class MatchProfContainer extends React.Component {
+class MatchProfile extends React.Component {
 
   state = {
     clicked: '',
@@ -77,7 +75,7 @@ class MatchProfContainer extends React.Component {
         status: "accepted"
       })
     }
-    fetch(`${matchesAPI}/${acceptedMatch.id}/accept`, acceptConfig)
+    fetch(`${MATCHES_API}/${acceptedMatch.id}/accept`, acceptConfig)
     .then(r => r.json())
     .then(result => {
       this.props.setCurrentUser(result.user)
@@ -110,7 +108,7 @@ class MatchProfContainer extends React.Component {
           status: "declined"
         })
       }
-    fetch(`${matchesAPI}/${declinedMatch.id}/decline`, declineConfig)
+    fetch(`${MATCHES_API}/${declinedMatch.id}/decline`, declineConfig)
     .then(r => r.json())
     .then(result => {
       this.props.setCurrentUser(result.user)
@@ -127,7 +125,6 @@ class MatchProfContainer extends React.Component {
     const matchPhoto = this.props.viewedMatch.photo
     return (
       <div className="prof-container">
-        {/* {this.matchesReturn()} */}
         <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
           <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l3 m3 s6"> ◀︎ LogOut </Link>
           <Link to='/matches' className="center-link col l3 m3 s6"> △ Matches △ </Link>
@@ -136,7 +133,7 @@ class MatchProfContainer extends React.Component {
         </div><br/>
         <div className="prof-card">
           <div className="user-card row">
-            <MatchProfDetail clicked={this.state.clicked}/>
+            <MatchProfileDetail clicked={this.state.clicked}/>
             <div className="col l4 m6 s12">
               <h3 className="card-title prof-name" data-name="name"
                 onClick={(event) => this.handleDetailClick(event)}>
@@ -148,7 +145,7 @@ class MatchProfContainer extends React.Component {
               <br/>
               <h6 className="prof-sun" data-name="sun" onClick={(event) => this.handleDetailClick(event)}> {this.props.viewedMatch.sun.sign} </h6>
             </div>
-            <MatchProfSun clicked={this.state.clicked}/>
+            <MatchProfileSun clicked={this.state.clicked}/>
           </div>
           <br/>
           {this.buttonsDisplay(this.props.viewedMatch)}
@@ -186,34 +183,32 @@ class MatchProfContainer extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    viewedMatch: state.matches.match,
-    matches: state.matches.matches,
-    matchedUsers: state.matches.matchedUsers,
-    undeclinedMatches: state.matches.undeclinedMatches,
-    undeclinedMatchedUsers: state.matches.undeclinedMatchedUsers,
-    accepted: state.matches.accepted,
-    acceptedUsers: state.matches.acceptedUsers,
-    currentUser: state.users.currentUser,
+  const mapStateToProps = (state) => {
+    return {
+      viewedMatch: state.matches.match,
+      matches: state.matches.matches,
+      matchedUsers: state.matches.matchedUsers,
+      undeclinedMatches: state.matches.undeclinedMatches,
+      undeclinedMatchedUsers: state.matches.undeclinedMatchedUsers,
+      accepted: state.matches.accepted,
+      acceptedUsers: state.matches.acceptedUsers,
+      currentUser: state.users.currentUser,
+    }
   }
-}
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
-    acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
-    declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
-    declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
-    declinePendingMatch: (declinedMatch) => dispatch(declinePendingMatch(declinedMatch)),
-    declinePendingMatchedUser: (declinedUser) => dispatch(declinePendingMatchedUser(declinedUser)),
-    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-    allUndeclinedMatches: (undeclinedMatches) => dispatch(allUndeclinedMatches(undeclinedMatches)),
-    allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers)),
-    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers))
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      acceptMatch: (acceptedMatch) => dispatch(acceptMatch(acceptedMatch)),
+      acceptMatchedUser: (acceptedUser) => dispatch(acceptMatchedUser(acceptedUser)),
+      declineMatch: (declinedMatch) => dispatch(declineMatch(declinedMatch)),
+      declineMatchedUser: (declinedUser) => dispatch(declineMatchedUser(declinedUser)),
+      declinePendingMatch: (declinedMatch) => dispatch(declinePendingMatch(declinedMatch)),
+      declinePendingMatchedUser: (declinedUser) => dispatch(declinePendingMatchedUser(declinedUser)),
+      setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+      allUndeclinedMatches: (undeclinedMatches) => dispatch(allUndeclinedMatches(undeclinedMatches)),
+      allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers)),
+      findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers))
+    }
   }
-}
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(MatchProfContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchProfile);

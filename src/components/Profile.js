@@ -8,7 +8,7 @@ import '../styling/Profile.css';
 import '../styling/App.css';
 
 
-class ProfileContainer extends React.Component {
+class Profile extends React.Component {
 
   state = {
     clicked: '',
@@ -81,12 +81,11 @@ class ProfileContainer extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser,
-    userId: state.users.userId,
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      userId: state.users.userId,
+    }
   }
-}
 
-
-export default connect(mapStateToProps)(ProfileContainer);
+export default connect(mapStateToProps)(Profile);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../styling/Profile.css'
+import '../styling/Profile.css';
+
 
 class ProfileDetail extends React.Component {
 
@@ -28,11 +29,13 @@ class ProfileDetail extends React.Component {
       </div>
     )
   }
+
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser
+    }
   }
-}
+
 export default connect(mapStateToProps)(ProfileDetail);

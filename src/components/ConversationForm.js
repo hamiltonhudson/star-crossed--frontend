@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { API_ROOT } from '../constants/ActionTypes'
+import { API_ROOT } from '../constants/Roots';
+
 
 class ConversationForm extends React.Component {
 
@@ -36,7 +37,6 @@ class ConversationForm extends React.Component {
 
   responsiveEnterKey = (event) => {
     if (event.key === "Enter") {
-    // if (event.keyCode === 13) {
       this.handleSubmit(event)
     }
   }
@@ -68,11 +68,11 @@ class ConversationForm extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser,
-    currentChat: state.chats.currentChat
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      currentChat: state.chats.currentChat
+    }
   }
-}
 
-export default connect(mapStateToProps)(ConversationForm)
+export default connect(mapStateToProps)(ConversationForm);

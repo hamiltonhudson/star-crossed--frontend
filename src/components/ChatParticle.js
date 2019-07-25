@@ -2,7 +2,9 @@ import React from 'react';
 import Particles from 'react-particles-js';
 import '../styling/Accepted.css';
 
+
 class ChatParticle extends React.Component {
+
   render() {
     return (
       <Particles className="snow"
@@ -122,6 +124,7 @@ class ChatParticle extends React.Component {
       />
     )
   }
+
 }
 
-export default ChatParticle
+export default ChatParticle;

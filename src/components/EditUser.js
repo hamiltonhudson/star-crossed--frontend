@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { API_ROOT } from '../constants/ActionTypes';
-import { setUsers, setCurrentUser, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions'
-import Adapter from './Adapter'
+import { Redirect, Link } from 'react-router-dom';
+import { API_ROOT, CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_URL } from '../constants/Roots';
+import { setUsers, setCurrentUser, findMatches, findMatchedUsers, findAccepted, findAcceptedUsers, deleteUser, updateMatches, updateMatchedUsers } from '../actions';
+import Adapter from './Adapter';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import '../styling/Form.css'
 
-const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload';
 
 
 class EditUser extends React.Component {
@@ -168,7 +166,6 @@ class EditUser extends React.Component {
         let declined = updatedUser.matches.filter(match => match.status === "declined")
         let newMatches = matchedOrAwaiting.filter(ma => !currentMatchIds.includes(ma.id))
         let oldMatches = declined.filter(d => currentMatchIds.includes(d.id))
-
         if (newMatches.length > 0 && oldMatches.length === 0) {
           newMatches.map(newMatch => this.props.updateMatches(newMatch))
           newMatches.map(newMatch => this.props.findMatchedUsers(newMatch.matched_user))
@@ -186,8 +183,6 @@ class EditUser extends React.Component {
         })
       }
     })
-    console.log(this.state.updated)
-    console.log(this.props.matches)
   }
 
 
@@ -365,30 +360,31 @@ class EditUser extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.users.currentUser,
-    city: state.users.currentUser.location.split(", ")[0],
-    usstate: state.users.currentUser.location.split(", ")[1],
-    matchedUsers: state.matches.matchedUsers,
-    matches: state.matches.matches,
-    gender: state.users.currentUser.gender,
-    genderPref: state.users.currentUser.gender_pref,
-    userPhoto: state.users.currentUser.photo
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.users.currentUser,
+      city: state.users.currentUser.location.split(", ")[0],
+      usstate: state.users.currentUser.location.split(", ")[1],
+      matchedUsers: state.matches.matchedUsers,
+      matches: state.matches.matches,
+      gender: state.users.currentUser.gender,
+      genderPref: state.users.currentUser.gender_pref,
+      userPhoto: state.users.currentUser.photo
+    }
   }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsers: (users) => dispatch(setUsers(users)),
-    setCurrentUser: (updatedUser) => dispatch(setCurrentUser(updatedUser)),
-    updateMatches: (updatedMatches) => dispatch(updateMatches(updatedMatches)),
-    findMatches: (matches) => dispatch(findMatches(matches)),
-    findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
-    updateMatchedUsers: (updatedMatchedUsers) => dispatch(updateMatchedUsers(updatedMatchedUsers)),
-    findAccepted: (accepted) => dispatch(findAccepted(accepted)),
-    findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
-    deleteUser: (currentUser) => dispatch(deleteUser(currentUser))
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      setUsers: (users) => dispatch(setUsers(users)),
+      setCurrentUser: (updatedUser) => dispatch(setCurrentUser(updatedUser)),
+      updateMatches: (updatedMatches) => dispatch(updateMatches(updatedMatches)),
+      findMatches: (matches) => dispatch(findMatches(matches)),
+      findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
+      updateMatchedUsers: (updatedMatchedUsers) => dispatch(updateMatchedUsers(updatedMatchedUsers)),
+      findAccepted: (accepted) => dispatch(findAccepted(accepted)),
+      findAcceptedUsers: (acceptedUsers) => dispatch(findAcceptedUsers(acceptedUsers)),
+      deleteUser: (currentUser) => dispatch(deleteUser(currentUser))
+    }
   }
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditUser);

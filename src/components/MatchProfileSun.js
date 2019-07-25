@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../styling/Profile.css'
+import '../styling/Profile.css';
 
 
-
-class MatchProfSun extends React.Component {
+class MatchProfileSun extends React.Component {
 
   renderDetail = () => {
     if (this.props.clicked === "sun") {
@@ -21,7 +20,7 @@ class MatchProfSun extends React.Component {
       )
     }
   }
-  
+
   render() {
     return (
       <div className="col l4 m3 s12 side-card">
@@ -37,4 +36,5 @@ class MatchProfSun extends React.Component {
     viewedMatch: state.matches.match
     }
   }
-export default connect(mapStateToProps)(MatchProfSun);
+  
+export default connect(mapStateToProps)(MatchProfileSun);

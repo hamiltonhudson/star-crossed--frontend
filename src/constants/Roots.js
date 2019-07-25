@@ -1,2 +1,6 @@
 export const API_ROOT = 'http://localhost:3000/api/v1'
 export const API_WS_ROOT = 'ws://localhost:3000/api/v1/cable'
+export const CLOUDINARY_UPLOAD_PRESET = 'h8pruce6'
+export const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/ehh/image/upload'
+export const USERS_API = 'http://localhost:3000/api/v1/users'
+export const MATCHES_API = 'http://localhost:3000/api/v1/matches'

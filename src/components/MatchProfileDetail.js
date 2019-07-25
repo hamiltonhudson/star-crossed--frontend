@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import '../styling/Profile.css'
+import '../styling/Profile.css';
 
 
-class MatchProfDetail extends React.Component {
+class MatchProfileDetail extends React.Component {
 
   renderDetail = () => {
     if (this.props.clicked === "name" || this.props.clicked === "photo") {
@@ -28,14 +28,13 @@ class MatchProfDetail extends React.Component {
       </div>
     )
   }
-  
+
 }
 
-const mapStateToProps = (state) => {
-  return {
-    // match: state.matches.match,
-  viewedMatch: state.matches.match
+  const mapStateToProps = (state) => {
+    return {
+      viewedMatch: state.matches.match
+    }
   }
-}
 
-export default connect(mapStateToProps)(MatchProfDetail);
+export default connect(mapStateToProps)(MatchProfileDetail);

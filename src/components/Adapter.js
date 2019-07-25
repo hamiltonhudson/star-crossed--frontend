@@ -11,13 +11,8 @@ class Adapter {
   static signOut() {
     this.delete_cookie('X-Authorization');
     localStorage.removeItem('token')
-    // localStorage.removeItem('token')
-    // fetch('http://localhost:3000/api/v1/auth', {
-    //   method: 'DELETE',
-    //   credentials: 'include'
-    // })
   }
 
 }
 
-export default Adapter
+export default Adapter;

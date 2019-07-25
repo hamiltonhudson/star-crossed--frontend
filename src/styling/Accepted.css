@@ -13,11 +13,6 @@
   /* box-shadow: inset 0 0 100px 100px; */
 }
 
-/* .chat:hover { */
-  /* color: hsla(278, 62%, 82%, 0.91); */
-  /* color: #8A7BB6;
-} */
-
 .glow3 {
   -webkit-animation: glow3 5s ease-in-out infinite alternate;
   -moz-animation: glow3 5s ease-in-out infinite alternate;
@@ -108,21 +103,9 @@
   text-shadow: 2px 2px 4px #c199d9;
 }
 
-.sun-color {
-  color: #140f4f;
-  text-shadow: 2px 2px 4px #0cb5eb;
-  font-size: 28px;
-  vertical-align: middle;
-}
-
-.chat-sun {
-  font-size: 18px;
-  vertical-align: middle;
-}
-
 .accepted-user-chat :hover {
   font-weight: 900;
-  font-size: 32px;
+  /* font-size: 32px; */
   padding: 0px;
   border-radius: 15px;
   color: #000000;
@@ -130,6 +113,27 @@
   -webkit-stroke-color: #FFFFFF;
   -webkit-fill-color: #FFFFFF;
   text-shadow: 2px 2px 4px #c199d9;
+}
+
+.hover-name :hover {
+  font-size: 32px;
+}
+
+.sun-color {
+  color: #140f4f;
+  text-shadow: 2px 2px 4px #0cb5eb;
+  font-size: 28px;
+  vertical-align: middle;
+}
+
+.chat-sign {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.chat-sign :hover {
+  font-size: 20px;
+  vertical-align: middle;
 }
 
 .chat-with {
