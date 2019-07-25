@@ -28,7 +28,7 @@ to start the server. (From the previous backend set up, should indicate successf
 
 `npm start`
 
-and type “yes” or “y” when asked if you’d like to run this server on another port, which will launch Star-Crossed in your browser. You can sign up as a new user with all relevant user info, (and sign back in with email and password), edit your user details, and, of course, view, decline 👎🏼 and *accept* 😉, your matches. ✨
+and type “yes” or “y” when asked if you’d like to run this server on another port, which will launch Star-Crossed in your browser. You can sign up as a new user with all relevant user info, (and sign back in with email and password), edit your user details, and, of course, view, decline 👎🏼 and *accept* 😏, your matches. ✨
 
 ## Backend Link
 
