@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { MATCHES_API } from '../constants/Roots';
-import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatches, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
 import Adapter from './Adapter';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';

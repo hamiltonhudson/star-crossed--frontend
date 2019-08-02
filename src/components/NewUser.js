@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { API_ROOT, CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_URL } from '../constants/Roots';
-import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers } from '../actions';
+import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import '../styling/Form.css';
@@ -60,7 +60,8 @@ class NewUser extends React.Component {
       method: "POST",
       headers: {
         'Content-type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Credentials': 'include'
       },
       body: JSON.stringify({
         user: {
@@ -91,22 +92,30 @@ class NewUser extends React.Component {
         const newUserMatches = newUser.matches
         this.props.findMatches(newUserMatches)
         newUserMatches.map(m => this.props.findMatchedUsers(m.matched_user))
-        fetch(`${API_ROOT}/users`, {
-          headers: {
-            'Content-type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': localStorage.getItem('token'),
-            'Credentials': 'include'
-          }
-        })
-        .then(r => r.json())
-        .then(results => {
-          this.props.setUsers(results)
-          this.setState({
-            loggedIn: true
-          })
-        })
+        const undeclinedMatches = newUser.matches.filter(match => match.status !== "declined")
+        this.props.allUndeclinedMatches(undeclinedMatches)
+        const undeclinedMatchedUsers = undeclinedMatches.map(match => match.matched_user)
+        this.props.allUndeclinedMatchedUsers(undeclinedMatchedUsers)
+        this.fetchUsers()
       }
+    })
+  }
+
+  fetchUsers = () => {
+    fetch(`${API_ROOT}/users`, {
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Credentials': 'include',
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+    .then(r => r.json())
+    .then(results => {
+      this.props.setUsers(results)
+      this.setState({
+        loggedIn: true
+      })
     })
   }
 
@@ -250,9 +259,9 @@ class NewUser extends React.Component {
                 multiple={false}>
                 {({getRootProps, getInputProps}) => {
                   return (
-                    <div {...getRootProps()}>
+                    <div {...getRootProps({onClick: evt => evt.preventDefault()})}>
                       <input {...getInputProps()} />
-                      { <p style={{"fontSize": "calc(1em + .5vw", "margin": "8px 0px 8px 0px"}}>Click to select photo or drag and drop.</p> }
+                      { <p style={{"fontSize": "calc(1em + .5vw", "margin": "2px 0px"}}>Click to select photo or drag and drop.</p> }
                     </div>
                   )
                 }}
@@ -261,7 +270,7 @@ class NewUser extends React.Component {
               <div style={{"overflowY": "scroll"}}>
                 {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
                 <img src={this.state.uploadedFileCloudinaryUrl} className="form-photo-display" alt={'profile pic'}/>
-                <p  style={{"margin": "2px 0px 2px 0px"}}> Photo added! </p>
+                <p  style={{"margin": "2px 0px"}}> Photo added! </p>
               </div> }
 
               <input className="submit-button"
@@ -292,6 +301,8 @@ class NewUser extends React.Component {
       setUserId: (userId) => dispatch(setUserId(userId)),
       findMatches: (matches) => dispatch(findMatches(matches)),
       findMatchedUsers: (matchedUsers) => dispatch(findMatchedUsers(matchedUsers)),
+      allUndeclinedMatches: (undeclinedMatches) => dispatch(allUndeclinedMatches(undeclinedMatches)),
+      allUndeclinedMatchedUsers: (undeclinedMatchedUsers) => dispatch(allUndeclinedMatchedUsers(undeclinedMatchedUsers))
     }
   }
 

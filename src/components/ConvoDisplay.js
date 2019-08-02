@@ -8,7 +8,6 @@ class ConvoDisplay extends React.Component {
   state = {
     id: '',
     conversations: '',
-    bodyHeight: ''
   }
 
 
