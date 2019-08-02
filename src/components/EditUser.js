@@ -6,6 +6,7 @@ import { setUsers, setCurrentUser, findMatches, findMatchedUsers, findAccepted, 
 import Adapter from './Adapter';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import backArrow from '../images/triangle_arrow-BACK.svg';
 import '../styling/Form.css'
 
 
@@ -221,7 +222,7 @@ class EditUser extends React.Component {
     return (
       <Fragment>
         <div style={{"marginTop": "10px"}}>
-          <Link to='/profile' className="form-link"> ◀︎ Back</Link>
+          <Link to='/profile' className="form-link"> <img id="arrow" src={backArrow} alt='back'/> Back </Link>
         </div>
         <div className="form-container">
           <h1 className="signupHeader" style={{"fontSize": "5vw"}}>edit profile</h1>

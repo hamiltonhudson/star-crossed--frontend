@@ -33,10 +33,6 @@ body {
   display: flex;
 }
 
-.login-header {
-  /* height: 10vh; */
-}
-
 .form {
   background-color: #EAEBF9;
   color: #27116B;
@@ -58,7 +54,6 @@ body {
 
 .form .input {
   background-color: white !important;
-  border-style: solid;
   color: #27116B;
   padding: 12px 20px;
   margin: 8px 0;
@@ -69,54 +64,25 @@ body {
 .input {
   width: 10%;
   height: 2%;
-  border-bottom: 1px solid;
-  /* border-color: #27116B !important; */
+  border-bottom: 1px solid #27116B !important;
   color: #27116B !important;
 }
 
-input .input:active {
-  border-bottom: 12px solid;
-  color: #27116B !important;
+.input-field input:focus {
+  border-bottom: 1.5px solid #27116B !important;
+  box-shadow: 0 0 0 0 #27116B !important
 }
 
-input .input:enabled {
-  border-bottom: 12px solid;
-  color: #27116B !important;
+input[type=text]:focus {
+  border-bottom: 1.5px solid #27116B !important;
 }
 
-input .input:focus {
-  border-bottom: 12px solid;
-  color: #27116B !important;
+input[type=email]:focus {
+  border-bottom: 1.5px solid #27116B !important;
 }
 
-input-field .col.s6 input .selected:enabled {
-  border-bottom: 12px solid;
-  color: #27116B !important;
-}
-
-input .selected:enabled {
-  border-bottom: 1px solid;
-  color: #27116B !important;
-}
-
-input .selected:focus {
-  border-bottom: 1px solid;
-  color: #27116B !important;
-}
-
-.form .input-field input .input:focus {
-  border-bottom: 12px solid #27116B;
-}
-
-.form .input-field input .input:active {
-  border-bottom: 12px solid #27116B;
-}
-
-.selected {
-  border-style: solid;
-  border-color: #27116B !important;
-  box-sizing: border-box;
-  /* color: #27116B; */
+input[type=password]:focus {
+  border-bottom: 1.5px solid #27116B !important;
 }
 
 .submit-button {

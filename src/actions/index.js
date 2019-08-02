@@ -199,7 +199,6 @@ export const setReceiverId = (receiverId) => {
 }
 
 export const addNewChat = (appendedChat) => {
-  console.log("addNewChat in actions/index 'appendedChat' ", appendedChat)
   return {
     type: types.ADD_NEW_CHAT,
     payload: appendedChat
@@ -207,7 +206,6 @@ export const addNewChat = (appendedChat) => {
 }
 
 export const saveCurrentChat = (currentChat) => {
-  console.log("saveCurrentChat in actions/index 'currentChat' ", currentChat)
   return {
     type: types.SAVE_CURRENT_CHAT,
     payload: currentChat
@@ -215,7 +213,6 @@ export const saveCurrentChat = (currentChat) => {
 }
 
 export const saveConvoMsgs = (conversation) => {
-  console.log("saveConvoMsgs in actions/index 'conversation' ", conversation)
   return {
     type: types.SAVE_CONVO_MSGS,
     payload: conversation

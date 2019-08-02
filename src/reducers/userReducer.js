@@ -5,8 +5,7 @@ const initialState = {
   email: '',
   password: '',
   currentUser: {},
-  userId: ''
-  // chatEnabled: false,
+  userId: '',
 }
 
 export default (state = initialState, action) => {
@@ -46,10 +45,6 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload
       }
-    // case types.ENABLE_CHAT:
-    //   return {...state,
-    //     chatEnabled: action.payload.chatEnabled
-    //   }
     default:
       return state;
   }

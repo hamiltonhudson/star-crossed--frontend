@@ -31,7 +31,7 @@
 
 .matches-scroll-box::-webkit-scrollbar {
   -webkit-appearance: none;
-    width: 10px;
+  width: 10px;
 }
 .matches-scroll-box::-webkit-scrollbar-thumb {
   border-radius: 20px;

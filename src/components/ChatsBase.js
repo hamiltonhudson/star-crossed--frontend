@@ -1,14 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { API_ROOT } from '../constants/Roots';
 import { ActionCableConsumer } from 'react-actioncable-provider';
-import { setChats, addNewChat, saveChats, saveCurrentChat, saveConvoMsgs } from '../actions';
+import { setChats, saveChats, saveCurrentChat, findAccepted, findAcceptedUsers } from '../actions';
 import Adapter from './Adapter';
 import ChatParticle from './ChatParticle';
 import AcceptedList from './AcceptedList';
 import ChatsCable from './ChatsCable';
-import ConversationsCable from './ConversationsCable';
+import leftArrow from '../images/triangle_arrow-LEFT.svg';
+import upArrowOutline from '../images/triangle_outline-UP.svg';
+import rightArrow from '../images/triangle_arrow-RIGHT.svg';
 import '../styling/Accepted.css';
 import '../styling/App.css';
 
@@ -21,7 +23,6 @@ class ChatsBase extends React.Component {
     activeChat: '',
     conversations: []
   }
-
 
   componentDidMount = () => {
     fetch(`${API_ROOT}/chats`, {
@@ -40,16 +41,21 @@ class ChatsBase extends React.Component {
       this.props.setChats(chats)
       this.setState({ chats })
     })
+    fetch(`${API_ROOT}/users/${this.props.currentUser.id}/current_matches`)
+    .then (response => response.json())
+    .then (result => {
+      let updatedAccepted = result[1].accepted
+      this.props.findAccepted(updatedAccepted)
+      let updatedAcceptedUsers = result[1].accepted_matched_users
+      this.props.findAcceptedUsers(updatedAcceptedUsers)
+    })
   }
 
   handleReceivedChat = (response) => {
     const { chat } = response
-    // let activeChat = this.props.chats.find(chat => chat.users.map(user => user.id.includes(this.props.receiverId)))
     this.setState({
       chats: [...this.state.chats, chat],
-      // activeChat: activeChat
     })
-    // this.props.saveCurrentChat(chat)
   }
 
   handleReceivedConversation = (response) => {
@@ -57,10 +63,6 @@ class ChatsBase extends React.Component {
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
     this.setState({ conversations: [...this.state.conversations, conversation] })
-    // this.props.saveCurrentChat(chat)
-    if (conversation.lenth > 0) {
-      this.props.saveConvoMsgs(chat.conversations)
-    }
   }
 
   initalizeConvo = () => {
@@ -78,10 +80,10 @@ class ChatsBase extends React.Component {
   render() {
     return (
       <div className="Chats" style={{"borderColor": "#40b144"}}>
-        <div className="chats-base row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-          <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l4 m4 s3"> ◀︎ Logout</Link>
-          <Link to='/matches' className="center-link col l4 m4 s6"> △ Matches △  </Link>
-          <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
+        <div className="chats-base row">
+          <Link to='/' onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}} className="left-link col l4 m4 s3"><img src={leftArrow} alt='left-arrow'/> LogOut </Link>
+          <Link to='/matches' className="center-link col l4 m4 s6"><img src={upArrowOutline} alt='up-arrow-outline'/> Matches <img src={upArrowOutline} alt='up-arrow-outline'/></Link>
+          <Link to='/profile' className="right-link col l4 m4 s3"> Profile <img src={rightArrow} alt='up-arrow'/></Link>
           <br/>
           <div className="row">
             <h5 className="col s10 offset-s2 chat-header glow3"> Chat With {this.props.receiver? (<span className="chat-with">{this.props.receiver.first_name}</span>) : null} </h5>
@@ -101,7 +103,7 @@ class ChatsBase extends React.Component {
                 handleReceivedChat={this.handleReceivedChat}
               />)
             : null}
-            <AcceptedList />
+            <AcceptedList ref={this.messagesEnd}/>
           </div>
         </div>
         <ChatParticle className="snow" />
@@ -129,7 +131,8 @@ class ChatsBase extends React.Component {
       setChats: (chats) => dispatch(setChats(chats)),
       saveChats: (chats) => dispatch(saveChats(chats)),
       saveCurrentChat: (chat) => dispatch(saveCurrentChat(chat)),
-      // saveConvoMsgs: (conversations) => dispatch(saveConvoMsgs(conversations))
+      findAccepted: (updatedAccepted) => dispatch(findAccepted(updatedAccepted)),
+      findAcceptedUsers: (updatedAcceptedUsers) => dispatch(findAcceptedUsers(updatedAcceptedUsers))
     }
   }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { API_ROOT, USERS_API } from '../constants/Roots';
 import { setUsers, setCurrentUser, setUserId, findMatches, findMatchedUsers, allUndeclinedMatches, allUndeclinedMatchedUsers, findAccepted, findAcceptedUsers} from '../actions';
+import backArrow from '../images/triangle_arrow-BACK.svg';
 import '../styling/Form.css';
 
 
@@ -86,7 +87,7 @@ class SignIn extends React.Component {
     const signInForm =
       <div>
         <div style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-          <Link to='/' className="form-link"> ◀︎ Back </Link>
+          <Link to='/' className="form-link"> <img src={backArrow} alt='back'/> Back </Link>
         </div>
         <br/><br/>
         <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>

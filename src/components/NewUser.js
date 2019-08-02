@@ -243,29 +243,32 @@ class NewUser extends React.Component {
                 />
               </span>
             </span>
-            <Dropzone
-              onDrop={this.onImageDrop.bind(this)}
-              accept="image/*"
-              multiple={false}>
-              {({getRootProps, getInputProps}) => {
-                return (
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    { <p style={{"fontSize": "calc(1em + .5vw", "margin": "8px 0px 8px 0px"}}>Click to select photo or drag and drop.</p> }
-                  </div>
-                )
-              }}
-            </Dropzone>
-            { this.state.uploadedFileCloudinaryUrl === '' ? null :
-            <div style={{"overflowY": "scroll"}}>
-              {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
-              <img src={this.state.uploadedFileCloudinaryUrl} className="form-photo-display" alt={'profile pic'}/>
-              <p  style={{"margin": "2px 0px 2px 0px"}}> Photo added! </p>
-            </div> }
-            <input className="submit-button"
-              type="submit"
-              placeholder="Submit"
-            />
+            <div className="row">
+              <Dropzone
+                onDrop={this.onImageDrop.bind(this)}
+                accept="image/*"
+                multiple={false}>
+                {({getRootProps, getInputProps}) => {
+                  return (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      { <p style={{"fontSize": "calc(1em + .5vw", "margin": "8px 0px 8px 0px"}}>Click to select photo or drag and drop.</p> }
+                    </div>
+                  )
+                }}
+              </Dropzone>
+              { this.state.uploadedFileCloudinaryUrl === '' ? null :
+              <div style={{"overflowY": "scroll"}}>
+                {/* {this.state.delay === false ? <p> Hang tight! </p> : <p> photo added! </p> } */}
+                <img src={this.state.uploadedFileCloudinaryUrl} className="form-photo-display" alt={'profile pic'}/>
+                <p  style={{"margin": "2px 0px 2px 0px"}}> Photo added! </p>
+              </div> }
+
+              <input className="submit-button"
+                type="submit"
+                placeholder="Submit"
+              />
+            </div>
           </form>
           {this.matchesRedirect()}
         </div>
@@ -277,8 +280,8 @@ class NewUser extends React.Component {
 
   const mapStateToProps = (state) => {
     return {
-      email: state.email.email,
-      password: state.password.password,
+      email: state.users.email,
+      password: state.users.password,
     }
   }
 

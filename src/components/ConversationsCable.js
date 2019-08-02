@@ -11,14 +11,11 @@ class ConversationsCable extends React.Component {
     const { conversation } = response
     const chat = this.props.chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
-    console.log("chat.converstions", chat.conversations)
-    // this.props.saveChats(chats)
     this.props.saveCurrentChat(chat)
     this.props.saveConvoMsgs(conversation)
   }
 
   render() {
-    console.log("ConversationsCable PROPS", this.props)
     return (
       <Fragment>
         {this.props.chats.map(chat => {

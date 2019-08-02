@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import ProfileDetail from './ProfileDetail';
 import ProfileSun from './ProfileSun';
 import Adapter from './Adapter';
+import upArrow from '../images/triangle_arrow-UP.svg';
+import upArrowOutline from '../images/triangle_outline-UP.svg';
+import leftArrow from '../images/triangle_arrow-LEFT.svg';
+import rightArrowOutline from '../images/triangle_outline-RIGHT.svg';
 import '../styling/Profile.css';
 import '../styling/App.css';
 
@@ -26,10 +30,10 @@ class Profile extends React.Component {
     return (
       <div className="prof-container">
         <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-          <Link to='/' onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}} className="left-link col l3 m3 s6"> ◀︎ LogOut </Link>
-          <Link to='/matches' className="center-link col l3 m3 s6"> △ Matches △ </Link>
-          <Link to='/chat' className="center-link col l3 m3 s6"> ▲ Accepted ▲ </Link>
-          <Link to='/edit' className="right-link col l3 m3 s6"> Edit ▷ </Link>
+          <Link to='/' onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}} className="left-link col l3 m3 s6"><img src={leftArrow} alt='left-arrow'/> LogOut </Link>
+          <Link to='/matches' className="center-link col l3 m3 s6"><img src={upArrowOutline} alt='up-arrow-outline'/> Matches <img src={upArrowOutline} alt='up-arrow-outline'/></Link>
+          <Link to='/chat' className="center-link col l3 m3 s6"><img id="aligned-arrow" src={upArrow} alt='up-arrow'/> Accepted <img id="aligned-arrow" src={upArrow} alt='up-arrow'/></Link>
+          <Link to='/edit' className="right-link col l3 m3 s6"> Edit <img id="aligned-arrow" src={rightArrowOutline} alt='right-arrow'/></Link>
         </div><br/>
         <div className="prof-card">
           <div className="user-card row">
@@ -49,8 +53,8 @@ class Profile extends React.Component {
           </div>
           <br/>
           <div className="row">
+            <hr id="user-profile-hr"/>
             <h2 className="match-sign-header glow2"> your sign's: </h2><br/>
-            <hr id="match-profile-hr"/>
             <div className="match-sign-details">
               <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.currentUser.sun.vibe}</span><br/>
               <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.currentUser.sun.motto}"</span><br/>

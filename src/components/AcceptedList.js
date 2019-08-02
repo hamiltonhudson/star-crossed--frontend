@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { API_ROOT } from '../constants/Roots';
-import { ActionCableConsumer } from 'react-actioncable-provider';
 import { setReceiver, setReceiverId, setChats, addNewChat, saveCurrentChat, saveConvoMsgs, setCurrentUser, findAccepted, findAcceptedUsers } from '../actions';
-import ConversationForm from './ConversationForm';
 import ConversationsCable from './ConversationsCable';
 import ConvoDisplay from './ConvoDisplay';
 
@@ -23,7 +21,6 @@ class AcceptedList extends React.Component {
     this.props.setReceiverId(receiver.id)
     switch((this.props.chats.length === 0 || !(this.props.chats.map(chat => chat.user_ids.includes(receiver.id))).includes(true))) {
       case true:
-      console.log("in true case: length is zero or doesn't exist, create new")
         fetch(`${API_ROOT}/chats`, {
           method: 'POST',
           headers: {
@@ -40,22 +37,17 @@ class AcceptedList extends React.Component {
         })
         .then(response => response.json())
         .then(result => {
-          console.log(result)
           this.setState({
             convoOpened: true,
             currentChat: result,
             currentChatId: result.id
           })
-          // this.props.setChats(result)
           this.props.addNewChat(result)
           this.props.saveCurrentChat(result)
         })
       break;
       case false:
-        console.log("in false case: chat exists, find and proceed?")
-        // let existingChat = this.props.chats.find(chat => chat.users.filter(user => user.id === receiver.id))
         let existingChat = this.props.chats.find(chat => chat.user_ids.includes(receiver.id))
-        console.log("existingChat", existingChat)
         this.setState({
           convoOpened: true,
           currentChat: existingChat,
@@ -69,9 +61,7 @@ class AcceptedList extends React.Component {
   }
 
   handleReceivedConversation = (response) => {
-    console.log("resonse for receive convo in acceptedlist", response)
     const conversation = response
-    // const chats = [...this.state.chats]
     const chats = this.props.chats
     const chat = chats.find(chat => chat.id === conversation.chat_id)
     chat.conversations = [...chat.conversations, conversation]
@@ -99,31 +89,16 @@ class AcceptedList extends React.Component {
   }
 
   render() {
-    console.log("this.props in AcceptedList", this.props)
-    console.log("this.props.chats in acceptedlist", this.props.chats)
-    console.log("this.props.currentChat", this.props.currentChat)
     return (
       <div>
         <div className="col l3 m4 s12">
           {this.generateAccepted()}
         </div>
-        {/* {this.props.currentUser.id ?
-          <ActionCableConsumer
-            channel={{channel: 'ChatsChannel'}}
-            onReceived={this.handleReceivedConversation}
-          />
-        : null */}
-        {/* {this.state.chats.length ? ( */}
-        {/* {this.props.chats.length ? ( */}
         <ConversationsCable
           chats={this.props.chats} currentUser={this.props.currentUser}
           currentChat={this.props.currentChat}
-          // handleReceivedConversation={this.handleReceivedConversation}
         />
-        {/* : null} */}
-        {/* {this.state.currentChat ? */}
-        <ConvoDisplay ref={this.props.chatRef}/>
-        {/* : null} */}
+        <ConvoDisplay ref={this.props.messagesEnd}/>
       </div>
     )
   }

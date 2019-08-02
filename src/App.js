@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
-import { ActionCableProvider } from 'react-actioncable-provider';
-import { API_WS_ROOT } from './constants/Roots';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Landing from './components/Landing';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -21,8 +19,8 @@ class App extends Component {
     const delete_cookie = (name) => {
       document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT'
     }
-      delete_cookie('X-Authorization');
-      localStorage.removeItem('token')
+    delete_cookie('X-Authorization');
+    localStorage.removeItem('token')
   }
 
   componentDidMount() {
@@ -31,7 +29,6 @@ class App extends Component {
 
   render() {
     return (
-      // <ActionCableProvider url={API_WS_ROOT}>
       <Router>
         <Switch>
           <Route path='/' exact render={() => <Landing />} />
@@ -43,10 +40,8 @@ class App extends Component {
           <Route path='/matchprofile' component={MatchProfile} />
           <Route path='/edit' component={EditUser} />
           <Route path='/chat' component={ChatsBase} />
-          {/* <Route path='/chat' component={ChatTest} /> */}
         </Switch>
       </Router>
-      // </ActionCableProvider>
     )
   }
 }

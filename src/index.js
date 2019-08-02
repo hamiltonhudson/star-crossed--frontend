@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ActionCableProvider } from 'react-actioncable-provider';
-// import { API_WS_ROOT } from './constants/ActionTypes';
 import { API_WS_ROOT } from './constants/Roots';
 import rootReducer from './reducers/rootReducer';
 import App from './App';

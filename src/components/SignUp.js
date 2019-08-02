@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { getEmailAndPW } from '../actions';
+import backArrow from '../images/triangle_arrow-BACK.svg';
 import '../styling/Form.css';
 
 
@@ -32,7 +33,7 @@ class SignUp extends React.Component {
     const signUpForm =
     <div>
       <div style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-        <Link to='/' className="form-link"> ◀︎ Back </Link>
+        <Link to='/' className="form-link"> <img src={backArrow} alt='back'/> Back </Link>
       </div>
       <div className="form-container" style={{"paddingLeft": "50px", "marginRight": "5px"}}>
         <h1 className="login-header">sign up</h1>

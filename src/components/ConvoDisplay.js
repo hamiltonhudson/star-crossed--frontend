@@ -7,8 +7,10 @@ class ConvoDisplay extends React.Component {
 
   state = {
     id: '',
-    conversations: ''
+    conversations: '',
+    bodyHeight: ''
   }
+
 
   display = (id, conversations) => {
     return (
@@ -18,6 +20,7 @@ class ConvoDisplay extends React.Component {
             <ul>{this.orderedConversations(conversations)}</ul>
           :
           null}
+          <div ref={this.props.messagesEnd} />
         </div>
         <ConversationForm chat_id={id} />
       </div>

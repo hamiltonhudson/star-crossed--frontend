@@ -9,10 +9,8 @@ class ChatsCable extends React.Component {
   handleReceivedChat = (response) => {
     const { chat } = response
     if (chat.users.map((user) => user.id).includes(this.props.userId)) {
-      // this.props.addNewChat(chat)
       this.props.saveCurrentChat(chat)
       this.props.enableChat(true)
-      // chat ? this.props.enableChat(true) : this.props.enableChat(false)
     }
   }
 

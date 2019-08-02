@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Particle from './Particle';
 import Adapter from './Adapter';
-import star from '../images/Star.png';
 import '../styling/Landing.css';
 import '../styling/App.css';
 

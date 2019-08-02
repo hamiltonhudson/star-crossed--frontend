@@ -32,7 +32,6 @@ export default (state = initialState, action) => {
     case types.ALL_UNDECLINED_MATCHED_USERS:
       return {
         ...state,
-        // undeclinedMatchedUsers: [...state.undeclinedMatchedUsers, action.payload]
         undeclinedMatchedUsers: action.payload
       }
     case types.VIEW_MATCH:
@@ -60,7 +59,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         matchedUsers: state.matchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-        // undeclinedUsers: [...state.undeclinedUsers, action.payload],
         acceptedUsers: [...state.acceptedUsers, action.payload]
       }
     case types.DECLINE_MATCH:
@@ -77,20 +75,6 @@ export default (state = initialState, action) => {
         undeclinedMatchedUsers: state.undeclinedMatchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
         declinedUsers: [...state.declinedUsers, action.payload]
       }
-    // case types.DECLINE_PENDING_MATCH:
-    //   return {
-    //     ...state,
-    //     accepted: state.accepted.filter(match => match.id !== action.payload.id),
-    //     // undeclinedMatches: state.undeclinedMatches.filter(match => match.id !== action.payload.id),
-    //     declined: [...state.declined, action.payload],
-    //   }
-    // case types.DECLINE_PENDING_MATCHED_USER:
-    //   return {
-    //     ...state,
-    //     acceptedUsers: state.acceptedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-    //     // undeclinedMatchedUsers: state.undeclinedMatchedUsers.filter(matchedUser => matchedUser.id !== action.payload.id),
-    //     declinedUsers: [...state.declinedUsers, action.payload]
-    //   }
     case types.UPDATE_MATCHES:
       return {
         ...state,

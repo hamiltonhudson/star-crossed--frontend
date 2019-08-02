@@ -8,6 +8,10 @@ import MatchProfileSun from './MatchProfileSun';
 import Adapter from './Adapter';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
+import upArrow from '../images/triangle_arrow-UP.svg';
+import upArrowOutline from '../images/triangle_outline-UP.svg';
+import leftArrow from '../images/triangle_arrow-LEFT.svg';
+import rightArrowOutline from '../images/triangle_outline-RIGHT.svg';
 import '../styling/Profile.css';
 
 
@@ -126,10 +130,10 @@ class MatchProfile extends React.Component {
     return (
       <div className="prof-container">
         <div className="row" style={{"marginTop": "1vh", "marginBottom": ".5vh"}}>
-          <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l3 m3 s6"> ◀︎ LogOut </Link>
-          <Link to='/matches' className="center-link col l3 m3 s6"> △ Matches △ </Link>
-          <Link to='/chat' className="center-link col l3 m3 s6"> ▲ Accepted ▲ </Link>
-          <Link to='/profile' className="right-link col l3 m3 s6"> Profile ▷ </Link>
+          <Link to='/' className="left-link col l3 m3 s6" onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}}><img src={leftArrow} alt='left-arrow'/> LogOut </Link>
+          <Link to='/matches' className="center-link col l3 m3 s6"><img src={upArrowOutline} alt='up-arrow-outline'/> Matches <img src={upArrowOutline} alt='up-arrow-outline'/></Link>
+          <Link to='/chat' className="center-link col l3 m3 s6"><img id="aligned-arrow" src={upArrow} alt='up-arrow'/> Accepted <img id="aligned-arrow" src={upArrow} alt='up-arrow'/></Link>
+          <Link to='/profile' className="right-link col l3 m3 s6"> Profile <img id="aligned-arrow" src={rightArrowOutline} alt='right-arrow'/></Link>
         </div><br/>
         <div className="prof-card">
           <div className="user-card row">
@@ -150,8 +154,8 @@ class MatchProfile extends React.Component {
           <br/>
           {this.buttonsDisplay(this.props.viewedMatch)}
           <div className="row">
-            <h2 className="match-sign-header glow2"> their sign's: </h2><br/>
             <hr id="match-profile-hr"/>
+            <h2 className="match-sign-header glow2"> their sign's: </h2><br/>
             <div className="match-sign-details">
               <span id="detail-name"> vibe </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">{this.props.viewedMatch.sun.vibe}</span><br/>
               <span id="detail-name"> motto </span> <span style={{"fontFamily": "Datalegreya-Thin", "fontWeight": "bolder", "fontSize": "calc(1em + 1.25vw"}}> | </span> <span id="detail-info">"{this.props.viewedMatch.sun.motto}"</span><br/>

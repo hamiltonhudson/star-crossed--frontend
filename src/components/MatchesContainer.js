@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { MATCHES_API } from '../constants/Roots';
-import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, findMatches, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
+import { viewMatch, acceptMatch, acceptMatchedUser, declineMatch, declineMatchedUser, setCurrentUser, allUndeclinedMatches, allUndeclinedMatchedUsers } from '../actions';
 import Adapter from './Adapter';
 import acceptBtn from '../images/check_mark_white.png';
 import declineBtn from '../images/x_mark_white.png';
+import leftArrow from '../images/triangle_arrow-LEFT.svg';
+import upArrow from '../images/triangle_arrow-UP.svg';
+import rightArrow from '../images/triangle_arrow-RIGHT.svg';
 import '../styling/Matches.css';
 import '../styling/App.css';
 
@@ -136,9 +139,9 @@ class MatchesContainer extends React.Component {
       <div className="matches-container">
         {this.setStatusAndRedirect()}
         <div className="row" style={{"marginTop": "1vh", "marginBottom": "1vh"}}>
-          <Link to='/' onClick={() => {Adapter.signOut(); this.props.history.push("/")}} className="left-link col l4 m4 s3"> ◀︎ LogOut </Link>
-          <Link className="center-link col l4 m4 s6" to='/chat'> ▲ Accepted ▲ </Link>
-          <Link to='/profile' className="right-link col l4 m4 s3"> Profile ▶︎ </Link>
+          <Link to='/' onClick={() => {Adapter.signOut(); ; this.props.history.push("/")}} className="left-link col l4 m4 s3"><img src={leftArrow} alt='left-arrow'/> LogOut </Link>
+          <Link to='/chat' className="center-link col l4 m4 s6"><img id="aligned-arrow" src={upArrow} alt='up-arrow'/> Accepted <img id="aligned-arrow" src={upArrow} alt='up-arrow'/></Link>
+          <Link to='/profile' className="right-link col l4 m4 s3"> Profile <img src={rightArrow} alt='up-arrow'/></Link>
         </div><br/>
         <div className="row">
           <h2 className="matches-container-header glow2"> Matches </h2>
