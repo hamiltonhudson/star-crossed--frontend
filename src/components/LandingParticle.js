@@ -3,7 +3,7 @@ import Particles from 'react-particles-js';
 import '../styling/Landing.css';
 
 
-class Particle extends React.Component {
+class LandingParticle extends React.Component {
 
   render() {
     return (
@@ -30,11 +30,6 @@ class Particle extends React.Component {
                 "polygon": {
                   "nb_sides": 8
                 },
-                "image": {
-                  // "src": "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-                  // "width": 100,
-                  // "height": 100
-                }
               },
               "opacity": {
                 "value": 0.8759538822118227,
@@ -126,4 +121,4 @@ class Particle extends React.Component {
 
 }
 
-export default Particle;
+export default LandingParticle;
